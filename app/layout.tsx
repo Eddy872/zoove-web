@@ -14,14 +14,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Zoove",
-  description: "Pet Services",
-  icons: {
-    icon: "/logo.png",
-  },
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
