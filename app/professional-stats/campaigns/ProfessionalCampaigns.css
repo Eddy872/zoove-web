@@ -1,0 +1,588 @@
+.professionalStatsPage {
+  min-height: 100vh;
+  padding: 40px 24px 80px;
+  background: #f5f6f8;
+}
+
+.professionalStatsContainer {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.professionalStatsHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.professionalStatsEyebrow {
+  margin: 0 0 7px;
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.professionalStatsTitle {
+  margin: 0;
+  color: #111827;
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.professionalStatsSubtitle {
+  max-width: 650px;
+  margin: 10px 0 0;
+  color: #6b7280;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.professionalStatsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.professionalStatCard {
+  display: flex;
+  min-height: 170px;
+  flex-direction: column;
+  padding: 22px;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+.professionalStatCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.professionalStatIcon {
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #f3f4f6;
+  font-size: 16px;
+}
+
+.professionalStatIconActive {
+  color: #22c55e;
+}
+
+.professionalStatLabel {
+  color: #4b5563;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.professionalStatValue {
+  display: block;
+  margin-top: 22px;
+  color: #111827;
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.professionalStatUnit {
+  color: #6b7280;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.professionalStatDescription {
+  margin-top: auto;
+  padding-top: 13px;
+  color: #9ca3af;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.professionalCampaignsSection {
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+.professionalCampaignsSectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px 26px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.professionalCampaignsTitle {
+  margin: 0;
+  color: #111827;
+  font-size: 21px;
+  font-weight: 750;
+}
+
+.professionalCampaignsSubtitle {
+  margin: 6px 0 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.professionalCampaignsCount {
+  flex-shrink: 0;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: #f3f4f6;
+  color: #4b5563;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.professionalCampaignsList {
+  display: flex;
+  flex-direction: column;
+}
+
+.professionalCampaignCard {
+  padding: 24px 26px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.professionalCampaignCard:last-child {
+  border-bottom: 0;
+}
+
+.professionalCampaignMain {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.professionalCampaignImageWrapper {
+  display: flex;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 15px;
+  background: #f3f4f6;
+}
+
+.professionalCampaignImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.professionalCampaignIdentity {
+  min-width: 0;
+  flex: 1;
+}
+
+.professionalCampaignNameRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.professionalCampaignName {
+  overflow: hidden;
+  margin: 0;
+  color: #111827;
+  font-size: 17px;
+  font-weight: 750;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.professionalCampaignType {
+  display: block;
+  margin-top: 6px;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.professionalCampaignStatus {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.professionalCampaignStatus--active {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.professionalCampaignStatus--scheduled {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.professionalCampaignStatus--completed {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.professionalCampaignMetrics {
+  display: grid;
+  grid-template-columns:
+    minmax(110px, 0.7fr)
+    minmax(190px, 1.3fr)
+    minmax(190px, 1.3fr);
+  gap: 24px;
+  margin-top: 24px;
+  padding: 18px 0;
+  border-top: 1px solid #f0f1f3;
+  border-bottom: 1px solid #f0f1f3;
+}
+
+.professionalCampaignMetric {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.professionalCampaignMetricLabel {
+  color: #9ca3af;
+  font-size: 12px;
+  font-weight: 650;
+  text-transform: uppercase;
+}
+
+.professionalCampaignMetricValue {
+  overflow: hidden;
+  color: #1f2937;
+  font-size: 15px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.professionalCampaignMetricDate {
+  font-size: 14px;
+}
+
+.professionalCampaignProgressSection {
+  margin-top: 18px;
+}
+
+.professionalCampaignProgressHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 9px;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.professionalCampaignProgressHeader strong {
+  color: #374151;
+}
+
+.professionalCampaignProgressTrack {
+  width: 100%;
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #eef0f3;
+}
+
+.professionalCampaignProgressBar {
+  height: 100%;
+  border-radius: inherit;
+  transition: width 0.4s ease;
+}
+
+.professionalCampaignProgressBar--active {
+  background: #22c55e;
+}
+
+.professionalCampaignProgressBar--scheduled {
+  background: #3b82f6;
+}
+
+.professionalCampaignProgressBar--completed {
+  background: #9ca3af;
+}
+
+.professionalCampaignsEmpty {
+  display: flex;
+  min-height: 330px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.professionalCampaignsEmptyIcon {
+  display: flex;
+  width: 72px;
+  height: 72px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 22px;
+  background: #f3f4f6;
+  font-size: 32px;
+}
+
+.professionalCampaignsEmpty h3 {
+  margin: 18px 0 7px;
+  color: #111827;
+  font-size: 19px;
+}
+
+.professionalCampaignsEmpty p {
+  max-width: 420px;
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.professionalStatsLoading {
+  display: flex;
+  min-height: 350px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+}
+
+.professionalStatsSpinner {
+  width: 34px;
+  height: 34px;
+  border: 3px solid #e5e7eb;
+  border-top-color: #111827;
+  border-radius: 50%;
+  animation: professionalStatsSpin 0.8s linear infinite;
+}
+
+.professionalStatsError {
+  margin-bottom: 20px;
+  padding: 14px 16px;
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 14px;
+}
+
+@keyframes professionalStatsSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1050px) {
+  .professionalStatsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .professionalStatsPage {
+    padding: 28px 15px 60px;
+  }
+
+  .professionalStatsTitle {
+    font-size: 30px;
+  }
+
+  .professionalStatsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .professionalCampaignsSectionHeader {
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  .professionalCampaignCard {
+    padding: 20px;
+  }
+
+  .professionalCampaignNameRow {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .professionalCampaignName {
+    white-space: normal;
+  }
+
+  .professionalCampaignMetrics {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .professionalCampaignMetricValue {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 480px) {
+  .professionalCampaignsSectionHeader {
+    flex-direction: column;
+  }
+
+  .professionalCampaignMain {
+    align-items: flex-start;
+  }
+
+  .professionalCampaignImageWrapper {
+    width: 54px;
+    height: 54px;
+  }
+}
+
+.professionalCampaignTableWrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.professionalCampaignTable {
+  width: 100%;
+  min-width: 920px;
+  border-collapse: collapse;
+}
+
+.professionalCampaignTable thead {
+  background: #f9fafb;
+}
+
+.professionalCampaignTable th {
+  padding: 15px 18px;
+  border-bottom: 1px solid #e5e7eb;
+  color: #6b7280;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.professionalCampaignTable td {
+  padding: 18px;
+  border-bottom: 1px solid #edf0f2;
+  color: #1f2937;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.professionalCampaignTable tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.professionalCampaignTable tbody tr {
+  transition: background 0.2s ease;
+}
+
+.professionalCampaignTable tbody tr:hover {
+  background: #fafafa;
+}
+
+.professionalCampaignCell {
+  display: flex;
+  min-width: 240px;
+  align-items: center;
+  gap: 13px;
+}
+
+.professionalCampaignTableImageWrapper {
+  display: flex;
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #f3f4f6;
+}
+
+.professionalCampaignTableImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.professionalCampaignCellContent {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+}
+
+.professionalCampaignCellContent strong {
+  max-width: 210px;
+  overflow: hidden;
+  color: #111827;
+  font-size: 14px;
+  font-weight: 750;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.professionalCampaignNumber {
+  color: #111827;
+  font-size: 15px;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .professionalCampaignTableWrapper {
+    margin: 0;
+  }
+
+  .professionalCampaignTable th,
+  .professionalCampaignTable td {
+    padding: 14px;
+  }
+}
+
+.professionalCampaignDates {
+  display: block;
+  color: #6b7280;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.sortableColumn {
+  cursor: pointer;
+  user-select: none;
+  transition: color .2s;
+}
+
+.sortableColumn:hover {
+  color: #2563eb;
+}

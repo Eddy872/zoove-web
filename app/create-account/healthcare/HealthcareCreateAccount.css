@@ -1,0 +1,799 @@
+.createAccountPage {
+  min-height: 100vh;
+  padding: 40px 20px 80px;
+  background:
+    linear-gradient(
+      180deg,
+      #f8f4ff 0%,
+      #ffffff 45%,
+      #faf8ff 100%
+    );
+}
+
+.createAccountHeader {
+  width: min(100%, 980px);
+  margin: 0 auto 30px;
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.createAccountHeader h1 {
+  margin: 0;
+  color: #241933;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.createAccountHeader p {
+  margin: 10px 0 0;
+  color: #766e82;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.backButton {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(124, 60, 255, 0.16);
+  border-radius: 50%;
+  background: #ffffff;
+  color: #7c3cff;
+  font-size: 24px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 8px 22px rgba(67, 41, 99, 0.08);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.backButton:hover {
+  transform: translateY(-2px);
+  background: #f5efff;
+  box-shadow: 0 12px 28px rgba(67, 41, 99, 0.12);
+}
+
+.createAccountForm {
+  width: min(100%, 980px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.createAccountError {
+  margin: 0;
+  padding: 14px 18px;
+  border: 1px solid rgba(220, 53, 69, 0.2);
+  border-radius: 14px;
+  background: #fff1f2;
+  color: #c6283d;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.createAccountSection {
+  padding: 28px;
+  border: 1px solid rgba(124, 60, 255, 0.1);
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 14px 40px rgba(50, 31, 77, 0.07);
+}
+
+.createAccountSectionHeader {
+  margin-bottom: 22px;
+}
+
+.createAccountSectionHeader h2 {
+  margin: 0;
+  color: #2d2138;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.createAccountSectionHeader p {
+  margin: 7px 0 0;
+  color: #766e82;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.createAccountSectionHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.createAccountFieldsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.createAccountSection label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.createAccountSection label > span {
+  color: #3d3247;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.fullWidthField {
+  grid-column: 1 / -1;
+}
+
+.createAccountSection input,
+.createAccountSection textarea,
+.createAccountSection select {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #ded7e7;
+  border-radius: 14px;
+  background: #ffffff;
+  color: #2d2138;
+  font-family: inherit;
+  font-size: 15px;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.createAccountSection input,
+.createAccountSection select {
+  min-height: 48px;
+  padding: 0 14px;
+}
+
+.createAccountSection textarea {
+  min-height: 150px;
+  padding: 14px;
+  resize: vertical;
+  line-height: 1.55;
+}
+
+.createAccountSection input:focus,
+.createAccountSection textarea:focus,
+.createAccountSection select:focus {
+  border-color: #7c3cff;
+  background: #fdfbff;
+  box-shadow: 0 0 0 4px rgba(124, 60, 255, 0.1);
+}
+
+.createAccountSection input::placeholder,
+.createAccountSection textarea::placeholder {
+  color: #aaa1b4;
+}
+
+.createAccountSection small {
+  color: #8f8798;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.passwordField {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.passwordField input {
+  padding-right: 96px;
+}
+
+.passwordField button {
+  position: absolute;
+  right: 8px;
+  height: 34px;
+  padding: 0 12px;
+  border: none;
+  border-radius: 10px;
+  background: #f1eaff;
+  color: #7c3cff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.photoUploadButton {
+  min-height: 150px;
+  padding: 24px;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed rgba(124, 60, 255, 0.28);
+  border-radius: 20px;
+  background: #faf7ff;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.photoUploadButton:hover {
+  border-color: #7c3cff;
+  background: #f5efff;
+  transform: translateY(-2px);
+}
+
+.photoUploadButton > span {
+  color: #7c3cff !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+}
+
+.photoUploadButton input {
+  display: none;
+}
+
+.photoPreviewGrid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.photoPreview {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #eee8f4;
+}
+
+.photoPreview img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.photoPreview button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(35, 24, 47, 0.78);
+  color: #ffffff;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+
+.schedulesList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.scheduleRow {
+  min-height: 68px;
+  padding: 12px 16px;
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  align-items: center;
+  gap: 18px;
+  border: 1px solid #ebe5ef;
+  border-radius: 16px;
+  background: #fcfbfd;
+}
+
+.scheduleDay {
+  flex-direction: row !important;
+  align-items: center;
+  gap: 10px !important;
+  cursor: pointer;
+}
+
+.scheduleDay input,
+.collaboratorDay input {
+  width: 18px;
+  min-height: auto;
+  height: 18px;
+  padding: 0;
+  accent-color: #7c3cff;
+  cursor: pointer;
+}
+
+.scheduleDay span {
+  font-size: 15px !important;
+}
+
+.scheduleHours {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.scheduleHours input {
+  max-width: 150px;
+}
+
+.scheduleHours > span {
+  color: #93899f;
+  font-weight: 700;
+}
+
+.scheduleClosed {
+  justify-self: end;
+  color: #d3344b;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.schedulePreview {
+  display: block;
+  margin-top: 16px;
+  padding: 12px 14px;
+  overflow-wrap: anywhere;
+  border-radius: 12px;
+  background: #f6f2fa;
+  color: #786f81 !important;
+}
+
+.secondaryButton {
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid rgba(124, 60, 255, 0.2);
+  border-radius: 12px;
+  background: #f3edff;
+  color: #7c3cff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.secondaryButton:hover {
+  transform: translateY(-1px);
+  background: #e9deff;
+}
+
+.emptyCollaborators {
+  margin: 0;
+  padding: 22px;
+  border: 1px dashed #dcd3e5;
+  border-radius: 16px;
+  background: #fcfbfd;
+  color: #8b8294;
+  text-align: center;
+}
+
+.collaboratorsList {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.collaboratorCard {
+  padding: 20px;
+  border: 1px solid #e8e1ed;
+  border-radius: 18px;
+  background: #fcfbfd;
+}
+
+.collaboratorCardHeader {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 14px;
+}
+
+.removeCollaboratorButton {
+  width: 42px;
+  height: 42px;
+  margin-bottom: 3px;
+  border: none;
+  border-radius: 12px;
+  background: #fff0f2;
+  color: #d12f46;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.removeCollaboratorButton:hover {
+  transform: scale(1.04);
+  background: #ffe3e8;
+}
+
+.collaboratorDisponibilities {
+  margin-top: 20px;
+}
+
+.collaboratorDisponibilitiesTitle {
+  display: block;
+  margin-bottom: 12px;
+  color: #3d3247;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.collaboratorDays {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.collaboratorDay {
+  min-height: 46px;
+  padding: 10px 12px;
+  flex-direction: row !important;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px !important;
+  border: 1px solid #e5deeb;
+  border-radius: 12px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.collaboratorDay:has(input:checked) {
+  border-color: rgba(124, 60, 255, 0.4);
+  background: #f3edff;
+}
+
+.collaboratorDay span {
+  color: #574d61 !important;
+  font-size: 13px !important;
+}
+
+.createAccountSubmitButton {
+  min-height: 56px;
+  padding: 0 28px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(
+    135deg,
+    #7c3cff,
+    #9b4dff
+  );
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 14px 30px rgba(124, 60, 255, 0.24);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.createAccountSubmitButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 38px rgba(124, 60, 255, 0.3);
+}
+
+.createAccountSubmitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 760px) {
+  .createAccountPage {
+    padding: 24px 14px 50px;
+  }
+
+  .createAccountHeader {
+    gap: 12px;
+  }
+
+  .createAccountHeader h1 {
+    font-size: 30px;
+  }
+
+  .createAccountSection {
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .createAccountFieldsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .fullWidthField {
+    grid-column: auto;
+  }
+
+  .createAccountSectionHeaderRow {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .secondaryButton {
+    width: 100%;
+  }
+
+  .photoPreviewGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .scheduleRow {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .scheduleHours {
+    justify-content: flex-start;
+  }
+
+  .scheduleClosed {
+    justify-self: start;
+  }
+
+  .collaboratorDays {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 460px) {
+  .createAccountHeader {
+    align-items: center;
+  }
+
+  .backButton {
+    width: 40px;
+    height: 40px;
+  }
+
+  .createAccountHeader h1 {
+    font-size: 25px;
+  }
+
+  .createAccountSection {
+    padding: 17px;
+  }
+
+  .photoPreviewGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .scheduleHours {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .scheduleHours input {
+    max-width: none;
+  }
+
+  .scheduleHours > span {
+    display: none;
+  }
+
+  .collaboratorCardHeader {
+    grid-template-columns: 1fr;
+  }
+
+  .removeCollaboratorButton {
+    width: 100%;
+    margin: 0;
+  }
+
+  .collaboratorDays {
+    grid-template-columns: 1fr;
+  }
+}
+
+.expertiseGrid {
+  display: grid;
+  grid-template-columns: repeat(
+    3,
+    minmax(0, 1fr)
+  );
+  gap: 12px;
+}
+
+.expertiseGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.expertiseButton {
+  min-height: 64px;
+  padding: 18px 20px;
+  border: 2px solid #ece5f5;
+  border-radius: 18px;
+  background: #ffffff;
+  color: #352a3f;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.expertiseButton:hover {
+  transform: translateY(-2px);
+  border-color: rgba(124, 60, 255, 0.35);
+  box-shadow: 0 10px 22px rgba(124, 60, 255, 0.08);
+}
+
+.expertiseButtonSelected {
+  border-color: #7c3cff;
+  background: linear-gradient(
+    135deg,
+    rgba(124, 60, 255, 0.08),
+    rgba(155, 77, 255, 0.14)
+  );
+  color: #7c3cff;
+  box-shadow: 0 12px 26px rgba(124, 60, 255, 0.16);
+}
+
+@media (max-width: 760px) {
+  .expertiseGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 460px) {
+  .expertiseGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .expertiseGrid {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+  }
+}
+
+@media (max-width: 460px) {
+  .expertiseGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.createAccountSectionHeaderRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.secondaryButton {
+  min-height: 42px;
+  padding: 0 16px;
+  flex-shrink: 0;
+  border: 1px solid rgba(124, 60, 255, 0.22);
+  border-radius: 12px;
+  background: #f3edff;
+  color: #7c3cff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.secondaryButton:hover {
+  transform: translateY(-1px);
+  background: #ebe1ff;
+  box-shadow:
+    0 8px 18px
+    rgba(124, 60, 255, 0.12);
+}
+
+.emptyServices {
+  margin: 0;
+  padding: 18px;
+  border: 1px dashed #dcd3e5;
+  border-radius: 14px;
+  background: #faf8fc;
+  color: #8a8192;
+  font-size: 14px;
+  text-align: center;
+}
+
+.servicesFormList {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.serviceFormCard {
+  padding: 20px;
+  border: 1px solid #e7e0ec;
+  border-radius: 18px;
+  background: #fcfbfd;
+}
+
+.serviceFormHeader {
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.serviceFormHeader h3 {
+  margin: 0;
+  color: #352a3f;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.removeServiceButton {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 11px;
+  background: #fff0f2;
+  color: #d12f46;
+  font-family: inherit;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.removeServiceButton:hover {
+  transform: scale(1.05);
+  background: #ffe1e6;
+}
+
+.serviceFormCard textarea {
+  min-height: 100px;
+}
+
+@media (max-width: 760px) {
+  .createAccountSectionHeaderRow {
+    flex-direction: column;
+  }
+
+  .secondaryButton {
+    width: 100%;
+  }
+
+  .serviceFormCard {
+    padding: 16px;
+  }
+}

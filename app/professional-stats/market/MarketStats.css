@@ -1,0 +1,421 @@
+.marketPage {
+  min-height: 100vh;
+  background: #f4f6fb;
+  padding: 32px;
+}
+
+.marketContainer {
+  width: min(1100px, 100%);
+  margin: 0 auto;
+}
+
+.marketHeader {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-bottom: 30px;
+}
+
+.marketBackButton {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #222;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(0,0,0,.08);
+  transition: .2s;
+}
+
+.marketBackButton:hover {
+  transform: translateY(-2px);
+}
+
+.marketHeaderText {
+  flex: 1;
+}
+
+.marketHeaderText h1 {
+  margin: 0;
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #222;
+}
+
+.marketHeaderText p {
+  margin-top: 8px;
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+.marketHeaderIcon {
+  color: #0ea5e9;
+}
+
+.marketScopeSelector {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.marketScopeButton {
+  flex: 1;
+  height: 54px;
+  border: none;
+  border-radius: 16px;
+  background: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: .95rem;
+  font-weight: 600;
+  color: #444;
+  transition: .2s;
+  box-shadow: 0 5px 16px rgba(0,0,0,.05);
+}
+
+.marketScopeButton:hover {
+  transform: translateY(-2px);
+}
+
+.marketScopeButton--active {
+  background: #0ea5e9;
+  color: white;
+}
+
+.marketRankingCard {
+  background: linear-gradient(
+    135deg,
+    #0ea5e9,
+    #2563eb
+  );
+  color: white;
+  border-radius: 24px;
+  padding: 34px;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.marketRankingLabel {
+  display: block;
+  font-size: .95rem;
+  opacity: .9;
+}
+
+.marketRankingValue {
+  display: block;
+  font-size: 4rem;
+  font-weight: 800;
+  margin: 10px 0;
+}
+
+.marketRankingSubtitle {
+  display: block;
+  font-size: 1.05rem;
+  opacity: .95;
+}
+
+.marketStatistics {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.marketStatistics {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 24px;
+  box-shadow: 0 12px 35px rgba(15, 23, 42, 0.06);
+}
+
+.marketRow {
+  display: grid;
+  grid-template-columns: minmax(180px, 280px) 1fr;
+  align-items: center;
+  gap: 32px;
+  min-height: 130px;
+  padding: 26px 32px;
+  background: #ffffff;
+}
+
+.marketRow:not(:last-child) {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.marketRowHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.marketRowTitle {
+  color: #111827;
+  font-size: 1.15rem;
+  font-weight: 750;
+  line-height: 1.25;
+}
+
+.marketRowRank {
+  color: #4f7df7;
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.marketRowContent {
+  display: grid;
+  grid-template-columns: 140px minmax(240px, 1fr);
+  align-items: center;
+  gap: 28px;
+}
+
+.marketRowCurrent {
+  color: #111827;
+  font-size: 1.7rem;
+  font-weight: 800;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.marketProgress {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 62px;
+  padding-top: 24px;
+}
+
+.marketProgressTrack {
+  position: relative;
+  width: 100%;
+  height: 14px;
+  overflow: hidden;
+  background: #fee2e2;
+  border-radius: 999px;
+}
+
+.marketProgressFill {
+  height: 100%;
+  min-width: 4px;
+  background: #4f7df7;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.marketProgressMax {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #111827;
+  font-size: 0.95rem;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.marketProgress::after {
+  position: absolute;
+  top: 17px;
+  right: 0;
+  width: 4px;
+  height: 44px;
+  background: #111827;
+  border-radius: 999px;
+  content: "";
+}
+
+.marketRow:hover {
+  background: #fafbff;
+}
+
+/* Tablette */
+
+@media (max-width: 850px) {
+  .marketPage {
+    padding: 24px 18px;
+  }
+
+  .marketHeaderText h1 {
+    font-size: 2rem;
+  }
+
+  .marketHeaderIcon {
+    width: 54px;
+    height: 54px;
+  }
+
+  .marketRow {
+    grid-template-columns: 180px 1fr;
+    gap: 20px;
+    padding: 24px;
+  }
+
+  .marketRowContent {
+    grid-template-columns: 110px minmax(180px, 1fr);
+    gap: 20px;
+  }
+
+  .marketRowCurrent {
+    font-size: 1.4rem;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 650px) {
+  .marketPage {
+    padding: 18px 14px 40px;
+  }
+
+  .marketHeader {
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+
+  .marketBackButton {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+  }
+
+  .marketHeaderText h1 {
+    font-size: 1.7rem;
+  }
+
+  .marketHeaderText p {
+    font-size: 0.9rem;
+  }
+
+  .marketHeaderIcon {
+    display: none;
+  }
+
+  .marketScopeSelector {
+    gap: 8px;
+  }
+
+  .marketScopeButton {
+    min-width: 0;
+    height: 48px;
+    padding: 0 10px;
+    font-size: 0.82rem;
+  }
+
+  .marketScopeButton svg {
+    display: none;
+  }
+
+  .marketRankingCard {
+    padding: 26px 20px;
+    border-radius: 22px;
+  }
+
+  .marketRankingValue {
+    font-size: 3.3rem;
+  }
+
+  .marketStatistics {
+    border-radius: 20px;
+  }
+
+  .marketRow {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+    min-height: auto;
+    padding: 24px 20px;
+  }
+
+  .marketRowHeader {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .marketRowTitle {
+    font-size: 1rem;
+  }
+
+  .marketRowRank {
+    flex-shrink: 0;
+    font-size: 1rem;
+  }
+
+  .marketRowContent {
+    display: grid;
+    grid-template-columns: 90px minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .marketRowCurrent {
+    font-size: 1.25rem;
+    text-align: left;
+  }
+
+  .marketProgress {
+    min-width: 0;
+  }
+
+  .marketProgressMax {
+    font-size: 0.85rem;
+  }
+}
+
+.marketRow {
+  display: grid;
+  grid-template-columns:
+    minmax(180px, 260px)
+    minmax(300px, 1fr)
+    70px;
+  align-items: center;
+  gap: 28px;
+  min-height: 130px;
+  padding: 26px 32px;
+  background: #ffffff;
+}
+
+.marketRowRank {
+  color: #4f7df7;
+  font-size: 1.45rem;
+  font-weight: 850;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.marketProgressFill--good {
+  background: #22c55e;
+}
+
+.marketProgressFill--bad {
+  background: #ef4444;
+}
+
+.marketProgressTrack {
+  position: relative;
+}
+
+.marketAverage {
+  position: absolute;
+  top: -14px;
+  bottom: -14px;
+  width: 4px;
+  background: #111827;
+  border-radius: 999px;
+  transform: translateX(-50%);
+}
+
+.marketProgressFill--good {
+  background: #22c55e;
+}
+
+.marketProgressFill--bad {
+  background: #ef4444;
+}

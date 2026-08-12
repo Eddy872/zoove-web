@@ -1,0 +1,1892 @@
+.healthcareProfilePage {
+  min-height: 100vh;
+  background: #f6f7fb;
+  padding: 32px 20px;
+}
+
+.healthcareProfileContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.healthcareProfileCard {
+  background: #fff;
+  border-radius: 24px;
+  padding: 32px;
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, .06);
+}
+
+.healthcareProfilePhotoWrapper {
+  flex-shrink: 0;
+}
+
+.healthcareProfilePhoto,
+.healthcareProfilePhotoPlaceholder {
+  width: 180px;
+  height: 180px;
+  border-radius: 24px;
+  object-fit: cover;
+  background: #ececff;
+}
+
+.healthcareProfilePhotoPlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 70px;
+  font-weight: 700;
+  color: #6f52ff;
+}
+
+.healthcareProfileContent {
+  flex: 1;
+}
+
+.healthcareProfileHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.healthcareStatusBadge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #ede8ff;
+  color: #6f52ff;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.healthcareProfileHeading h1 {
+  margin: 0;
+  font-size: 34px;
+}
+
+.healthcarePseudo {
+  margin-top: 6px;
+  color: #777;
+  font-size: 17px;
+}
+
+.healthcareInfos {
+  margin-top: 20px;
+  line-height: 1.7;
+  color: #444;
+}
+
+.healthcarePrimaryButton,
+.healthcareSecondaryButton {
+  border: none;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.healthcarePrimaryButton {
+  background: #6f52ff;
+  color: white;
+  padding: 14px 22px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.healthcarePrimaryButton:hover {
+  background: #5b41dd;
+}
+
+.healthcareSecondaryButton {
+  background: #ede8ff;
+  color: #6f52ff;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.healthcareSecondaryButton:hover {
+  background: #dfd6ff;
+}
+
+.healthcareContactGrid {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px;
+}
+
+.healthcareContactItem {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.healthcareContactIcon {
+  font-size: 22px;
+}
+
+.healthcareContactLabel {
+  display: block;
+  color: #777;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.healthcareTabs {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 30px 0;
+}
+
+.healthcareTab {
+  border: none;
+  cursor: pointer;
+  padding: 14px 24px;
+  border-radius: 14px;
+  background: white;
+  font-weight: 600;
+  transition: .2s;
+  box-shadow: 0 4px 15px rgba(0,0,0,.05);
+}
+
+.healthcareTab:hover {
+  background: #f4f1ff;
+}
+
+.healthcareTabActive {
+  background: #6f52ff;
+  color: white;
+}
+
+.healthcareSection {
+  background: white;
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.06);
+}
+
+.healthcareSectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.healthcareSectionHeader h2 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.healthcareSectionHeader p {
+  margin-top: 8px;
+  color: #777;
+}
+
+.healthcareGalleryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
+  gap: 20px;
+}
+
+.healthcareGalleryItem {
+  aspect-ratio: 1;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.healthcareGalleryItem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.healthcareServicesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+  gap: 22px;
+}
+
+.healthcareServiceCard {
+  border: 1px solid #ececec;
+  border-radius: 18px;
+  padding: 22px;
+}
+
+.healthcareServiceTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.healthcareServiceTop h3 {
+  margin: 0;
+}
+
+.healthcareServiceDescription {
+  margin: 16px 0;
+  color: #666;
+  line-height: 1.6;
+}
+
+.healthcareServiceFooter {
+  display: flex;
+  justify-content: space-between;
+  color: #666;
+}
+
+.healthcareScheduleList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.healthcareScheduleRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: #f8f8fb;
+}
+
+.healthcareScheduleDay {
+  font-weight: 600;
+}
+
+.healthcareScheduleTime {
+  color: #444;
+}
+
+.healthcareClosed {
+  color: #e53935;
+  font-weight: 600;
+}
+
+.healthcareCollaboratorsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(340px,1fr));
+  gap: 24px;
+}
+
+.healthcareCollaboratorCard {
+  border: 1px solid #ececec;
+  border-radius: 18px;
+  padding: 22px;
+}
+
+.healthcareCollaboratorHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.healthcareCollaboratorAvatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #ede8ff;
+  color: #6f52ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.healthcareEmptyState {
+  padding: 50px;
+  text-align: center;
+  color: #888;
+  border: 2px dashed #ddd;
+  border-radius: 18px;
+}
+
+.healthcareLoading {
+  text-align: center;
+  padding: 100px;
+  font-size: 22px;
+}
+
+@media (max-width:900px) {
+
+  .healthcareProfileCard {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .healthcareProfileHeading {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .healthcareSectionHeader {
+    flex-direction: column;
+  }
+
+  .healthcareContactGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .healthcareTabs {
+    justify-content: center;
+  }
+}
+
+.healthcareAvailable {
+  color: #238636;
+  font-weight: 600;
+}
+
+.healthcareExpertise {
+  margin-top: 24px;
+}
+
+.healthcareExpertiseList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.healthcareChip {
+  background: #eef4ff;
+  color: #2962ff;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.healthcareModalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(4px);
+}
+
+.healthcareModal {
+  width: min(680px, 100%);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow:
+    0 24px 60px
+    rgba(15, 23, 42, 0.24);
+}
+
+.healthcareModalHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px 28px 20px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.healthcareModalHeader h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.healthcareModalHeader p {
+  margin: 8px 0 0;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+.healthcareModalCloseButton {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #f1f5f9;
+  color: #334155;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.healthcareModalCloseButton:hover {
+  background: #e2e8f0;
+}
+
+.healthcareModalForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 28px;
+}
+
+.healthcareFormGrid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.healthcareFormGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.healthcareFormGroup label {
+  color: #1e293b;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.healthcareFormGroup input,
+.healthcareFormGroup textarea {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #0f172a;
+  font: inherit;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.healthcareFormGroup textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+
+.healthcareFormGroup input:focus,
+.healthcareFormGroup textarea:focus {
+  border-color: #2962ff;
+  box-shadow:
+    0 0 0 3px
+    rgba(41, 98, 255, 0.12);
+}
+
+.healthcareFormGroup input:disabled,
+.healthcareFormGroup textarea:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.healthcareCharacterCount {
+  align-self: flex-end;
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.healthcareModalError {
+  padding: 12px 14px;
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 14px;
+}
+
+.healthcareModalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 4px;
+}
+
+@media (max-width: 640px) {
+  .healthcareModalOverlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .healthcareModal {
+    width: 100%;
+    max-height: 92vh;
+    border-radius: 24px 24px 0 0;
+  }
+
+  .healthcareModalHeader,
+  .healthcareModalForm {
+    padding: 20px;
+  }
+
+  .healthcareFormGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .healthcareModalActions {
+    flex-direction: column-reverse;
+  }
+
+  .healthcareModalActions button {
+    width: 100%;
+  }
+}
+
+.healthcareExpertiseSelectionGrid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.healthcareExpertiseOption {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #1e293b;
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    background-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.healthcareExpertiseOption:hover {
+  border-color: #2962ff;
+}
+
+.healthcareExpertiseOptionSelected {
+  border-color: #2962ff;
+  background: rgba(
+    41,
+    98,
+    255,
+    0.08
+  );
+  box-shadow:
+    0 0 0 2px
+    rgba(41, 98, 255, 0.08);
+}
+
+.healthcareExpertiseCheckbox {
+  display: flex;
+  flex: 0 0 22px;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: 2px solid #94a3b8;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.healthcareExpertiseOptionSelected
+.healthcareExpertiseCheckbox {
+  border-color: #2962ff;
+  background: #2962ff;
+  color: #ffffff;
+}
+
+.healthcareExpertiseOption:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+@media (max-width: 640px) {
+  .healthcareExpertiseSelectionGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.healthcareGalleryModal {
+  width: min(900px, calc(100vw - 32px));
+}
+
+.healthcareGalleryHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.healthcareGalleryHeader > span {
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.healthcareGalleryGrid {
+  display: grid;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.healthcareGalleryItem {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  background: #f8fafc;
+}
+
+.healthcareGalleryItem img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.healthcareGalleryRemoveButton {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 32px;
+  padding: 0;
+
+  border: 0;
+  border-radius: 50%;
+
+  background: rgba(15, 23, 42, 0.78);
+  color: #ffffff;
+
+  font-size: 22px;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.healthcareGalleryRemoveButton:hover {
+  background: #dc2626;
+}
+
+.healthcareGalleryRemoveButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.healthcareGalleryNewBadge {
+  position: absolute;
+  left: 9px;
+  bottom: 9px;
+
+  padding: 5px 9px;
+  border-radius: 999px;
+
+  background: rgba(41, 98, 255, 0.92);
+  color: #ffffff;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.healthcareGalleryAddCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  min-height: 180px;
+  aspect-ratio: 4 / 3;
+  padding: 18px;
+
+  border: 2px dashed #cbd5e1;
+  border-radius: 16px;
+
+  background: #f8fafc;
+  color: #334155;
+
+  font: inherit;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    background-color 0.2s;
+}
+
+.healthcareGalleryAddCard:hover {
+  border-color: #2962ff;
+  background: #eff6ff;
+}
+
+.healthcareGalleryAddCard:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.healthcareGalleryAddIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+  background: #e8efff;
+  color: #2962ff;
+
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.healthcareGalleryAddCard small {
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+@media (max-width: 720px) {
+  .healthcareGalleryGrid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .healthcareGalleryHeader {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .healthcareGalleryGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.schedulesModal {
+  width: min(700px, 95vw);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.15);
+}
+
+.schedulesList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 28px 0;
+}
+
+.scheduleRow {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid #ececec;
+  border-radius: 14px;
+}
+
+.scheduleDay {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.scheduleDay>span {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.scheduleSwitch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.scheduleSwitch input {
+  width: 18px;
+  height: 18px;
+}
+
+.scheduleTimes {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.scheduleTimes label {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.scheduleTimes span {
+  font-size: 13px;
+  font-weight: 500;
+  color: #666;
+}
+
+.scheduleTimes input[type="time"] {
+  padding: 10px 12px;
+  border: 1px solid #d8d8d8;
+  border-radius: 10px;
+  font-size: 15px;
+  background: #fff;
+}
+
+.scheduleSeparator {
+  font-weight: 600;
+  color: #999;
+  margin-top: 20px;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.modalError {
+  margin-top: 16px;
+  color: #dc2626;
+  font-size: 14px;
+}
+
+.healthcareSchedulesList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.healthcareScheduleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border: 1px solid #ececec;
+  border-radius: 12px;
+  background: #fafafa;
+}
+
+.healthcareScheduleRow span:first-child {
+  font-weight: 600;
+}
+
+.healthcareScheduleRow span:last-child {
+  color: #555;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.45);
+  overflow-y: auto;
+}
+
+.schedulesModal {
+  width: min(720px, 95vw);
+  max-height: 90vh;
+  overflow-y: auto;
+
+  background: #fff;
+  border-radius: 24px;
+  padding: 32px;
+
+  box-shadow:
+    0 30px 70px rgba(15,23,42,.18);
+}
+
+.schedulesList{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    margin:32px 0;
+}
+
+.scheduleRow{
+    background:#fafafa;
+    border:1px solid #ececec;
+    border-radius:18px;
+    padding:22px;
+}
+
+.scheduleDay{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.scheduleDay>span{
+    font-size:22px;
+    font-weight:700;
+}
+
+.scheduleSwitch{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    cursor:pointer;
+    user-select:none;
+}
+
+.scheduleSwitch input{
+    width:22px;
+    height:22px;
+}
+
+.scheduleSwitch span{
+    font-size:16px;
+    font-weight:600;
+}
+
+.scheduleTimes{
+    display:flex;
+    align-items:flex-end;
+    gap:20px;
+}
+
+.scheduleTimes label{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.scheduleTimes label span{
+    font-size:14px;
+    color:#777;
+    font-weight:500;
+}
+
+.scheduleTimes input{
+    width:100%;
+    height:52px;
+
+    border:1px solid #ddd;
+    border-radius:14px;
+
+    padding:0 16px;
+
+    font-size:16px;
+    font-weight:600;
+
+    background:white;
+}
+
+.scheduleSeparator{
+    margin-bottom:15px;
+
+    font-size:24px;
+    font-weight:700;
+    color:#999;
+}
+
+.modalActions{
+    display:flex;
+    justify-content:flex-end;
+    gap:14px;
+    margin-top:32px;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.modalHeader > div {
+  min-width: 0;
+}
+
+.modalHeader h2 {
+  margin: 0;
+  font-size: 26px;
+  line-height: 1.2;
+  font-weight: 750;
+  color: #1f1f1f;
+}
+
+.modalHeader p {
+  margin: 8px 0 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #737373;
+}
+
+.modalCloseButton {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+  border-radius: 12px;
+  background: #f4f4f5;
+
+  font-size: 26px;
+  line-height: 1;
+  color: #444;
+
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.modalCloseButton:hover {
+  background: #e9e9ec;
+  transform: scale(1.04);
+}
+
+.modalCloseButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.modalActions {
+  position: sticky;
+  bottom: 0;
+
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+
+  margin: 28px -32px -32px;
+  padding: 20px 32px;
+
+  background: rgba(255, 255, 255, 0.96);
+  border-top: 1px solid #eeeeee;
+  backdrop-filter: blur(12px);
+}
+
+.secondaryButton {
+  min-width: 120px;
+  height: 48px;
+  padding: 0 20px;
+
+  border: 1px solid #dedede;
+  border-radius: 14px;
+  background: #ffffff;
+
+  font-size: 15px;
+  font-weight: 650;
+  color: #343434;
+
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.secondaryButton:hover {
+  background: #f7f7f7;
+  border-color: #cccccc;
+}
+
+.primaryButton {
+  min-width: 140px;
+  height: 48px;
+  padding: 0 22px;
+
+  border: 0;
+  border-radius: 14px;
+  background: #6c5ce7;
+
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.primaryButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(108, 92, 231, 0.25);
+}
+
+.primaryButton:disabled,
+.secondaryButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+@media (max-width: 600px) {
+  .schedulesModal {
+    width: 100%;
+    max-height: 95vh;
+    padding: 22px;
+    border-radius: 20px;
+  }
+
+  .modalHeader h2 {
+    font-size: 22px;
+  }
+
+  .modalHeader p {
+    font-size: 14px;
+  }
+
+  .modalActions {
+    margin:
+      24px -22px -22px;
+    padding: 16px 22px;
+  }
+
+  .secondaryButton,
+  .primaryButton {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+.healthcareScheduleTime {
+  font-weight: 700;
+}
+
+.healthcareClosed {
+  color: #dc2626;
+  font-weight: 700;
+}
+
+.healthcareScheduleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #ececec;
+}
+
+.healthcareScheduleDay {
+  color: #374151;
+}
+
+.healthcareScheduleTime {
+  color: blue !important;
+  font-weight: 900 !important;
+}
+
+.healthcareClosed {
+  color: red !important;
+  font-weight: 900 !important;
+}
+
+.collaboratorsModal {
+  width: min(900px, 95vw);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 32px;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow:
+    0 30px 70px
+    rgba(15, 23, 42, 0.18);
+}
+
+.collaboratorsModalForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.collaboratorsModalToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.collaboratorsModalToolbar > span {
+  color: #766e82;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* Liste */
+
+.collaboratorsList {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Carte collaborateur */
+
+.collaboratorCard {
+  padding: 22px;
+  border: 1px solid #e8e1ed;
+  border-radius: 18px;
+  background: #fcfbfd;
+}
+
+.collaboratorCardHeader {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 14px;
+}
+
+.collaboratorCardHeader label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.collaboratorCardHeader label > span {
+  color: #3d3247;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.collaboratorCardHeader input[type="text"] {
+  width: 100%;
+  min-height: 48px;
+  box-sizing: border-box;
+  padding: 0 14px;
+
+  border: 1px solid #ded7e7;
+  border-radius: 14px;
+
+  background: #ffffff;
+  color: #2d2138;
+
+  font-family: inherit;
+  font-size: 15px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.collaboratorCardHeader
+input[type="text"]:focus {
+  border-color: #7c3cff;
+  background: #fdfbff;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(124, 60, 255, 0.1);
+}
+
+/* Bouton supprimer */
+
+.removeCollaboratorButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 48px;
+  height: 48px;
+  padding: 0;
+
+  border: none;
+  border-radius: 14px;
+
+  background: #fff0f2;
+  color: #d12f46;
+
+  font-family: inherit;
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.removeCollaboratorButton:hover {
+  transform: scale(1.04);
+  background: #ffe1e6;
+}
+
+.removeCollaboratorButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+/* Disponibilités */
+
+.collaboratorDisponibilities {
+  margin-top: 22px;
+}
+
+.collaboratorDisponibilitiesTitle {
+  display: block;
+  margin-bottom: 12px;
+
+  color: #3d3247;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.collaboratorDays {
+  display: grid;
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+/* Une journée */
+
+.collaboratorDay {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 9px;
+
+  min-height: 48px;
+  padding: 10px 12px;
+
+  border: 1px solid #e5deeb;
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  cursor: pointer;
+  user-select: none;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.collaboratorDay:hover {
+  transform: translateY(-1px);
+  border-color:
+    rgba(124, 60, 255, 0.35);
+}
+
+.collaboratorDaySelected,
+.collaboratorDay:has(
+  input:checked
+) {
+  border-color: #7c3cff;
+  background: #f3edff;
+}
+
+/* Checkbox */
+
+.collaboratorDay
+input[type="checkbox"] {
+  flex: 0 0 auto;
+
+  width: 19px;
+  height: 19px;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+
+  accent-color: #7c3cff;
+  cursor: pointer;
+}
+
+.collaboratorDay span {
+  color: #574d61;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* État vide */
+
+.emptyCollaborators {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
+  margin: 0;
+  padding: 30px;
+
+  border: 1px dashed #dcd3e5;
+  border-radius: 16px;
+
+  background: #fcfbfd;
+  color: #8b8294;
+
+  text-align: center;
+}
+
+.emptyCollaborators p {
+  margin: 0;
+}
+
+/* Erreur */
+
+.collaboratorsModal .modalError {
+  margin: 18px 0 0;
+  padding: 12px 14px;
+
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+
+  background: #fef2f2;
+  color: #b91c1c;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Mobile */
+
+@media (max-width: 760px) {
+  .collaboratorsModal {
+    width: 100%;
+    max-height: 95vh;
+    padding: 22px;
+    border-radius: 20px;
+  }
+
+  .collaboratorsModalToolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .collaboratorsModalToolbar
+  .secondaryButton {
+    width: 100%;
+  }
+
+  .collaboratorDays {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 460px) {
+  .collaboratorCard {
+    padding: 16px;
+  }
+
+  .collaboratorCardHeader {
+    grid-template-columns: 1fr;
+  }
+
+  .removeCollaboratorButton {
+    width: 100%;
+  }
+
+  .collaboratorDays {
+    grid-template-columns: 1fr;
+  }
+}
+
+.servicesModal {
+  width: min(900px, 95vw);
+  max-height: 90vh;
+  overflow-y: auto;
+
+  padding: 32px;
+
+  border-radius: 24px;
+  background: #ffffff;
+
+  box-shadow:
+    0 30px 70px
+    rgba(15, 23, 42, 0.18);
+}
+
+.servicesModalForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.servicesModalToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+
+  margin-bottom: 22px;
+}
+
+.servicesModalToolbar > span {
+  color: #766e82;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.servicesModalList {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.servicesModalCard {
+  padding: 22px;
+
+  border: 1px solid #e7e0ec;
+  border-radius: 18px;
+
+  background: #fcfbfd;
+}
+
+.servicesModalCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  margin-bottom: 18px;
+}
+
+.servicesModalCardHeader h3 {
+  margin: 0;
+
+  color: #352a3f;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.servicesModalRemoveButton {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+  padding: 0;
+
+  border: none;
+  border-radius: 12px;
+
+  background: #fff0f2;
+  color: #d12f46;
+
+  font-family: inherit;
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.servicesModalRemoveButton:hover {
+  transform: scale(1.05);
+  background: #ffe1e6;
+}
+
+.servicesModalRemoveButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.servicesModalFieldsGrid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.servicesModalFieldsGrid label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.servicesModalFieldsGrid
+label > span {
+  color: #3d3247;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.servicesModalFieldsGrid input,
+.servicesModalFieldsGrid textarea,
+.servicesModalFieldsGrid select {
+  width: 100%;
+  box-sizing: border-box;
+
+  border: 1px solid #ded7e7;
+  border-radius: 14px;
+
+  background: #ffffff;
+  color: #2d2138;
+
+  font-family: inherit;
+  font-size: 15px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.servicesModalFieldsGrid input,
+.servicesModalFieldsGrid select {
+  min-height: 48px;
+  padding: 0 14px;
+}
+
+.servicesModalFieldsGrid textarea {
+  min-height: 110px;
+  padding: 14px;
+
+  resize: vertical;
+  line-height: 1.55;
+}
+
+.servicesModalFieldsGrid input:focus,
+.servicesModalFieldsGrid textarea:focus,
+.servicesModalFieldsGrid select:focus {
+  border-color: #7c3cff;
+  background: #fdfbff;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(124, 60, 255, 0.1);
+}
+
+.servicesModalFieldsGrid input:disabled,
+.servicesModalFieldsGrid textarea:disabled,
+.servicesModalFieldsGrid select:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.servicesModalFullWidth {
+  grid-column: 1 / -1;
+}
+
+.servicesModalEmpty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
+  padding: 30px;
+
+  border: 1px dashed #dcd3e5;
+  border-radius: 16px;
+
+  background: #fcfbfd;
+  color: #8b8294;
+
+  text-align: center;
+}
+
+.servicesModalEmpty p {
+  margin: 0;
+}
+
+.servicesModal .modalError {
+  margin: 18px 0 0;
+  padding: 12px 14px;
+
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+
+  background: #fef2f2;
+  color: #b91c1c;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+@media (max-width: 760px) {
+  .servicesModal {
+    width: 100%;
+    max-height: 95vh;
+    padding: 22px;
+    border-radius: 20px;
+  }
+
+  .servicesModalToolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .servicesModalToolbar
+  .secondaryButton {
+    width: 100%;
+  }
+
+  .servicesModalFieldsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .servicesModalFullWidth {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 460px) {
+  .servicesModal {
+    padding: 18px;
+  }
+
+  .servicesModalCard {
+    padding: 16px;
+  }
+
+  .servicesModalCardHeader {
+    align-items: flex-start;
+  }
+}
+
+.healthcareProfileHeading {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 24px;
+    align-items: start;
+}
+
+.healthcareSubscriptionCardMini {
+    min-width: 300px;
+    padding: 18px 22px;
+    border-radius: 18px;
+    background: linear-gradient(
+        135deg,
+        #f7f2ff,
+        #fcfbff
+    );
+    border: 1px solid #ebe2ff;
+}
+
+.healthcareSubscriptionTop {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.healthcareSubscriptionIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid #8b5cf6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #8b5cf6;
+}
+
+.healthcareSubscriptionLabel {
+    display: block;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 2px;
+}
+
+.healthcareSubscriptionTop strong {
+    font-size: 20px;
+}
+
+.healthcareSubscriptionBottom {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 16px;
+    align-items: center;
+}
+
+.healthcareSubscriptionDivider {
+    width: 1px;
+    height: 44px;
+    background: #ddd;
+}
+
+.healthcareSubscriptionBottom span {
+    display: block;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.healthcareSubscriptionBottom strong {
+    font-size: 15px;
+}
+
+.healthcareSubscriptionBottomSingle {
+    grid-template-columns: 1fr;
+}
+
+.healthcareSubscriptionButtonDivider {
+  width: 100%;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.08);
+  margin: 24px 0 20px;
+}
+
+.healthcareManageSubscriptionButton {
+  width: 100%;
+  height: 48px;
+
+  border: 1px solid #8b5cf6;
+  border-radius: 12px;
+
+  background: #fff;
+  color: #8b5cf6;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.healthcareManageSubscriptionButton:hover {
+  background: #8b5cf6;
+  color: #fff;
+}
+
+.healthcareManageSubscriptionButton:active {
+  transform: scale(0.98);
+}

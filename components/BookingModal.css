@@ -1,0 +1,547 @@
+.bookingOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+}
+
+.bookingBackdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+}
+
+.bookingPanel {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 52%;
+  height: 100%;
+
+  background: white;
+  padding: 28px 36px;
+  overflow-y: auto;
+
+  box-shadow: -20px 0 50px rgba(0, 0, 0, 0.18);
+}
+
+.bookingHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bookingHeader h2 {
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.bookingHeader button {
+  border: none;
+  background: transparent;
+  font-size: 34px;
+  cursor: pointer;
+}
+
+.bookingPro {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+
+  padding: 20px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.bookingPro img {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.bookingPro h3 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.bookingPro p {
+  color: #7c3cff;
+  font-weight: 800;
+  margin: 6px 0;
+}
+
+.bookingBlock {
+  margin-top: 24px;
+}
+
+.bookingBlock label,
+.bookingGrid label {
+  display: block;
+  font-weight: 800;
+  margin-bottom: 10px;
+  color: #09113d;
+}
+
+.bookingSelect,
+.bookingBlock select,
+.bookingBlock textarea {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 14px;
+  padding: 16px;
+  font-size: 16px;
+  background: white;
+}
+
+.bookingBlock textarea {
+  min-height: 90px;
+}
+
+.bookingGrid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 28px;
+  margin-top: 24px;
+}
+
+.calendarBox {
+  border: 1px solid #ddd;
+  border-radius: 18px;
+  padding: 18px;
+}
+
+.calendarTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 900;
+  margin-bottom: 18px;
+}
+
+.calendarTitle button {
+  border: none;
+  background: transparent;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.calendarDays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  text-align: center;
+}
+
+.calendarDays button,
+.timeGrid button {
+  border: none;
+  background: white;
+  border-radius: 12px;
+  padding: 12px;
+  cursor: pointer;
+}
+
+.selectedDay,
+.selectedTime {
+  background: #7c3cff !important;
+  color: white;
+  font-weight: 900;
+}
+
+.timeGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.timeGrid button {
+  border: 1px solid #ddd;
+}
+
+.priceBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-top: 24px;
+  padding: 20px;
+
+  background: #faf8ff;
+  border-radius: 18px;
+}
+
+.priceBox span {
+  font-weight: 800;
+}
+
+.priceBox strong {
+  font-size: 26px;
+  color: #7c3cff;
+}
+
+.confirmBookingButton {
+  width: 100%;
+  margin-top: 24px;
+
+  border: none;
+  border-radius: 16px;
+
+  background: linear-gradient(135deg, #7c3cff, #9b4dff);
+  color: white;
+
+  padding: 18px;
+  font-size: 18px;
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+.secureText {
+  text-align: center;
+  color: #777;
+  margin-top: 14px;
+}
+
+@media (max-width: 900px) {
+  .bookingPanel {
+    width: 100%;
+  }
+
+  .bookingGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.successBox {
+  margin-top: 40px;
+  padding: 28px;
+  background: #faf8ff;
+  border-radius: 24px;
+  text-align: center;
+}
+
+.successBox h3 {
+  color: #09113d;
+  font-size: 24px;
+}
+
+.successBox p {
+  line-height: 1.6;
+  color: #444;
+}
+
+.calendarEmptyDay {
+  min-height: 42px;
+}
+
+.calendarDays button:disabled,
+.disabledDay {
+  color: #b6b6c2;
+  background: #f2f2f5;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.calendarDays button:disabled:hover {
+  background: #f2f2f5;
+  transform: none;
+}
+
+.closedDayMessage {
+  padding: 16px;
+  border-radius: 14px;
+  background: #fff1f2;
+  color: #ef4444;
+  font-weight: 800;
+  text-align: center;
+}
+
+.durationBlock {
+  padding: 18px;
+  border-radius: 18px;
+  background: #faf8ff;
+}
+
+.durationHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.durationHeader label {
+  margin-bottom: 0;
+}
+
+.durationHeader strong {
+  color: #7c3cff;
+  font-size: 20px;
+}
+
+.durationSlider {
+  width: 100%;
+  margin-top: 20px;
+  accent-color: #7c3cff;
+  cursor: pointer;
+}
+
+.durationLimits {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  color: #777;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.confirmBookingButton:disabled {
+  background: #c8c8d2;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.bookingError {
+  margin-top: 18px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #fff1f2;
+  color: #dc2626;
+  font-weight: 700;
+  text-align: center;
+}
+
+.confirmBookingButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.professionalAnimalResults {
+  margin-top: 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.professionalAnimalResult {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border: none;
+  background: white;
+  cursor: pointer;
+  transition: background .2s;
+  text-align: left;
+}
+
+.professionalAnimalResult:hover {
+  background: #f7f7f7;
+}
+
+.professionalAnimalResult img {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.professionalAnimalResult span:first-of-type {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.professionalAnimalResult strong {
+  display: block;
+  font-size: 15px;
+}
+
+.professionalAnimalResult small {
+  color: #777;
+  font-size: 13px;
+}
+
+.professionalAnimalResult + .professionalAnimalResult {
+  border-top: 1px solid #ececec;
+}
+
+.bookingBlock input[type="search"] {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1px solid #d7d7d7;
+  font-size: 15px;
+  outline: none;
+  transition: .2s;
+}
+
+.bookingBlock input[type="search"]:focus {
+  border-color: #111;
+  box-shadow: 0 0 0 3px rgba(0,0,0,.08);
+}
+
+.agendaModalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.agendaSecondaryButton {
+  height: 48px;
+  padding: 0 18px;
+  border-radius: 12px;
+  border: 1px solid #dcdcdc;
+  background: white;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.agendaSecondaryButton:hover {
+  background: #f5f5f5;
+}
+
+.animalSearchContainer {
+  position: relative;
+}
+
+.animalSearchContainer input {
+  width: 100%;
+}
+
+.professionalAnimalResults {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  z-index: 30;
+
+  max-height: 300px;
+  overflow-y: auto;
+
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  box-shadow:
+    0 12px 30px
+    rgba(0, 0, 0, 0.12);
+}
+
+.professionalAnimalResult {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  width: 100%;
+  padding: 12px 14px;
+
+  border: 0;
+  border-bottom: 1px solid #f1f1f1;
+  background: #ffffff;
+
+  text-align: left;
+  cursor: pointer;
+}
+
+.professionalAnimalResult:last-child {
+  border-bottom: 0;
+}
+
+.professionalAnimalResult:hover {
+  background: #f7f7f8;
+}
+
+.professionalAnimalResult img,
+.selectedAnimalCard img,
+.animalPhotoPlaceholder {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.animalPhotoPlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f3f4f6;
+  font-size: 22px;
+}
+
+.animalResultContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.animalResultContent strong {
+  font-size: 15px;
+  color: #111827;
+}
+
+.animalResultContent small {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.animalSearchMessage {
+  padding: 10px 2px 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.selectedAnimalCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin-top: 12px;
+  padding: 12px;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #f9fafb;
+}
+
+.selectedAnimalCard > div {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.selectedAnimalCard small {
+  color: #6b7280;
+}
+
+.selectedAnimalCard > button {
+  width: 32px;
+  height: 32px;
+
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.selectedAnimalCard > button:hover {
+  background: #e5e7eb;
+}

@@ -1,0 +1,524 @@
+.performanceStatsPage {
+  width: 100%;
+  max-width: 1050px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+  box-sizing: border-box;
+  background: #ffffff;
+  color: #141414;
+}
+
+.performanceStatsHeader {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 24px;
+  min-height: 150px;
+  padding: 28px 36px;
+  border-radius: 34px;
+  background: rgba(108, 66, 225, 0.08);
+  box-sizing: border-box;
+}
+
+.performanceStatsBackButton {
+  display: flex;
+  width: 68px;
+  height: 68px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #6c42e1;
+  color: #ffffff;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    opacity 0.18s ease;
+}
+
+.performanceStatsBackButton:hover {
+  transform: translateX(-2px);
+}
+
+.performanceStatsBackButton:active {
+  transform: scale(0.96);
+}
+
+.performanceStatsHeaderText {
+  min-width: 0;
+}
+
+.performanceStatsHeaderText h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.performanceStatsHeaderText p {
+  max-width: 520px;
+  margin: 12px 0 0;
+  color: #626262;
+  font-size: clamp(1rem, 2.2vw, 1.4rem);
+  line-height: 1.35;
+  font-weight: 500;
+}
+
+.performanceStatsHeaderIcon {
+  color: #6c42e1;
+  opacity: 0.82;
+}
+
+.performanceStatsState {
+  margin: 44px 0;
+  color: #686868;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.performanceStatsError {
+  color: #b42318;
+}
+
+.performanceStatsKPIGrid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.performanceStatsKPICard {
+  display: flex;
+  min-height: 160px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 18px;
+  border: 2px solid rgba(108, 66, 225, 0.12);
+  border-radius: 30px;
+  background: rgba(108, 66, 225, 0.055);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.performanceStatsKPICard strong {
+  color: #6c42e1;
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.performanceStatsKPICard span {
+  margin-top: 18px;
+  color: #4e4a69;
+  font-size: clamp(1rem, 2.3vw, 1.35rem);
+  line-height: 1.25;
+  font-weight: 750;
+}
+
+.performanceStatsInfoGrid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 34px;
+}
+
+.performanceStatsInfoCard {
+  display: flex;
+  min-height: 160px;
+  flex-direction: column;
+  justify-content: center;
+  padding: 26px 30px;
+  border: 2px solid rgba(108, 66, 225, 0.12);
+  border-radius: 30px;
+  background: rgba(108, 66, 225, 0.055);
+  box-sizing: border-box;
+}
+
+.performanceStatsInfoCard span {
+  color: #4e4a69;
+  font-size: 1.08rem;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.performanceStatsInfoCard strong {
+  margin-top: 26px;
+  color: #6c42e1;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.performanceStatsTabs {
+  display: grid;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 38px;
+}
+
+.performanceStatsTab {
+  display: flex;
+  min-height: 68px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border: none;
+  border-radius: 22px;
+  background: #f1f1f5;
+  color: #5e5e61;
+  font: inherit;
+  font-size: 1.03rem;
+  font-weight: 750;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    background 0.18s ease,
+    color 0.18s ease;
+}
+
+.performanceStatsTab:hover {
+  transform: translateY(-1px);
+}
+
+.performanceStatsTabActive {
+  background: #6c42e1;
+  color: #ffffff;
+}
+
+.performanceStatsRanking {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.performanceStatsRankingRow,
+.performanceStatsSitterServiceRow {
+  display: grid;
+  grid-template-columns:
+    auto auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  min-height: 82px;
+  padding: 14px 20px;
+  border: 1px solid #eeeeef;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow:
+    0 7px 24px
+    rgba(60, 47, 100, 0.07);
+  box-sizing: border-box;
+}
+
+.performanceStatsSitterServiceRow {
+  grid-template-columns:
+    auto minmax(0, 1fr);
+}
+
+.performanceStatsRank {
+  display: flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(108, 66, 225, 0.1);
+  color: #6c42e1;
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+
+.performanceStatsServiceIcon {
+  display: flex;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: rgba(108, 66, 225, 0.09);
+  color: #6c42e1;
+}
+
+.performanceStatsServiceContent {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.performanceStatsServiceContent strong {
+  overflow: hidden;
+  color: #202020;
+  font-size: 1.02rem;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.performanceStatsServiceContent span {
+  overflow: hidden;
+  color: #818181;
+  font-size: 0.88rem;
+  font-weight: 550;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.performanceStatsRankingValue {
+  color: #6c42e1;
+  font-size: 1.05rem;
+  font-weight: 800;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.performanceStatsServicesSection {
+  margin-top: 38px;
+}
+
+.performanceStatsServicesSection h2 {
+  margin: 0 0 20px;
+  color: #191919;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.performanceStatsServiceList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.performanceStatsEmpty {
+  display: flex;
+  min-height: 210px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 34px 24px;
+  border: 1px dashed rgba(108, 66, 225, 0.25);
+  border-radius: 28px;
+  background: rgba(108, 66, 225, 0.04);
+  color: #6c42e1;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.performanceStatsEmpty strong {
+  margin-top: 15px;
+  color: #353535;
+  font-size: 1.08rem;
+}
+
+.performanceStatsEmpty p {
+  max-width: 440px;
+  margin: 8px 0 0;
+  color: #777777;
+  font-size: 0.94rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 760px) {
+  .performanceStatsPage {
+    padding: 20px 16px 48px;
+  }
+
+  .performanceStatsHeader {
+    min-height: 120px;
+    gap: 16px;
+    padding: 22px 20px;
+    border-radius: 28px;
+  }
+
+  .performanceStatsBackButton {
+    width: 54px;
+    height: 54px;
+  }
+
+  .performanceStatsHeaderIcon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .performanceStatsKPIGrid {
+    gap: 14px;
+    margin-top: 28px;
+  }
+
+  .performanceStatsKPICard {
+    min-height: 132px;
+    padding: 18px 12px;
+    border-radius: 24px;
+  }
+
+  .performanceStatsInfoGrid {
+    gap: 14px;
+    margin-top: 24px;
+  }
+
+  .performanceStatsInfoCard {
+    min-height: 145px;
+    padding: 22px 20px;
+    border-radius: 24px;
+  }
+
+  .performanceStatsInfoCard strong {
+    margin-top: 20px;
+  }
+
+  .performanceStatsTabs {
+    gap: 10px;
+    margin-top: 28px;
+  }
+
+  .performanceStatsTab {
+    min-height: 58px;
+    gap: 7px;
+    padding: 10px 8px;
+    border-radius: 18px;
+    font-size: 0.9rem;
+  }
+
+  .performanceStatsRankingRow,
+  .performanceStatsSitterServiceRow {
+    gap: 11px;
+    min-height: 76px;
+    padding: 12px 14px;
+    border-radius: 20px;
+  }
+
+  .performanceStatsRank {
+    width: 29px;
+    height: 29px;
+    font-size: 0.8rem;
+  }
+
+  .performanceStatsServiceIcon {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+  }
+
+  .performanceStatsRankingValue {
+    max-width: 110px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .performanceStatsHeader {
+    grid-template-columns:
+      auto minmax(0, 1fr);
+  }
+
+  .performanceStatsHeaderIcon {
+    display: none;
+  }
+
+  .performanceStatsHeaderText h1 {
+    font-size: 1.75rem;
+  }
+
+  .performanceStatsHeaderText p {
+    font-size: 0.92rem;
+  }
+
+  .performanceStatsKPICard strong {
+    font-size: 1.75rem;
+  }
+
+  .performanceStatsKPICard span {
+    margin-top: 12px;
+    font-size: 0.94rem;
+  }
+
+  .performanceStatsInfoCard span {
+    font-size: 0.9rem;
+  }
+
+  .performanceStatsInfoCard strong {
+    font-size: 1.35rem;
+  }
+
+  .performanceStatsTab {
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.78rem;
+  }
+
+  .performanceStatsRankingRow {
+    grid-template-columns:
+      28px 42px minmax(0, 1fr);
+  }
+
+  .performanceStatsRankingValue {
+    grid-column: 2 / 4;
+    margin-top: 2px;
+    text-align: left;
+  }
+
+  .performanceStatsServiceContent strong {
+    font-size: 0.95rem;
+  }
+}
+
+.performanceStatsRankingRow--clickable {
+  cursor: pointer;
+
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+
+.performanceStatsRankingRow--clickable:hover {
+  transform: translateY(-2px);
+
+  background: #ffffff;
+
+  border-color:
+    rgba(
+      99,
+      102,
+      241,
+      0.22
+    );
+
+  box-shadow:
+    0 10px 26px
+    rgba(
+      15,
+      23,
+      42,
+      0.09
+    );
+}
+
+.performanceStatsRankingRow--clickable:active {
+  transform: translateY(0);
+}
+
+.performanceStatsRankingRow--clickable:focus-visible {
+  outline:
+    3px solid
+    rgba(
+      99,
+      102,
+      241,
+      0.28
+    );
+
+  outline-offset: 3px;
+}

@@ -1,0 +1,332 @@
+.proPage {
+  padding: 32px 7%;
+  background: #faf8ff;
+  min-height: 100vh;
+  color: #09113d;
+}
+
+.backButton {
+  display: inline-block;
+  margin-bottom: 24px;
+  color: #7c3cff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.photoGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.photoGrid img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 24px;
+}
+
+.photoGrid .mainPhoto {
+  height: 360px;
+}
+
+.proInfo,
+.block {
+  background: white;
+  border-radius: 26px;
+  padding: 26px;
+  margin-bottom: 22px;
+  box-shadow: 0 14px 35px rgba(26, 20, 80, 0.08);
+}
+
+.proInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.proInfo h1 {
+  margin: 0;
+  font-size: 38px;
+}
+
+.job {
+  color: #7c3cff;
+  font-weight: 800;
+}
+
+.primaryButton,
+.slots button {
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #7c3cff, #9b4dff);
+  color: white;
+  padding: 14px 24px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.review {
+  border-top: 1px solid #eee;
+  padding-top: 14px;
+  margin-top: 14px;
+}
+
+.slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+@media (max-width: 800px) {
+  .photoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .photoGrid img,
+  .photoGrid .mainPhoto {
+    height: 240px;
+  }
+
+  .proInfo {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+}
+
+.serviceCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+}
+
+.reserveServiceButton {
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #7c3cff, #9b4dff);
+  color: white;
+  padding: 14px 22px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.scheduleList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.scheduleRow {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  align-items: center;
+
+  padding: 14px 16px;
+
+  background: #faf8ff;
+  border-radius: 14px;
+}
+
+.scheduleRow strong {
+  color: #09113d;
+}
+
+.openHours {
+  color: #7c3cff;
+  font-weight: 700;
+}
+
+.closedHours {
+  color: #ef4444;
+  font-weight: 700;
+}
+
+.block h2 {
+  font-size: 28px;
+  font-weight: 800;
+  color: #09113d;
+  margin-bottom: 20px;
+}
+
+.ratingRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 14px 0;
+
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.ratingRow strong {
+  color: #7c3cff;
+}
+
+.totalRating {
+  margin-top: 10px;
+
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.commentsSection {
+  margin-top: 24px;
+}
+
+.commentsSection h3 {
+  margin-bottom: 16px;
+  color: #09113d;
+  font-weight: 700;
+}
+
+.commentCard {
+  padding: 16px;
+  margin-bottom: 12px;
+
+  background: #faf8ff;
+
+  border-radius: 14px;
+
+  border-left: 4px solid #7c3cff;
+}
+
+.commentCard p {
+  margin: 0;
+  color: #444;
+  line-height: 1.5;
+}
+
+.commentCard {
+    margin-top: 16px;
+
+    padding: 18px;
+
+    background: #faf8ff;
+
+    border-radius: 18px;
+
+    border-left: 4px solid #7c3cff;
+}
+
+.commentHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 12px;
+}
+
+.commentPhoto {
+    width: 50px;
+    height: 50px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+}
+
+.commentName {
+    color: #09113d;
+    font-size: 16px;
+}
+
+.commentText {
+    margin: 0;
+    color: #444;
+    line-height: 1.6;
+}
+
+.commentDate {
+    margin-top: 12px;
+
+    text-align: right;
+
+    color: #888;
+
+    font-size: 13px;
+}
+
+.servicesHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 24px;
+}
+
+.sitterPrice {
+  color: #7c3cff;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.sitterServicesList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.reserveContainer {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 24px;
+}
+
+.sitterServiceRow {
+  padding: 18px 20px;
+
+  background: #faf8ff;
+
+  border-radius: 18px;
+
+  font-weight: 700;
+
+  color: #09113d;
+}
+
+.sitterServiceRow span {
+  font-weight: 700;
+  color: #09113d;
+}
+
+.proTitleRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.proTitleRow h1 {
+  margin: 0;
+}
+
+.professionalPackageBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.professionalPackageBadgeImage {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.professionalPackageBadge--visibility {
+  background: #f1ebff;
+  color: #6535a5;
+}
+
+.professionalPackageBadge--ambassador {
+  background: #fff2d6;
+  color: #8b5a00;
+}

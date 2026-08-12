@@ -1,0 +1,480 @@
+.professionalStatsPage {
+  min-height: 100vh;
+  padding: 48px 24px 80px;
+  background:
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #faf9ff 100%
+    );
+}
+
+.professionalStatsContainer {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.professionalStatsHeader {
+  margin-bottom: 38px;
+}
+
+.professionalStatsEyebrow {
+  margin: 0 0 8px;
+  color: #7c6ce5;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.professionalStatsTitle {
+  margin: 0;
+  color: #111111;
+  font-size: clamp(
+    38px,
+    5vw,
+    58px
+  );
+  font-weight: 850;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.professionalStatsSubtitle {
+  max-width: 660px;
+  margin: 18px 0 0;
+  color: #555578;
+  font-size: 20px;
+  font-weight: 550;
+  line-height: 1.4;
+}
+
+.professionalStatsCards {
+  display: grid;
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+  gap: 22px;
+}
+
+.professionalStatsCard {
+  position: relative;
+  display: grid;
+  min-height: 210px;
+  grid-template-columns:
+    175px
+    minmax(0, 1fr)
+    38px;
+  align-items: stretch;
+  overflow: hidden;
+  border: 1.5px solid #e2ddf3;
+  border-radius: 30px;
+  background: #ffffff;
+  color: inherit;
+  text-decoration: none;
+  box-shadow:
+    0 8px 24px rgba(
+      51,
+      39,
+      103,
+      0.05
+    );
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+a.professionalStatsCard:hover {
+  transform: translateY(-4px);
+  border-color: #c9c0ef;
+  box-shadow:
+    0 18px 36px rgba(
+      51,
+      39,
+      103,
+      0.11
+    );
+}
+
+.professionalStatsCardIcon {
+  display: flex;
+  min-height: 210px;
+  align-items: center;
+  justify-content: center;
+  border-radius:
+    28px
+    28px
+    28px
+    28px;
+}
+
+.professionalStatsCardIcon span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 72px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.statsCardIcon--performance {
+  background:
+    linear-gradient(
+      145deg,
+      #6540df,
+      #754bea
+    );
+}
+
+.statsCardIcon--shop {
+  background:
+    linear-gradient(
+      145deg,
+      #ff3f7f,
+      #ff528b
+    );
+}
+
+.statsCardIcon--animals {
+  background:
+    linear-gradient(
+      145deg,
+      #ff8d36,
+      #ffa64e
+    );
+}
+
+.statsCardIcon--team {
+  background:
+    linear-gradient(
+      145deg,
+      #12b59d,
+      #28c2aa
+    );
+}
+
+.statsCardIcon--reputation {
+  background:
+    linear-gradient(
+      145deg,
+      #ffbd27,
+      #ffce43
+    );
+}
+
+.statsCardIcon--market {
+  background:
+    linear-gradient(
+      145deg,
+      #3f6ff4,
+      #5684ff
+    );
+}
+
+.statsCardIcon--campaigns {
+  background:
+    linear-gradient(
+      145deg,
+      #ff4d4d,
+      #ff6460
+    );
+}
+
+.professionalStatsCardContent {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  padding: 28px 22px 28px 30px;
+}
+
+.professionalStatsCardTitleRow {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.professionalStatsCardContent h2 {
+  margin: 0;
+  color: #111111;
+  font-size: 28px;
+  font-weight: 820;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+
+.professionalStatsCardContent p {
+  margin: 14px 0 0;
+  color: #555578;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.professionalStatsCardArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 20px;
+  color: #111111;
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.professionalStatsLockedBadge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: #fff1d6;
+  color: #a76300;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.professionalStatsCard--locked {
+  cursor: not-allowed;
+  opacity: 0.68;
+}
+
+.professionalStatsCard--locked
+.professionalStatsCardIcon {
+  filter: grayscale(0.25);
+}
+
+@media (max-width: 940px) {
+  .professionalStatsCards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .professionalStatsPage {
+    padding:
+      34px
+      16px
+      60px;
+  }
+
+  .professionalStatsHeader {
+    margin-bottom: 30px;
+  }
+
+  .professionalStatsTitle {
+    font-size: 42px;
+  }
+
+  .professionalStatsSubtitle {
+    font-size: 18px;
+  }
+
+  .professionalStatsCards {
+    gap: 17px;
+  }
+
+  .professionalStatsCard {
+    min-height: 185px;
+    grid-template-columns:
+      125px
+      minmax(0, 1fr)
+      28px;
+    border-radius: 25px;
+  }
+
+  .professionalStatsCardIcon {
+    min-height: 185px;
+    border-radius: 23px;
+  }
+
+  .professionalStatsCardIcon span {
+    font-size: 52px;
+  }
+
+  .professionalStatsCardContent {
+    padding:
+      23px
+      13px
+      23px
+      20px;
+  }
+
+  .professionalStatsCardContent h2 {
+    font-size: 23px;
+  }
+
+  .professionalStatsCardContent p {
+    margin-top: 11px;
+    font-size: 15px;
+    line-height: 1.38;
+  }
+
+  .professionalStatsCardArrow {
+    padding-right: 12px;
+    font-size: 38px;
+  }
+}
+
+@media (max-width: 420px) {
+  .professionalStatsCard {
+    grid-template-columns:
+      108px
+      minmax(0, 1fr)
+      24px;
+  }
+
+  .professionalStatsCardContent {
+    padding-left: 15px;
+  }
+
+  .professionalStatsCardContent h2 {
+    font-size: 21px;
+  }
+
+  .professionalStatsCardContent p {
+    font-size: 14px;
+  }
+
+  .professionalStatsCardArrow {
+    padding-right: 8px;
+  }
+}
+
+.professionalStatsHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.professionalStatsHeaderContent {
+  min-width: 0;
+}
+
+.professionalStatsDownloadButton {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 14px;
+  background: #4f7df7;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow:
+    0 10px 24px
+    rgba(79, 125, 247, 0.22);
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.professionalStatsDownloadButton:hover {
+  background: #3f6ee8;
+  transform: translateY(-2px);
+  box-shadow:
+    0 14px 28px
+    rgba(79, 125, 247, 0.28);
+}
+
+.professionalStatsDownloadButton:active {
+  transform: translateY(0);
+}
+
+.professionalStatsDownloadButton:focus-visible {
+  outline: 3px solid
+    rgba(79, 125, 247, 0.3);
+  outline-offset: 3px;
+}
+
+@media (max-width: 750px) {
+  .professionalStatsHeader {
+    flex-direction: column;
+  }
+
+  .professionalStatsDownloadButton {
+    width: 100%;
+  }
+}
+
+.downloadReportButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  min-height: 44px;
+  padding: 11px 18px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: #645bef;
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.downloadReportButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: #554be7;
+}
+
+.downloadReportButton:disabled {
+  cursor: wait;
+  opacity: 0.75;
+}
+
+.downloadReportSpinner {
+  width: 17px;
+  height: 17px;
+
+  border: 2px solid
+    rgba(255, 255, 255, 0.4);
+
+  border-top-color: #ffffff;
+  border-radius: 50%;
+
+  animation:
+    downloadReportSpin 0.8s linear
+    infinite;
+}
+
+@keyframes downloadReportSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.downloadReportButtonLocked {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.downloadReportButtonLocked:hover {
+  transform: none;
+  box-shadow: none;
+}

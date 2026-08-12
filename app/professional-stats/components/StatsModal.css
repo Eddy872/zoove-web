@@ -1,0 +1,1473 @@
+.statsModalBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  background: rgba(15, 23, 42, 0.58);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+
+  animation: statsModalBackdropAppear 180ms ease-out;
+}
+
+.statsModal {
+  position: relative;
+
+  width: min(760px, 100%);
+  max-height: min(880px, calc(100vh - 48px));
+
+  overflow: hidden;
+
+  background: #f5f6fa;
+
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 28px;
+
+  box-shadow:
+    0 28px 80px rgba(15, 23, 42, 0.28),
+    0 8px 24px rgba(15, 23, 42, 0.12);
+
+  animation: statsModalAppear 220ms ease-out;
+}
+
+.statsModalAnimal {
+  width: min(760px, 100%);
+}
+
+.statsModalPerformance {
+  width: min(780px, 100%);
+}
+
+.statsModalTeam {
+  width: min(760px, 100%);
+}
+
+.statsModalScroll {
+  max-height: min(880px, calc(100vh - 48px));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 116, 139, 0.35) transparent;
+}
+
+.statsModalScroll::-webkit-scrollbar {
+  width: 7px;
+}
+
+.statsModalScroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.statsModalScroll::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.35);
+  border-radius: 999px;
+}
+
+.statsModalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  padding: 34px;
+}
+
+.statsModalGrabber {
+  display: none;
+}
+
+.statsModalCloseButton {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 5;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  padding: 0;
+
+  color: #475569;
+  background: rgba(255, 255, 255, 0.92);
+
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 50%;
+
+  box-shadow: 0 5px 16px rgba(15, 23, 42, 0.09);
+
+  cursor: pointer;
+
+  transition:
+    transform 150ms ease,
+    background-color 150ms ease,
+    color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.statsModalCloseButton:hover {
+  color: #0f172a;
+  background: #ffffff;
+
+  box-shadow: 0 7px 20px rgba(15, 23, 42, 0.14);
+
+  transform: scale(1.06);
+}
+
+.statsModalCloseButton:active {
+  transform: scale(0.96);
+}
+
+.statsModalCloseButton:focus-visible {
+  outline: 3px solid rgba(99, 102, 241, 0.28);
+  outline-offset: 3px;
+}
+
+/* KPI communs */
+
+.statsModalKPICard {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+
+  padding: 18px;
+
+  background: #ffffff;
+
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 20px;
+
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.055);
+}
+
+.statsModalKPICard > span {
+  color: #64748b;
+
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.statsModalKPICard > strong {
+  max-width: 100%;
+
+  color: #0f172a;
+
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.12;
+
+  overflow-wrap: anywhere;
+}
+
+.statsModalKPIIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  color: #6366f1;
+  background: rgba(99, 102, 241, 0.11);
+
+  border-radius: 14px;
+}
+
+.statsModalEmpty {
+  min-height: 190px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 30px 20px;
+
+  color: #94a3b8;
+  text-align: center;
+}
+
+.statsModalEmpty strong {
+  margin-top: 4px;
+
+  color: #334155;
+
+  font-size: 16px;
+  font-weight: 750;
+}
+
+.statsModalEmpty p {
+  max-width: 360px;
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Animal */
+
+.animalStatsModalHeader {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  min-height: 126px;
+
+  padding: 22px 68px 22px 22px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(124, 58, 237, 0.98),
+      rgba(99, 102, 241, 0.94)
+    );
+
+  border-radius: 22px;
+
+  box-shadow: 0 10px 28px rgba(99, 102, 241, 0.2);
+}
+
+.animalStatsModalAvatar {
+  flex: 0 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 88px;
+  height: 88px;
+
+  overflow: hidden;
+
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.18);
+
+  border: 3px solid rgba(255, 255, 255, 0.84);
+  border-radius: 50%;
+
+  box-shadow: 0 7px 22px rgba(30, 41, 59, 0.18);
+}
+
+.animalStatsModalAvatar img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.animalStatsModalHeaderText {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.animalStatsModalHeaderText h2 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: clamp(24px, 4vw, 31px);
+  font-weight: 850;
+  line-height: 1.08;
+
+  overflow-wrap: anywhere;
+}
+
+.animalStatsModalHeaderText p {
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.88);
+
+  font-size: 14px;
+  font-weight: 550;
+  line-height: 1.35;
+}
+
+.animalStatsModalKPIGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.animalStatsFavoriteCard,
+.animalStatsHistoryCard {
+  padding: 22px;
+
+  background: #ffffff;
+
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 22px;
+
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.055);
+}
+
+.animalStatsFavoriteCard h3,
+.animalStatsHistoryCard h3 {
+  margin: 0 0 18px;
+
+  color: #0f172a;
+
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.animalStatsFavoriteContent {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.animalStatsFavoriteIcon {
+  flex: 0 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 54px;
+  height: 54px;
+
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.12);
+
+  border-radius: 17px;
+}
+
+.animalStatsFavoriteContent > div:last-child {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.animalStatsFavoriteContent strong {
+  color: #1e293b;
+
+  font-size: 17px;
+  font-weight: 800;
+
+  overflow-wrap: anywhere;
+}
+
+.animalStatsFavoriteContent span {
+  color: #64748b;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.animalStatsLastVisitCard {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  padding: 18px 20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(236, 253, 245, 0.98),
+      rgba(240, 253, 250, 0.98)
+    );
+
+  border: 1px solid rgba(16, 185, 129, 0.18);
+  border-radius: 20px;
+
+  box-shadow: 0 5px 18px rgba(16, 185, 129, 0.07);
+}
+
+.animalStatsLastVisitIcon {
+  flex: 0 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 46px;
+  height: 46px;
+
+  color: #059669;
+  background: rgba(16, 185, 129, 0.12);
+
+  border-radius: 15px;
+}
+
+.animalStatsLastVisitCard > div:last-child {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.animalStatsLastVisitCard span {
+  color: #64748b;
+
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.animalStatsLastVisitCard strong {
+  color: #065f46;
+
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.animalStatsHistoryList {
+  display: flex;
+  flex-direction: column;
+}
+
+.animalStatsHistoryRow {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 13px;
+
+  padding: 15px 0;
+
+  border-bottom: 1px solid #edf0f5;
+}
+
+.animalStatsHistoryRow:first-child {
+  padding-top: 2px;
+}
+
+.animalStatsHistoryRow:last-child {
+  padding-bottom: 0;
+
+  border-bottom: 0;
+}
+
+.animalStatsHistoryIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  color: #6366f1;
+  background: rgba(99, 102, 241, 0.1);
+
+  border-radius: 14px;
+}
+
+.animalStatsHistoryText {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.animalStatsHistoryText strong {
+  color: #1e293b;
+
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.animalStatsHistoryText span {
+  color: #64748b;
+
+  font-size: 14px;
+  font-weight: 550;
+
+  overflow-wrap: anywhere;
+}
+
+.animalStatsHistoryText small {
+  color: #94a3b8;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.animalStatsHistoryPrice {
+  color: #0f172a;
+
+  font-size: 15px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+/* Performance */
+
+.performanceStatsModalHeader {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  min-height: 132px;
+
+  padding: 24px 70px 24px 24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(14, 165, 233, 0.98),
+      rgba(79, 70, 229, 0.96)
+    );
+
+  border-radius: 22px;
+
+  box-shadow: 0 10px 28px rgba(79, 70, 229, 0.18);
+}
+
+.performanceStatsModalServiceIcon {
+  flex: 0 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 82px;
+  height: 82px;
+
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.16);
+
+  border: 2px solid rgba(255, 255, 255, 0.72);
+  border-radius: 22px;
+}
+
+.performanceStatsModalHeaderText {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.performanceStatsModalHeaderText h2 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: clamp(23px, 4vw, 30px);
+  font-weight: 850;
+  line-height: 1.1;
+
+  overflow-wrap: anywhere;
+}
+
+.performanceStatsModalHeaderText > p {
+  display: -webkit-box;
+
+  margin: 0;
+
+  overflow: hidden;
+
+  color: rgba(255, 255, 255, 0.85);
+
+  font-size: 14px;
+  line-height: 1.4;
+
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.performanceStatsModalMetadata {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  margin-top: 4px;
+
+  color: rgba(255, 255, 255, 0.94);
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.performanceStatsModalMetadata span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.performanceStatsKPIGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.performanceStatsKPICard {
+  align-items: center;
+
+  min-height: 142px;
+
+  text-align: center;
+}
+
+.performanceStatsKPICard > strong {
+  font-size: 21px;
+}
+
+.performanceStatsKPICard > span {
+  text-align: center;
+}
+
+.performanceStatsComparisonCard {
+  padding: 22px;
+
+  background: #ffffff;
+
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 22px;
+
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.055);
+}
+
+.performanceStatsComparisonCard h3 {
+  margin: 0 0 18px;
+
+  color: #0f172a;
+
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.performanceStatsComparisonList {
+  display: flex;
+  flex-direction: column;
+}
+
+.performanceStatsComparisonRow {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+
+  padding: 16px 0;
+
+  border-bottom: 1px solid #edf0f5;
+}
+
+.performanceStatsComparisonRow:first-child {
+  padding-top: 2px;
+}
+
+.performanceStatsComparisonRow:last-child {
+  padding-bottom: 0;
+
+  border-bottom: 0;
+}
+
+.performanceStatsComparisonIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+
+  color: #6366f1;
+  background: rgba(99, 102, 241, 0.1);
+
+  border-radius: 14px;
+}
+
+.performanceStatsComparisonMain {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.performanceStatsComparisonHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.performanceStatsComparisonHeader strong {
+  color: #1e293b;
+
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.performanceStatsComparisonHeader span {
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.performanceStatsProgressTrack {
+  width: 100%;
+  height: 7px;
+
+  overflow: hidden;
+
+  background: #edf0f5;
+
+  border-radius: 999px;
+}
+
+.performanceStatsProgressValue {
+  min-width: 0;
+  height: 100%;
+
+  border-radius: inherit;
+
+  transition: width 350ms ease;
+}
+
+.performanceStatsComparisonTotal {
+  color: #94a3b8;
+
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.performanceStatsComparisonValue {
+  color: #0f172a;
+
+  font-size: 15px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.performanceStatsAccountNote {
+  margin: -2px 4px 2px;
+
+  color: #64748b;
+
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* Team */
+
+.teamStatsModalHeader {
+  display: flex;
+  align-items: center;
+
+  min-height: 108px;
+
+  padding: 24px 70px 24px 25px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(15, 118, 110, 0.98),
+      rgba(5, 150, 105, 0.94)
+    );
+
+  border-radius: 22px;
+
+  box-shadow: 0 10px 28px rgba(5, 150, 105, 0.17);
+}
+
+.teamStatsModalHeader h2 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: clamp(24px, 4vw, 31px);
+  font-weight: 850;
+  line-height: 1.1;
+
+  overflow-wrap: anywhere;
+}
+
+.teamStatsKPIGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.teamStatsKPICard {
+  align-items: center;
+
+  min-height: 146px;
+
+  text-align: center;
+}
+
+.teamStatsKPICard > strong {
+  font-size: 22px;
+}
+
+.teamStatsKPICard > span {
+  text-align: center;
+}
+
+.teamStatsPerformanceCard,
+.teamStatsInfoCard {
+  padding: 22px;
+
+  background: #ffffff;
+
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 22px;
+
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.055);
+}
+
+.teamStatsPerformanceCard h3 {
+  margin: 0 0 18px;
+
+  color: #0f172a;
+
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.teamStatsPerformanceList {
+  display: flex;
+  flex-direction: column;
+}
+
+.teamStatsPerformanceRow {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+
+  padding: 16px 0;
+
+  border-bottom: 1px solid #edf0f5;
+}
+
+.teamStatsPerformanceRow:first-child {
+  padding-top: 2px;
+}
+
+.teamStatsPerformanceRow:last-child {
+  padding-bottom: 0;
+
+  border-bottom: 0;
+}
+
+.teamStatsPerformanceIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+
+  color: #0f766e;
+  background: rgba(13, 148, 136, 0.1);
+
+  border-radius: 14px;
+}
+
+.teamStatsPerformanceMain {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.teamStatsPerformanceHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.teamStatsPerformanceHeader strong {
+  color: #1e293b;
+
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.teamStatsPerformanceHeader span {
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.teamStatsProgressTrack {
+  width: 100%;
+  height: 7px;
+
+  overflow: hidden;
+
+  background: #edf0f5;
+
+  border-radius: 999px;
+}
+
+.teamStatsProgressValue {
+  min-width: 0;
+  height: 100%;
+
+  border-radius: inherit;
+
+  transition: width 350ms ease;
+}
+
+.teamStatsPerformanceTotal {
+  color: #94a3b8;
+
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.teamStatsPerformanceValue {
+  color: #0f172a;
+
+  font-size: 15px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.teamStatsInfoCard {
+  display: flex;
+  flex-direction: column;
+}
+
+.teamStatsInfoRow {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 13px;
+
+  padding: 15px 0;
+
+  border-bottom: 1px solid #edf0f5;
+}
+
+.teamStatsInfoRow:first-child {
+  padding-top: 0;
+}
+
+.teamStatsInfoRow:last-child {
+  padding-bottom: 0;
+
+  border-bottom: 0;
+}
+
+.teamStatsInfoIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  color: #6366f1;
+  background: rgba(99, 102, 241, 0.1);
+
+  border-radius: 14px;
+}
+
+.teamStatsInfoRow > span {
+  color: #475569;
+
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.teamStatsInfoRow > strong {
+  color: #0f172a;
+
+  font-size: 15px;
+  font-weight: 850;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Niveaux de performance communs */
+
+.statsPerformanceLow {
+  color: #dc2626;
+}
+
+.statsPerformanceMedium {
+  color: #d97706;
+}
+
+.statsPerformanceHigh {
+  color: #059669;
+}
+
+.performanceStatsProgressValue.statsPerformanceLow,
+.teamStatsProgressValue.statsPerformanceLow {
+  background: #ef4444;
+}
+
+.performanceStatsProgressValue.statsPerformanceMedium,
+.teamStatsProgressValue.statsPerformanceMedium {
+  background: #f59e0b;
+}
+
+.performanceStatsProgressValue.statsPerformanceHigh,
+.teamStatsProgressValue.statsPerformanceHigh {
+  background: #10b981;
+}
+
+/* Animations */
+
+@keyframes statsModalBackdropAppear {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes statsModalAppear {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.975);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Tablettes */
+
+@media (max-width: 820px) {
+  .statsModalBackdrop {
+    padding: 16px;
+  }
+
+  .statsModal {
+    max-height: calc(100vh - 32px);
+    border-radius: 24px;
+  }
+
+  .statsModalScroll {
+    max-height: calc(100vh - 32px);
+  }
+
+  .statsModalContent {
+    padding: 26px;
+  }
+
+  .animalStatsModalKPIGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .performanceStatsKPIGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Mobiles */
+
+@media (max-width: 600px) {
+  .statsModalBackdrop {
+    align-items: flex-end;
+
+    padding: 0;
+  }
+
+  .statsModal {
+    width: 100%;
+    max-height: 94dvh;
+
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
+    border-radius: 26px 26px 0 0;
+
+    animation: statsModalMobileAppear 240ms ease-out;
+  }
+
+  .statsModalScroll {
+    max-height: 94dvh;
+  }
+
+  .statsModalContent {
+    gap: 14px;
+
+    padding:
+      29px
+      16px
+      calc(24px + env(safe-area-inset-bottom));
+  }
+
+  .statsModalGrabber {
+    position: absolute;
+    top: 9px;
+    left: 50%;
+    z-index: 5;
+
+    display: block;
+
+    width: 44px;
+    height: 5px;
+
+    background: rgba(100, 116, 139, 0.32);
+
+    border-radius: 999px;
+
+    transform: translateX(-50%);
+  }
+
+  .statsModalCloseButton {
+    top: 20px;
+    right: 15px;
+
+    width: 38px;
+    height: 38px;
+  }
+
+  .animalStatsModalHeader,
+  .performanceStatsModalHeader,
+  .teamStatsModalHeader {
+    padding-right: 58px;
+    border-radius: 19px;
+  }
+
+  .animalStatsModalHeader {
+    align-items: flex-start;
+
+    min-height: 120px;
+
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 18px;
+  }
+
+  .animalStatsModalAvatar {
+    width: 68px;
+    height: 68px;
+  }
+
+  .animalStatsModalHeaderText h2,
+  .performanceStatsModalHeaderText h2,
+  .teamStatsModalHeader h2 {
+    font-size: 23px;
+  }
+
+  .animalStatsModalHeaderText p {
+    font-size: 13px;
+  }
+
+  .animalStatsModalKPIGrid,
+  .performanceStatsKPIGrid,
+  .teamStatsKPIGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .teamStatsKPIGrid .teamStatsKPICard:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .statsModalKPICard {
+    min-height: 126px;
+
+    padding: 15px;
+
+    border-radius: 17px;
+  }
+
+  .statsModalKPICard > strong {
+    font-size: 19px;
+  }
+
+  .statsModalKPIIcon {
+    width: 38px;
+    height: 38px;
+
+    border-radius: 12px;
+  }
+
+  .animalStatsFavoriteCard,
+  .animalStatsHistoryCard,
+  .performanceStatsComparisonCard,
+  .teamStatsPerformanceCard,
+  .teamStatsInfoCard {
+    padding: 18px;
+
+    border-radius: 19px;
+  }
+
+  .performanceStatsModalHeader {
+    align-items: flex-start;
+
+    min-height: 125px;
+
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 18px;
+  }
+
+  .performanceStatsModalServiceIcon {
+    width: 64px;
+    height: 64px;
+
+    border-radius: 18px;
+  }
+
+  .performanceStatsModalMetadata {
+    font-size: 13px;
+  }
+
+  .performanceStatsComparisonRow,
+  .teamStatsPerformanceRow {
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 11px;
+  }
+
+  .performanceStatsComparisonIcon,
+  .teamStatsPerformanceIcon {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 12px;
+  }
+
+  .performanceStatsComparisonValue,
+  .teamStatsPerformanceValue {
+    grid-column: 2;
+
+    margin-top: -3px;
+
+    text-align: left;
+  }
+
+  .animalStatsHistoryRow {
+    grid-template-columns: 40px minmax(0, 1fr) auto;
+    gap: 10px;
+  }
+
+  .animalStatsHistoryIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .animalStatsHistoryPrice {
+    font-size: 14px;
+  }
+
+  .teamStatsModalHeader {
+    min-height: 92px;
+
+    padding-top: 22px;
+    padding-bottom: 22px;
+    padding-left: 20px;
+  }
+
+  .teamStatsInfoRow {
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 11px;
+  }
+
+  .teamStatsInfoIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .teamStatsInfoRow > strong {
+    grid-column: 2;
+
+    text-align: left;
+  }
+}
+
+/* Très petits écrans */
+
+@media (max-width: 400px) {
+  .animalStatsModalHeader {
+    flex-direction: column;
+
+    padding-right: 52px;
+  }
+
+  .animalStatsModalAvatar {
+    width: 62px;
+    height: 62px;
+  }
+
+  .animalStatsModalKPIGrid,
+  .performanceStatsKPIGrid,
+  .teamStatsKPIGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .teamStatsKPIGrid .teamStatsKPICard:last-child {
+    grid-column: auto;
+  }
+
+  .performanceStatsModalHeader {
+    flex-direction: column;
+
+    padding-right: 52px;
+  }
+
+  .statsModalKPICard {
+    min-height: auto;
+
+    align-items: flex-start;
+
+    text-align: left;
+  }
+
+  .performanceStatsKPICard > span,
+  .teamStatsKPICard > span {
+    text-align: left;
+  }
+
+  .animalStatsHistoryRow {
+    grid-template-columns: 40px minmax(0, 1fr);
+  }
+
+  .animalStatsHistoryPrice {
+    grid-column: 2;
+
+    text-align: left;
+  }
+}
+
+@keyframes statsModalMobileAppear {
+  from {
+    opacity: 0;
+    transform: translateY(45px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Réduction des animations */
+
+@media (prefers-reduced-motion: reduce) {
+  .statsModalBackdrop,
+  .statsModal,
+  .statsModalCloseButton,
+  .performanceStatsProgressValue,
+  .teamStatsProgressValue {
+    animation: none;
+    transition: none;
+  }
+}
+
+.statsModalHeader--animals {
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+}
+
+.statsModalHeader--performance {
+  background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+}
+
+.statsModalHeader--team {
+  background: linear-gradient(135deg, #22c55e, #4ade80);
+}
+
+.teamStatsModalHeader {
+  background: linear-gradient(
+    135deg,
+    #22c55e,
+    #16a34a
+  );
+  color: white;
+  padding: 28px 32px;
+  border-radius: 20px 20px 0 0;
+}
+
+.teamStatsModalHeaderContent {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.teamStatsModalHeader h2 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.teamStatsModalHeaderSubtitle {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.performanceStatsModalHeader {
+  background: linear-gradient(
+    135deg,
+    #7c3aed,
+    #8b5cf6
+  );
+  color: white;
+  padding: 28px 32px;
+  border-radius: 20px 20px 0 0;
+}
+
+.performanceStatsModalHeaderContent {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.performanceStatsModalHeader h2 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.performanceStatsModalHeaderSubtitle {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.animalStatsModalHeader {
+  background: linear-gradient(
+    135deg,
+    #f59e0b,
+    #fbbf24
+  );
+  color: white;
+  padding: 28px 32px;
+  border-radius: 20px 20px 0 0;
+}
+
+.animalStatsModalHeaderContent {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.animalStatsModalHeader h2 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.animalStatsModalHeaderSubtitle {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}

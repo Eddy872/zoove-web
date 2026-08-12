@@ -1,0 +1,627 @@
+.animalsStatsPage {
+  min-height: 100vh;
+  padding: 36px 24px 80px;
+  background: #ffffff;
+}
+
+.animalsStatsContainer {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Header */
+
+.animalsStatsHeader {
+  display: grid;
+  grid-template-columns:
+    auto
+    minmax(0, 1fr)
+    auto;
+  align-items: center;
+  gap: 28px;
+  padding: 34px 38px;
+  border-radius: 34px;
+  background: #fff4ec;
+}
+
+.animalsStatsBackButton {
+  display: flex;
+  width: 74px;
+  height: 74px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #ff913c;
+  color: #ffffff;
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.animalsStatsBackButton:hover {
+  transform: translateX(-3px);
+  box-shadow:
+    0 12px 24px
+    rgba(255, 145, 60, 0.25);
+}
+
+.animalsStatsHeaderText {
+  min-width: 0;
+}
+
+.animalsStatsHeaderText h1 {
+  margin: 0;
+  color: #070707;
+  font-size: clamp(
+    38px,
+    6vw,
+    54px
+  );
+  font-weight: 850;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.animalsStatsHeaderText p {
+  max-width: 340px;
+  margin: 18px 0 0;
+  color: #555555;
+  font-size: 27px;
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+.animalsStatsHeaderIcon {
+  flex-shrink: 0;
+  color: #ff9952;
+  fill: #ff9952;
+}
+
+/* Loading */
+
+.animalsStatsLoading {
+  display: flex;
+  min-height: 70vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #55516f;
+}
+
+.animalsStatsSpinner {
+  width: 42px;
+  height: 42px;
+  border: 4px solid #f4ded0;
+  border-top-color: #ff913c;
+  border-radius: 50%;
+  animation:
+    animalsStatsSpin
+    0.8s linear infinite;
+}
+
+.animalsStatsLoading p {
+  margin-top: 18px;
+  font-weight: 700;
+}
+
+@keyframes animalsStatsSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animalsStatsError {
+  margin-top: 24px;
+  padding: 16px 20px;
+  border: 1px solid #f6c7ba;
+  border-radius: 16px;
+  background: #fff2ef;
+  color: #b64026;
+  font-weight: 650;
+}
+
+/* Summary grid */
+
+.animalsStatsGrid {
+  display: grid;
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0, 1fr)
+    );
+  gap: 26px;
+  margin-top: 48px;
+}
+
+.animalsStatsCard {
+  display: flex;
+  min-height: 190px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  border: 1.5px solid #ffddc7;
+  border-radius: 32px;
+  background: #fffaf7;
+  text-align: center;
+}
+
+.animalsStatsCardValue {
+  color: #ff8c37;
+  font-size: 50px;
+  font-weight: 820;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.animalsStatsCardLabel {
+  margin-top: 25px;
+  color: #504d70;
+  font-size: 28px;
+  font-weight: 760;
+  line-height: 1.15;
+}
+
+.animalsStatsCard--information {
+  min-height: 230px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 38px;
+  text-align: left;
+}
+
+.animalsStatsSmallLabel {
+  color: #504d70;
+  font-size: 23px;
+  font-weight: 760;
+  line-height: 1.2;
+}
+
+.animalsStatsInformationValue {
+  margin-top: 42px;
+  color: #ff8c37;
+  font-size: 37px;
+  font-weight: 820;
+  line-height: 1.1;
+}
+
+/* Tabs */
+
+.animalsStatsTabs {
+  display: grid;
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0, 1fr)
+    );
+  gap: 14px;
+  margin-top: 42px;
+}
+
+.animalsStatsTab {
+  display: flex;
+  min-width: 0;
+  height: 72px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 22px;
+  background: #f2f2f7;
+  color: #555555;
+  font: inherit;
+  font-size: 22px;
+  font-weight: 760;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.animalsStatsTab:hover {
+  transform: translateY(-2px);
+}
+
+.animalsStatsTab--active {
+  background: #ff913c;
+  color: #ffffff;
+}
+
+.animalsStatsTabIcon {
+  display: flex;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #ff913c;
+}
+
+.animalsStatsTab span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Detail panel */
+
+.animalsStatsDetail {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  margin-top: 28px;
+  padding: 26px 30px;
+  border: 1px solid #ffddc7;
+  border-radius: 24px;
+  background: #fffaf7;
+}
+
+.animalsStatsDetail > div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.animalsStatsDetailLabel {
+  color: #55516f;
+  font-size: 15px;
+  font-weight: 750;
+}
+
+.animalsStatsDetailValue {
+  color: #ff8c37;
+  font-size: 30px;
+  font-weight: 820;
+}
+
+.animalsStatsDetail p {
+  max-width: 440px;
+  margin: 0;
+  color: #737087;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+/* History */
+
+.animalsStatsHistory {
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.animalsStatsSectionHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.animalsStatsSectionHeader h2 {
+  margin: 0;
+  color: #17151d;
+  font-size: 24px;
+  font-weight: 820;
+}
+
+.animalsStatsSectionHeader p {
+  margin: 7px 0 0;
+  color: #817b89;
+  font-size: 14px;
+}
+
+.animalsStatsSectionHeader > span {
+  display: flex;
+  min-width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #fff0e5;
+  color: #f7802f;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.animalsStatsAppointmentList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.animalsStatsAppointment {
+  display: grid;
+  grid-template-columns:
+    auto
+    minmax(0, 1fr)
+    auto;
+  align-items: center;
+  gap: 16px;
+  padding: 17px;
+  border: 1px solid #f0e8e3;
+  border-radius: 18px;
+  background: #fffdfb;
+}
+
+.animalsStatsAppointmentIcon {
+  display: flex;
+  width: 46px;
+  height: 46px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  background: #fff0e5;
+  color: #ff8c37;
+}
+
+.animalsStatsAppointmentContent {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.animalsStatsAppointmentContent strong {
+  overflow: hidden;
+  color: #292631;
+  font-size: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.animalsStatsAppointmentContent span {
+  color: #938c98;
+  font-size: 13px;
+}
+
+.animalsStatsAppointmentPrice {
+  color: #ff8c37;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.animalsStatsEmpty {
+  display: flex;
+  min-height: 220px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
+  border: 1px dashed #f1d4c1;
+  border-radius: 20px;
+  background: #fffaf7;
+  color: #ff913c;
+  text-align: center;
+}
+
+.animalsStatsEmpty strong {
+  margin-top: 15px;
+  color: #4f4b64;
+  font-size: 17px;
+}
+
+.animalsStatsEmpty p {
+  margin: 7px 0 0;
+  color: #8a8493;
+  font-size: 14px;
+}
+
+/* Responsive */
+
+@media (max-width: 760px) {
+  .animalsStatsPage {
+    padding: 24px 16px 60px;
+  }
+
+  .animalsStatsHeader {
+    gap: 18px;
+    padding: 28px 25px;
+    border-radius: 30px;
+  }
+
+  .animalsStatsBackButton {
+    width: 62px;
+    height: 62px;
+  }
+
+  .animalsStatsHeaderText h1 {
+    font-size: 42px;
+  }
+
+  .animalsStatsHeaderText p {
+    margin-top: 11px;
+    font-size: 22px;
+  }
+
+  .animalsStatsHeaderIcon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .animalsStatsGrid {
+    gap: 18px;
+    margin-top: 34px;
+  }
+
+  .animalsStatsCard {
+    min-height: 165px;
+    padding: 20px;
+    border-radius: 25px;
+  }
+
+  .animalsStatsCardValue {
+    font-size: 42px;
+  }
+
+  .animalsStatsCardLabel {
+    margin-top: 20px;
+    font-size: 22px;
+  }
+
+  .animalsStatsCard--information {
+    min-height: 195px;
+    padding: 28px;
+  }
+
+  .animalsStatsSmallLabel {
+    font-size: 19px;
+  }
+
+  .animalsStatsInformationValue {
+    margin-top: 35px;
+    font-size: 30px;
+  }
+
+  .animalsStatsTabs {
+    gap: 9px;
+  }
+
+  .animalsStatsTab {
+    height: 64px;
+    gap: 7px;
+    padding: 0 10px;
+    font-size: 17px;
+    border-radius: 19px;
+  }
+
+  .animalsStatsDetail {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 520px) {
+  .animalsStatsHeader {
+    grid-template-columns:
+      auto
+      minmax(0, 1fr);
+  }
+
+  .animalsStatsHeaderIcon {
+    display: none;
+  }
+
+  .animalsStatsBackButton {
+    width: 54px;
+    height: 54px;
+  }
+
+  .animalsStatsHeaderText h1 {
+    font-size: 36px;
+  }
+
+  .animalsStatsHeaderText p {
+    font-size: 18px;
+  }
+
+  .animalsStatsGrid {
+    gap: 12px;
+  }
+
+  .animalsStatsCard {
+    min-height: 135px;
+    padding: 15px;
+    border-radius: 21px;
+  }
+
+  .animalsStatsCardValue {
+    font-size: 32px;
+  }
+
+  .animalsStatsCardLabel {
+    margin-top: 16px;
+    font-size: 17px;
+  }
+
+  .animalsStatsCard--information {
+    min-height: 165px;
+    align-items: center;
+    padding: 19px 12px;
+    text-align: center;
+  }
+
+  .animalsStatsSmallLabel {
+    font-size: 15px;
+  }
+
+  .animalsStatsInformationValue {
+    margin-top: 28px;
+    font-size: 22px;
+  }
+
+  .animalsStatsTabs {
+    grid-template-columns:
+      repeat(
+        3,
+        minmax(0, 1fr)
+      );
+  }
+
+  .animalsStatsTab {
+    font-size: 16px;
+  }
+
+  .animalsStatsHistory {
+    padding: 21px;
+  }
+}
+
+.animalsStatsAppointmentPhoto {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.animalsStatsAppointment--clickable {
+  cursor: pointer;
+
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+
+.animalsStatsAppointment--clickable:hover {
+  transform: translateY(-2px);
+
+  border-color: rgba(
+    99,
+    102,
+    241,
+    0.22
+  );
+
+  box-shadow:
+    0 10px 26px
+    rgba(
+      15,
+      23,
+      42,
+      0.09
+    );
+}
+
+.animalsStatsAppointment--clickable:active {
+  transform: translateY(0);
+}
+
+.animalsStatsAppointment--clickable:focus-visible {
+  outline: 3px solid
+    rgba(
+      99,
+      102,
+      241,
+      0.28
+    );
+
+  outline-offset: 3px;
+}

@@ -1,0 +1,129 @@
+.loginPage {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffffff 0%, #fff5fb 55%, #f1e5ff 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
+  color: #09113d;
+}
+
+.loginCard {
+  width: 100%;
+  max-width: 460px;
+  background: white;
+  border-radius: 28px;
+  padding: 32px;
+  box-shadow: 0 18px 50px rgba(26, 20, 80, 0.14);
+}
+
+.loginLogo {
+  width: 130px;
+  display: block;
+  margin: 0 auto 24px;
+}
+
+.loginCard h1 {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 900;
+  margin-bottom: 12px;
+}
+
+.loginCard p {
+  text-align: center;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 28px;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.loginForm label {
+  font-weight: 800;
+}
+
+.loginForm input {
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  padding: 16px;
+  font-size: 16px;
+  outline: none;
+}
+
+.loginForm input:focus {
+  border-color: #7c3cff;
+}
+
+.loginForm button,
+.loginFooter button {
+  margin-top: 12px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #7c3cff, #9b4dff);
+  color: white;
+  padding: 16px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.loginFooter {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.loginFooter span {
+  color: #666;
+}
+
+.backButton {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: #7c3cff;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.inputError {
+  border-color: #ef4444 !important;
+  color: #ef4444;
+}
+
+.inputError::placeholder {
+  color: #ef4444;
+}
+
+.loginForm button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.createAccountButton {
+  display: block;
+  margin-top: 12px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #7c3cff, #9b4dff);
+  color: white;
+  padding: 16px;
+  font-weight: 900;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.createAccountButton:hover {
+  opacity: 0.9;
+}
+
+.createAccountButton:active {
+  opacity: 0.8;
+}
