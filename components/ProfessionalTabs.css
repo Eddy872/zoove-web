@@ -47,3 +47,137 @@
   gap: 6px;
   flex-shrink: 0;
 }
+
+.serviceCard {
+  padding: 20px;
+
+  border: 1px solid #e7e1eb;
+  border-radius: 16px;
+
+  background: #ffffff;
+}
+
+.serviceCardContent {
+  width: 100%;
+}
+
+.serviceCardName {
+  margin: 0 0 8px;
+
+  font-size: 18px;
+  font-weight: 700;
+  color: #2f2735;
+}
+
+.serviceCardMain {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.serviceCardDescription {
+  flex: 1;
+
+  margin: 0;
+
+  font-size: 14px;
+  line-height: 1.5;
+  color: #6f6576;
+}
+
+.serviceCardPrice {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+
+  margin-top: 12px;
+}
+
+.serviceCardPrice span {
+  font-size: 14px;
+  color: #756a7c;
+}
+
+.serviceCardPrice strong {
+  font-size: 15px;
+  font-weight: 700;
+  color: #332a3d;
+}
+
+.reserveServiceButton {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .serviceCardMain {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .reserveServiceButton {
+    width: 100%;
+  }
+}
+
+.tabButton.active {
+  background: linear-gradient(
+    135deg,
+    #00bfff 0%,
+    #536dfe 30%,
+    #7c4dff 55%,
+    #d946ef 80%,
+    #ff4fa3 100%
+  );
+
+  color: white;
+}
+
+.reserveServiceButton {
+  flex-shrink: 0;
+  white-space: nowrap;
+
+  border: none;
+  border-radius: 14px;
+  padding: 12px 22px;
+
+  background: linear-gradient(
+    135deg,
+    #00bfff 0%,
+    #536dfe 30%,
+    #7c4dff 55%,
+    #d946ef 80%,
+    #ff4fa3 100%
+  ) !important;
+
+  color: white !important;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.reserveServiceButton:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 30px rgba(124, 77, 255, 0.35);
+}
+
+.reserveServiceButton:active {
+  transform: translateY(0);
+}
+
+.tabButton {
+  border: none;
+  border-radius: 999px;
+  padding: 14px 24px;
+
+  background: white;
+  color: #7c4dff;
+
+  font-weight: 800;
+  cursor: pointer;
+
+  box-shadow: 0 10px 25px rgba(26, 20, 80, 0.08);
+}

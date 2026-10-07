@@ -20,15 +20,20 @@ export async function loadCloudKit() {
 
 export async function configureCloudKit() {
   const CloudKit = await loadCloudKit()
+    const environment =
+        process.env.NEXT_PUBLIC_CLOUDKIT_ENV === "production"
+          ? "production"
+          : "development"
 
+      console.log(
+        "CloudKit Web environment:",
+        environment
+      )
   CloudKit.configure({
     containers: [
       {
         containerIdentifier: "iCloud.Zoove",
-        environment:
-          process.env.NEXT_PUBLIC_CLOUDKIT_ENV === "production"
-            ? "production"
-            : "development",
+        environment,
         apiTokenAuth: {
           apiToken: "2b1bc21f6f4fad1f63f1c64f2032a4eb657a74af2c248297a023cf27bcc88cdc",
           persist: false

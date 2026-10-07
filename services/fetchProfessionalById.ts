@@ -122,14 +122,63 @@ async function fetchServices(
   return (response.records ?? []).map(
     (record: any) => ({
       id: record.recordName,
-      groomingID: field(record, "groomingID"),
-      name: field(record, "name"),
-      description: field(record, "description"),
-      price: Number(field(record, "price", 0)),
-      duration: Number(
-        field(record, "duration", 30)
+
+      groomingID: field(
+        record,
+        "groomingID"
       ),
-      devise: field(record, "devise", "€")
+
+      name: field(
+        record,
+        "name"
+      ),
+
+      description: field(
+        record,
+        "description"
+      ),
+
+      price: Number(
+        field(
+          record,
+          "price",
+          0
+        )
+      ),
+
+      duration: Number(
+        field(
+          record,
+          "duration",
+          30
+        )
+      ),
+
+      devise: field(
+        record,
+        "devise",
+        "€"
+      ),
+
+      // NOUVEAUX ATTRIBUTS
+
+      bookingMode: field(
+        record,
+        "bookingMode",
+        "direct"
+      ),
+
+      requiredInformations: field(
+        record,
+        "requiredInformations",
+        []
+      ),
+
+      customQuestions: field(
+        record,
+        "customQuestions",
+        []
+      )
     })
   )
 }
@@ -304,8 +353,28 @@ async function mapStructureProfessional(
       []
     ),
 
-    device: field(record, "device"),
-    badge: field(record, "badge"),
+      device: field(
+        record,
+        "device",
+        ""
+      ),
+
+      webtoken: field(
+        record,
+        "webtoken",
+        ""
+      ),
+
+      language: field(
+        record,
+        "language",
+        "fr"
+      ),
+
+      badge: field(
+        record,
+        "badge"
+      ),
 
     image: photos[0] ?? "/images/demo2.jpg",
 
@@ -420,9 +489,29 @@ function mapSitterProfessional(record: any) {
       []
     ),
 
-    token: field(record, "token"),
-    language: field(record, "language", "fr"),
-    notifs: field(record, "notifs", []),
+      token: field(
+        record,
+        "token",
+        ""
+      ),
+
+      webtoken: field(
+        record,
+        "webtoken",
+        ""
+      ),
+
+      language: field(
+        record,
+        "language",
+        "fr"
+      ),
+
+      notifs: field(
+        record,
+        "notifs",
+        []
+      ),
     paypalID: field(record, "paypalID"),
 
     services: field(record, "services", []),
@@ -529,28 +618,62 @@ export async function fetchServicesForProfessional(
 
   return records.map((record: any) => ({
     id: record.recordName,
+
     groomingID: field(
       record,
       "groomingID"
     ),
+
     name: field(
       record,
       "name"
     ),
+
     description: field(
       record,
       "description"
     ),
+
     price: Number(
-      field(record, "price", 0)
+      field(
+        record,
+        "price",
+        0
+      )
     ),
+
     duration: Number(
-      field(record, "duration", 30)
+      field(
+        record,
+        "duration",
+        30
+      )
     ),
+
     devise: field(
       record,
       "devise",
       "€"
+    ),
+
+    // NOUVEAUX ATTRIBUTS
+
+    bookingMode: field(
+      record,
+      "bookingMode",
+      "direct"
+    ),
+
+    requiredInformations: field(
+      record,
+      "requiredInformations",
+      []
+    ),
+
+    customQuestions: field(
+      record,
+      "customQuestions",
+      []
     )
   }))
 }

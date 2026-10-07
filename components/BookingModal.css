@@ -545,3 +545,923 @@
 .selectedAnimalCard > button:hover {
   background: #e5e7eb;
 }
+
+/* =========================================================
+   PROFESSIONAL BOOKING
+   NOUVELLES INFORMATIONS ANIMAL
+========================================================= */
+
+
+/* -------------------------
+   Résultat recherche animal
+------------------------- */
+
+.professionalAnimalResultContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.professionalAnimalResultContent strong {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.professionalAnimalResultContent span {
+  font-size: 12px;
+  color: #7a7482;
+}
+
+
+/* -------------------------
+   Animal sélectionné
+------------------------- */
+
+.selectedAnimalContent {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.selectedAnimalContent strong {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.selectedAnimalContent span {
+  font-size: 12px;
+  color: #7a7482;
+}
+
+
+/* =========================================================
+   STATUT ANIMAL
+========================================================= */
+
+.clientStatus {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  margin-top: 12px;
+  padding: 12px 14px;
+
+  border: 1px solid #e4dfe9;
+  border-radius: 12px;
+
+  background: #faf9fc;
+}
+
+
+.clientStatusIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 28px;
+  height: 28px;
+
+  flex: 0 0 28px;
+
+  border-radius: 50%;
+
+  font-size: 14px;
+  font-weight: 800;
+}
+
+
+.clientStatus > div {
+  min-width: 0;
+}
+
+
+.clientStatus strong {
+  display: block;
+
+  margin: 0 0 3px;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  color: #201a2b;
+}
+
+
+.clientStatus p {
+  margin: 0;
+
+  font-size: 12px;
+  line-height: 1.45;
+
+  color: #756d7d;
+}
+
+
+/* Animal déjà connu */
+
+.clientStatusKnown {
+  border-color: #dcd2f4;
+
+  background: #faf8ff;
+}
+
+
+.clientStatusKnown .clientStatusIcon {
+  background: #eee8ff;
+  color: #6841c7;
+}
+
+
+/* Nouvel animal */
+
+.clientStatusNew {
+  border-color: #ead8ee;
+
+  background: #fff9ff;
+}
+
+
+.clientStatusNew .clientStatusIcon {
+  background: #f7e8f8;
+  color: #a936ae;
+}
+
+
+/* =========================================================
+   BLOC INFORMATIONS ANIMAL
+========================================================= */
+
+.animalInformationsBlock {
+  margin-top: 6px;
+}
+
+
+.animalInformationHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 16px;
+
+  margin-bottom: 16px;
+}
+
+
+.animalInformationHeader > div {
+  flex: 1;
+
+  min-width: 0;
+}
+
+
+.animalInformationHeader > div > label {
+  display: block;
+
+  margin: 0 0 4px;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  color: #10173f;
+}
+
+
+.animalInformationHeader p {
+  margin: 0;
+
+  max-width: 650px;
+
+  font-size: 12px;
+  line-height: 1.5;
+
+  color: #77717e;
+}
+
+
+/* -------------------------
+   Badge connu / nouveau
+------------------------- */
+
+.clientStatusBadge {
+  display: inline-flex;
+  align-items: center;
+
+  flex-shrink: 0;
+
+  padding: 6px 10px;
+
+  border-radius: 999px;
+
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+
+.clientStatusBadgeKnown {
+  background: #eee8ff;
+  color: #6841c7;
+}
+
+
+.clientStatusBadgeNew {
+  background: #f7e8f8;
+  color: #a936ae;
+}
+
+
+/* =========================================================
+   GRILLE INFORMATIONS
+========================================================= */
+
+.serviceInformationsGrid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 14px;
+}
+
+
+/* =========================================================
+   CHAMP INFORMATION
+========================================================= */
+
+.serviceInformationField {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+
+  gap: 7px;
+}
+
+
+.serviceInformationField > label {
+  font-size: 13px;
+  font-weight: 600;
+
+  color: #30293a;
+}
+
+
+.serviceInformationField input,
+.serviceInformationField textarea {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 11px 12px;
+
+  border: 1px solid #ddd8e2;
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  color: #201c28;
+
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+
+  outline: none;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+
+.serviceInformationField input::placeholder,
+.serviceInformationField textarea::placeholder {
+  color: #a19ba7;
+}
+
+
+.serviceInformationField input:focus,
+.serviceInformationField textarea:focus {
+  border-color: #7652ce;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(118, 82, 206, 0.1);
+}
+
+
+.serviceInformationField textarea {
+  min-height: 82px;
+
+  resize: vertical;
+}
+
+
+.serviceInformationFull {
+  grid-column: 1 / -1;
+}
+
+
+/* =========================================================
+   POIDS
+========================================================= */
+
+.weightInput {
+  position: relative;
+
+  width: 100%;
+}
+
+
+.weightInput input {
+  padding-right: 44px;
+}
+
+
+.weightInput > span {
+  position: absolute;
+
+  top: 50%;
+  right: 13px;
+
+  transform: translateY(-50%);
+
+  font-size: 13px;
+  font-weight: 600;
+
+  color: #77717e;
+
+  pointer-events: none;
+}
+
+
+/* Enlève les flèches sur Chrome / Safari */
+
+.weightInput input::-webkit-outer-spin-button,
+.weightInput input::-webkit-inner-spin-button {
+  margin: 0;
+
+  -webkit-appearance: none;
+}
+
+
+/* =========================================================
+   INFORMATIONS REQUISES PAR LA PRESTATION
+========================================================= */
+
+.requiredInformationsNotice {
+  margin:
+    -4px 0
+    20px;
+
+  padding: 12px 14px;
+
+  border: 1px solid #e7e0f0;
+  border-radius: 12px;
+
+  background: #fbf9ff;
+}
+
+
+.requiredInformationsNotice > strong {
+  display: block;
+
+  margin-bottom: 9px;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  color: #4f3a79;
+}
+
+
+.requiredInformationsList {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 7px;
+}
+
+
+.requiredInformationsList span {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 5px 9px;
+
+  border-radius: 999px;
+
+  background: #eee8fa;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  color: #644a93;
+}
+
+
+/* =========================================================
+   QUESTIONS PERSONNALISÉES
+========================================================= */
+
+.customQuestionsHeader {
+  margin-bottom: 13px;
+}
+
+
+.customQuestionsHeader > label {
+  display: block;
+
+  margin-bottom: 4px;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  color: #10173f;
+}
+
+
+.customQuestionsHeader p {
+  margin: 0;
+
+  font-size: 12px;
+  line-height: 1.45;
+
+  color: #77717e;
+}
+
+
+.customQuestions {
+  display: flex;
+  flex-direction: column;
+
+  gap: 14px;
+}
+
+
+.customQuestionField {
+  display: flex;
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+
+.customQuestionField > label {
+  font-size: 13px;
+  line-height: 1.4;
+  font-weight: 600;
+
+  color: #30293a;
+}
+
+
+.customQuestionField textarea {
+  width: 100%;
+  min-height: 76px;
+
+  box-sizing: border-box;
+
+  padding: 11px 12px;
+
+  border: 1px solid #ddd8e2;
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  color: #201c28;
+
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+
+  resize: vertical;
+
+  outline: none;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+
+.customQuestionField textarea::placeholder {
+  color: #a19ba7;
+}
+
+
+.customQuestionField textarea:focus {
+  border-color: #7652ce;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(118, 82, 206, 0.1);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .animalInformationHeader {
+    flex-direction: column;
+
+    gap: 10px;
+  }
+
+
+  .serviceInformationsGrid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .serviceInformationFull {
+    grid-column: auto;
+  }
+
+
+  .clientStatusBadge {
+    align-self: flex-start;
+  }
+
+}
+
+
+/* =========================================================
+   INFORMATIONS ANIMAL
+========================================================= */
+
+.animalInformationsBlock {
+  margin-top: 6px;
+}
+
+.animalInformationHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.animalInformationHeader > div {
+  flex: 1;
+  min-width: 0;
+}
+
+.animalInformationHeader label {
+  display: block;
+  margin: 0 0 5px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #10173f;
+}
+
+.animalInformationHeader p {
+  margin: 0;
+  max-width: 650px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #77717e;
+}
+
+.previousInformationsLoading {
+  margin-top: 5px !important;
+  font-size: 12px !important;
+  font-style: italic;
+  color: #7652ce !important;
+}
+
+
+/* =========================================================
+   GRILLE DES INFORMATIONS
+========================================================= */
+
+.serviceInformationsGrid {
+  display: grid;
+  grid-template-columns: repeat(
+    2,
+    minmax(0, 1fr)
+  );
+  gap: 14px;
+}
+
+.serviceInformationField {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 7px;
+}
+
+.serviceInformationField > label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #30293a;
+}
+
+
+/* =========================================================
+   INPUTS / TEXTAREA
+========================================================= */
+
+.serviceInformationField input,
+.serviceInformationField textarea {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 11px 12px;
+
+  border: 1px solid #ddd8e2;
+  border-radius: 10px;
+
+  background: #ffffff;
+  color: #201c28;
+
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+
+  outline: none;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+.serviceInformationField input::placeholder,
+.serviceInformationField textarea::placeholder {
+  color: #a19ba7;
+}
+
+.serviceInformationField input:focus,
+.serviceInformationField textarea:focus {
+  border-color: #7652ce;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(118, 82, 206, 0.1);
+}
+
+.serviceInformationField textarea {
+  min-height: 82px;
+  resize: vertical;
+}
+
+.serviceInformationField input:disabled,
+.serviceInformationField textarea:disabled {
+  cursor: wait;
+  background: #f8f7fa;
+  color: #8d8792;
+}
+
+
+/* =========================================================
+   CHAMP SUR TOUTE LA LARGEUR
+========================================================= */
+
+.serviceInformationFull {
+  grid-column: 1 / -1;
+}
+
+
+/* =========================================================
+   POIDS
+========================================================= */
+
+.weightInput {
+  position: relative;
+  width: 100%;
+}
+
+.weightInput input {
+  padding-right: 44px;
+}
+
+.weightInput > span {
+  position: absolute;
+
+  top: 50%;
+  right: 13px;
+
+  transform: translateY(-50%);
+
+  font-size: 13px;
+  font-weight: 600;
+  color: #77717e;
+
+  pointer-events: none;
+}
+
+.weightInput input::-webkit-outer-spin-button,
+.weightInput input::-webkit-inner-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}
+
+
+/* =========================================================
+   QUESTIONS COMPLÉMENTAIRES
+========================================================= */
+
+.customQuestionsSection {
+  margin-top: 20px;
+  padding-top: 18px;
+
+  border-top: 1px solid #ece7f0;
+}
+
+.customQuestionsHeader {
+  margin-bottom: 13px;
+}
+
+.customQuestionsHeader > label {
+  display: block;
+
+  margin-bottom: 4px;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  color: #10173f;
+}
+
+.customQuestionsHeader p {
+  margin: 0;
+
+  font-size: 12px;
+  line-height: 1.45;
+
+  color: #77717e;
+}
+
+.customQuestions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.customQuestionField {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.customQuestionField > label {
+  font-size: 13px;
+  line-height: 1.4;
+  font-weight: 600;
+
+  color: #30293a;
+}
+
+.customQuestionField textarea {
+  width: 100%;
+  min-height: 76px;
+
+  box-sizing: border-box;
+
+  padding: 11px 12px;
+
+  border: 1px solid #ddd8e2;
+  border-radius: 10px;
+
+  background: #ffffff;
+  color: #201c28;
+
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+
+  resize: vertical;
+
+  outline: none;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.customQuestionField textarea::placeholder {
+  color: #a19ba7;
+}
+
+.customQuestionField textarea:focus {
+  border-color: #7652ce;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(118, 82, 206, 0.1);
+}
+
+
+/* =========================================================
+   PRIX ESTIMÉ
+========================================================= */
+
+.priceBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 16px;
+
+  margin-top: 18px;
+  padding: 16px 18px;
+
+  border: 1px solid #e4dfe9;
+  border-radius: 14px;
+
+  background: #faf9fc;
+}
+
+.priceBox > span {
+  font-size: 14px;
+  font-weight: 600;
+  color: #5f5867;
+}
+
+.priceBox > strong {
+  font-size: 18px;
+  font-weight: 800;
+  color: #10173f;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .animalInformationHeader {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .serviceInformationsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .serviceInformationFull {
+    grid-column: auto;
+  }
+
+  .priceBox {
+    padding: 14px;
+  }
+
+  .priceBox > strong {
+    font-size: 17px;
+  }
+}
+
+/* =========================
+   TÉLÉPHONE / RAPPEL SMS
+========================= */
+
+.bookingBlock input[type="tel"] {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 12px 14px;
+
+  border: 1px solid #d9dce3;
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  font-size: 15px;
+  font-family: inherit;
+  line-height: 1.4;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.bookingBlock input[type="tel"]:focus {
+  border-color: #6c63ff;
+
+  box-shadow:
+    0 0 0 3px rgba(108, 99, 255, 0.12);
+}
+
+.bookingBlock input[type="tel"]::placeholder {
+  color: #9ca3af;
+}
+
+.bookingFieldHint {
+  margin: 7px 0 0;
+
+  font-size: 12px;
+  line-height: 1.45;
+
+  color: #7a7f8c;
+}

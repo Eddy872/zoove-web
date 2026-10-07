@@ -39,3 +39,32 @@
   font-weight: 700;
   cursor: pointer;
 }
+
+.searchButton {
+  border: none;
+  border-radius: 14px;
+  padding: 12px 22px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #00bfff 0%,
+      #536dfe 30%,
+      #7c4dff 55%,
+      #d946ef 80%,
+      #ff4fa3 100%
+    );
+
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.searchButton:hover {
+  transform: translateY(-1px);
+  opacity: 0.92;
+}

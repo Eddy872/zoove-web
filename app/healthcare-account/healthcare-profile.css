@@ -1890,3 +1890,117 @@ label > span {
 .healthcareManageSubscriptionButton:active {
   transform: scale(0.98);
 }
+
+.healthcareServicesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.healthcareServiceCard {
+  padding: 20px;
+  border: 1px solid #e7e7ee;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+.healthcareServiceTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.healthcareServiceTop h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #111827;
+}
+
+.healthcareServicePrice {
+  display: flex;
+  flex-shrink: 0;
+  align-items: baseline;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.healthcareServicePrice span {
+  font-size: 13px;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.healthcareServicePrice strong {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.healthcareServiceDescription {
+  margin: 12px 0 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #6b7280;
+}
+
+@media (max-width: 800px) {
+  .healthcareServicesGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .healthcareServiceCard {
+    padding: 16px;
+  }
+
+  .healthcareServiceTop {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .healthcareServicePrice {
+    white-space: normal;
+  }
+}
+
+/* Prestations Healthcare : réservation */
+
+.serviceBookingSection{margin-top:6px;padding-top:22px;border-top:1px solid #ece7f0}
+.serviceBookingSectionHeader{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}
+.serviceBookingSectionHeader h4,.serviceBookingSubsectionHeader h5{margin:0;color:#352a3f;font-size:16px;font-weight:800}
+.serviceBookingSectionHeader p,.serviceBookingSubsectionHeader p{margin:6px 0 0;color:#807789;font-size:13px;line-height:1.5}
+.serviceBookingModeGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.serviceBookingModeCard{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;width:100%;min-height:92px;padding:16px;border:1px solid #e2dce8;border-radius:16px;background:#fff;color:#352a3f;font:inherit;text-align:left;cursor:pointer;transition:border-color .2s,background .2s,box-shadow .2s,transform .2s}
+.serviceBookingModeCard:hover{transform:translateY(-1px);border-color:rgba(124,60,255,.38);box-shadow:0 8px 22px rgba(53,42,63,.06)}
+.serviceBookingModeCardActive{border-color:#7c3cff;background:#f7f2ff;box-shadow:0 0 0 3px rgba(124,60,255,.08)}
+.serviceBookingModeCard:disabled{cursor:not-allowed;opacity:.6;transform:none}
+.serviceBookingModeIcon{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;background:#f1eaff;color:#6f35d8;font-size:18px}
+.serviceBookingModeContent{display:flex;min-width:0;flex-direction:column;gap:4px}
+.serviceBookingModeContent strong{color:#352a3f;font-size:14px;font-weight:800}
+.serviceBookingModeContent small{color:#807789;font-size:12px;line-height:1.45}
+.serviceBookingModeCheck{display:flex;align-items:center;justify-content:center;width:22px;height:22px;border:1px solid #d8cfdf;border-radius:50%;background:#fff;color:#fff;font-size:13px;font-weight:900}
+.serviceBookingModeCardActive .serviceBookingModeCheck{border-color:#7c3cff;background:#7c3cff}
+.serviceBookingSubsection{margin-top:18px;padding:18px;border:1px solid #ebe5ef;border-radius:16px;background:#fdfcfe}
+.serviceBookingSubsectionHeader{margin-bottom:14px}
+.serviceCustomQuestionsHeader{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.serviceRequiredInfoGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.serviceRequiredInfoOption{display:flex;align-items:center;gap:10px;min-height:48px;padding:10px 12px;border:1px solid #e1dbe6;border-radius:12px;background:#fff;color:#514658;font:inherit;font-size:13px;font-weight:700;text-align:left;cursor:pointer}
+.serviceRequiredInfoOptionActive{border-color:#7c3cff;background:#f3edff;color:#4c2592}
+.serviceRequiredInfoCheckbox{display:flex;flex:0 0 20px;align-items:center;justify-content:center;width:20px;height:20px;border:2px solid #b8afc0;border-radius:6px;background:#fff;color:#fff;font-size:12px;font-weight:900}
+.serviceRequiredInfoOptionActive .serviceRequiredInfoCheckbox{border-color:#7c3cff;background:#7c3cff}
+.serviceAddQuestionButton{flex:0 0 auto;min-height:38px;padding:0 14px;border:1px solid #d8c9ef;border-radius:11px;background:#fff;color:#6f35d8;font:inherit;font-size:13px;font-weight:750;cursor:pointer}
+.serviceAddQuestionButton:hover{background:#f7f2ff}
+.serviceCustomQuestionsEmpty{padding:16px;border:1px dashed #ddd5e3;border-radius:12px;color:#918797;font-size:13px;text-align:center}
+.serviceCustomQuestionsList{display:flex;flex-direction:column;gap:10px}
+.serviceCustomQuestionRow{display:grid;grid-template-columns:30px minmax(0,1fr) 40px;align-items:center;gap:10px}
+.serviceCustomQuestionNumber{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;background:#f1eaff;color:#6f35d8;font-size:12px;font-weight:800}
+.servicesModalFieldsGrid .serviceCustomQuestionRow input{min-height:44px}
+.serviceCustomQuestionRemove{display:flex;align-items:center;justify-content:center;width:40px;height:40px;padding:0;border:0;border-radius:11px;background:#fff0f2;color:#d12f46;font-size:21px;cursor:pointer}
+.serviceCustomQuestionRemove:hover{background:#ffe1e6}
+@media(max-width:760px){.serviceBookingModeGrid,.serviceRequiredInfoGrid{grid-template-columns:1fr}.serviceCustomQuestionsHeader{flex-direction:column}.serviceAddQuestionButton{width:100%}}
+@media(max-width:460px){.serviceBookingModeCard{grid-template-columns:auto minmax(0,1fr)}.serviceBookingModeCheck{display:none}.serviceBookingSubsection{padding:14px}.serviceCustomQuestionRow{grid-template-columns:minmax(0,1fr) 40px}.serviceCustomQuestionNumber{display:none}}

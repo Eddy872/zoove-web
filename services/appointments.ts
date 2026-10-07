@@ -90,8 +90,19 @@ function mapAppointment(record: any): Appointment {
       "paymentStatus",
       "pending"
     ),
-    serviceName: getSitterServiceName(field(record, "serviceID")),
-    duration: getSitterDuration(field(record, "serviceID"))
+  serviceName:
+    getSitterServiceName(
+      field(record, "serviceID")
+    ),
+
+  duration:
+    Number(
+      field(
+        record,
+        "duration",
+        0
+      )
+    )
   }
 }
 

@@ -6,6 +6,10 @@ export type ProfessionalService = {
   price: number
   duration: number
   devise: string
+
+  bookingMode: string
+  requiredInformations: string[]
+  customQuestions: string[]
 }
 
 type CreateServicesResponse = {
@@ -94,10 +98,8 @@ async function parseResponse<T>(
 }
 
 function serviceHasChanged(
-  previousService:
-    ProfessionalService,
-  service:
-    ProfessionalService
+  previousService: ProfessionalService,
+  service: ProfessionalService
 ): boolean {
   return (
     previousService.name !==
@@ -113,7 +115,21 @@ function serviceHasChanged(
     ) !==
       Number(service.duration) ||
     previousService.devise !==
-      service.devise
+      service.devise ||
+    previousService.bookingMode !==
+      service.bookingMode ||
+    JSON.stringify(
+      previousService.requiredInformations
+    ) !==
+      JSON.stringify(
+        service.requiredInformations
+      ) ||
+    JSON.stringify(
+      previousService.customQuestions
+    ) !==
+      JSON.stringify(
+        service.customQuestions
+      )
   )
 }
 
@@ -283,33 +299,42 @@ export async function updateServices({
           },
 
           body: JSON.stringify({
-            services:
-              servicesToCreate.map(
-                service => ({
-                  id:
-                    service.id?.trim() ||
-                    undefined,
+          services:
+            servicesToCreate.map(
+              service => ({
+                id:
+                  service.id?.trim() ||
+                  undefined,
 
-                  name:
-                    service.name,
+                name:
+                  service.name,
 
-                  description:
-                    service.description,
+                description:
+                  service.description,
 
-                  price:
-                    Number(
-                      service.price
-                    ),
+                price:
+                  Number(
+                    service.price
+                  ),
 
-                  duration:
-                    Number(
-                      service.duration
-                    ),
+                duration:
+                  Number(
+                    service.duration
+                  ),
 
-                  devise:
-                    service.devise
-                })
-              )
+                devise:
+                  service.devise,
+
+                bookingMode:
+                  service.bookingMode,
+
+                requiredInformations:
+                  service.requiredInformations,
+
+                customQuestions:
+                  service.customQuestions
+              })
+            )
           })
         }
       )
@@ -355,26 +380,35 @@ export async function updateServices({
             professionalID:
               normalizedProfessionalID,
 
-            updates: {
-              name:
-                service.name,
+              updates: {
+                name:
+                  service.name,
 
-              description:
-                service.description,
+                description:
+                  service.description,
 
-              price:
-                Number(
-                  service.price
-                ),
+                price:
+                  Number(
+                    service.price
+                  ),
 
-              duration:
-                Number(
-                  service.duration
-                ),
+                duration:
+                  Number(
+                    service.duration
+                  ),
 
-              devise:
-                service.devise
-            }
+                devise:
+                  service.devise,
+
+                bookingMode:
+                  service.bookingMode,
+
+                requiredInformations:
+                  service.requiredInformations,
+
+                customQuestions:
+                  service.customQuestions
+              }
           })
         }
       )

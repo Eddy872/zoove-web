@@ -6,4 +6,8 @@ export type Service = {
   duration: number
   id: string
   devise: string
+
+  bookingMode: string
+  requiredInformations: string[]
+  customQuestions: string[]
 }

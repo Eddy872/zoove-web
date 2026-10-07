@@ -13,7 +13,9 @@ import {
   type Language
 } from "@/context/LanguageContext"
 import { translate } from "@/translations/translations"
-
+import {
+  fetchProfessional
+} from "@/services/fetchProfessionalById"
 
 import {
   Appointment,
@@ -61,6 +63,13 @@ export default function AppointmentsPage() {
 
   const [appointments, setAppointments] =
     useState<Appointment[]>([])
+    
+    const [
+      professionalNames,
+      setProfessionalNames
+    ] = useState<
+      Record<string, string>
+    >({})
 
   const [isLoading, setIsLoading] =
     useState(true)
@@ -115,6 +124,77 @@ export default function AppointmentsPage() {
       cancelled = true
     }
   }, [animal?.id])
+    
+    useEffect(() => {
+      let cancelled = false
+
+      async function loadProfessionals() {
+        const professionalIDs = [
+          ...new Set(
+            appointments
+              .map(
+                appointment =>
+                  appointment.groomingID
+              )
+              .filter(Boolean)
+          )
+        ]
+
+        if (
+          professionalIDs.length === 0
+        ) {
+          setProfessionalNames({})
+          return
+        }
+
+        try {
+          const results =
+            await Promise.all(
+              professionalIDs.map(
+                async professionalID => {
+                  const professional =
+                    await fetchProfessional(
+                      professionalID
+                    )
+
+                  return {
+                    id: professionalID,
+                    name:
+                      professional?.name ??
+                      ""
+                  }
+                }
+              )
+            )
+
+          if (cancelled) {
+            return
+          }
+
+          setProfessionalNames(
+            Object.fromEntries(
+              results.map(
+                professional => [
+                  professional.id,
+                  professional.name
+                ]
+              )
+            )
+          )
+        } catch (error) {
+          console.error(
+            "Erreur chargement des professionnels :",
+            error
+          )
+        }
+      }
+
+      loadProfessionals()
+
+      return () => {
+        cancelled = true
+      }
+    }, [appointments])
 
   const sortedAppointments =
     useMemo(() => {
@@ -246,25 +326,35 @@ export default function AppointmentsPage() {
                       </span>
                     </div>
 
-                    <div>
-                      <p>
-                        {
-                          appointment.collaborator
-                        }
-                      </p>
+                        <div>
+                          <strong>
+                            {professionalNames[
+                              appointment.groomingID
+                            ] || "Professionnel"}
+                          </strong>
 
-                      <span className="appointmentStatus">
-                        {isPast
-                          ? translate(
-                              language,
-                              "Terminé"
-                            )
-                          : translate(
-                              language,
-                              "Confirmé"
-                            )}
-                      </span>
-                    </div>
+                          {appointment.collaborator && (
+                            <p>
+                              {translate(
+                                language,
+                                "Avec"
+                              )}{" "}
+                              {appointment.collaborator}
+                            </p>
+                          )}
+
+                          <span className="appointmentStatus">
+                            {isPast
+                              ? translate(
+                                  language,
+                                  "Terminé"
+                                )
+                              : translate(
+                                  language,
+                                  "Confirmé"
+                                )}
+                          </span>
+                        </div>
                   </Link>
                 )
               }

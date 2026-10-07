@@ -159,3 +159,43 @@
   align-items: center;
   gap: 6px;
 }
+
+.bookButton {
+    border: none;
+
+    background: linear-gradient(
+        135deg,
+        #00bfff 0%,
+        #536dfe 30%,
+        #7c4dff 55%,
+        #d946ef 80%,
+        #ff4fa3 100%
+    );
+
+    color: white;
+
+    padding: 12px 22px;
+
+    border-radius: 14px;
+    font-weight: 700;
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 25px rgba(124, 77, 255, 0.25);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.bookButton:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 30px rgba(124, 77, 255, 0.35);
+}
+
+.bookButton:active {
+    transform: translateY(0);
+}

@@ -13,7 +13,9 @@ import {
   cancelAppointment,
   fetchAppointmentById
 } from "@/services/appointments"
-
+import {
+  fetchProfessional
+} from "@/services/fetchProfessionalById"
 import { useAuth } from "@/context/AuthContext"
 import {
   useLanguage,
@@ -95,7 +97,10 @@ export default function AppointmentClientPage({
 
   const [appointment, setAppointment] =
     useState<Appointment | null>(null)
-
+    const [
+      professionalName,
+      setProfessionalName
+    ] = useState("")
   const [isLoading, setIsLoading] =
     useState(true)
 
@@ -143,6 +148,45 @@ export default function AppointmentClientPage({
       cancelled = true
     }
   }, [id])
+    
+    useEffect(() => {
+      let cancelled = false
+
+      async function loadProfessional() {
+        if (!appointment?.groomingID) {
+          setProfessionalName("")
+          return
+        }
+
+        try {
+          const professional =
+            await fetchProfessional(
+              appointment.groomingID
+            )
+
+          if (!cancelled) {
+            setProfessionalName(
+              professional?.name ?? ""
+            )
+          }
+        } catch (error) {
+          console.error(
+            "Erreur de chargement du professionnel :",
+            error
+          )
+
+          if (!cancelled) {
+            setProfessionalName("")
+          }
+        }
+      }
+
+      loadProfessional()
+
+      return () => {
+        cancelled = true
+      }
+    }, [appointment?.groomingID])
 
   const isOwner = useMemo(() => {
     return Boolean(
@@ -336,22 +380,22 @@ export default function AppointmentClientPage({
       </div>
 
       <div className="appointmentDetailsCard">
-        <div className="appointmentField">
-          <span className="appointmentFieldLabel">
-            {translate(
-              language,
-              "Professionnel"
-            )}
-          </span>
-
-          <strong>
-            {appointment.collaborator ||
-              translate(
+          <div className="appointmentField">
+            <span className="appointmentFieldLabel">
+              {translate(
                 language,
-                "Non renseigné"
+                "Professionnel"
               )}
-          </strong>
-        </div>
+            </span>
+
+            <strong>
+              {professionalName ||
+                translate(
+                  language,
+                  "Non renseigné"
+                )}
+            </strong>
+          </div>
 
         <div className="appointmentField">
           <span className="appointmentFieldLabel">

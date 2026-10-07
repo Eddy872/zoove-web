@@ -205,6 +205,14 @@ export default function Header() {
                         <span>📅</span>
                         {translate(language, "Mes RDV")}
                       </Link>
+                                                        
+                    <Link href="/animal-booking-requests">
+                          <span>🕐</span>
+                          {translate(
+                            language,
+                            "Mes demandes"
+                          )}
+                        </Link>
                     </>
                   )}
 
@@ -219,6 +227,11 @@ export default function Header() {
                         <span>📅</span>
                         {translate(language, "Agenda")}
                       </Link>
+                                                        
+                        <Link href="/professional-booking-requests">
+                              <span>🕐</span>
+                              {translate(language, "Vos demandes")}
+                            </Link>
 
                       <Link href="/professional-stats">
                         <span>📊</span>
@@ -243,6 +256,11 @@ export default function Header() {
                         <span>📅</span>
                         {translate(language, "Agenda")}
                       </Link>
+                                                          
+                      <Link href="/professional-booking-requests">
+                            <span>🕐</span>
+                            {translate(language, "Vos demandes")}
+                          </Link>
 
                       <Link href="/professional-stats">
                         <span>📊</span>

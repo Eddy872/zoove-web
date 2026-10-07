@@ -1,0 +1,895 @@
+/* =========================================================
+   PAGE
+========================================================= */
+
+.animalBookingRequestsPage {
+  width: min(920px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 34px 0 60px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.animalBookingRequestsHeader {
+  margin-bottom: 24px;
+}
+
+.animalBookingRequestsHeader h1 {
+  margin: 0;
+
+  color: #171421;
+
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.animalBookingRequestsHeader p {
+  margin: 7px 0 0;
+
+  color: #77707f;
+
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   FILTRES
+========================================================= */
+
+.bookingRequestFilters {
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  margin-bottom: 24px;
+  padding-bottom: 3px;
+
+  overflow-x: auto;
+
+  scrollbar-width: none;
+}
+
+.bookingRequestFilters::-webkit-scrollbar {
+  display: none;
+}
+
+
+.bookingRequestFilter {
+  display: inline-flex;
+
+  flex: 0 0 auto;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  min-height: 39px;
+
+  padding: 8px 13px;
+
+  border: 1px solid rgba(103, 83, 180, 0.13);
+  border-radius: 999px;
+
+  background: #ffffff;
+
+  color: #625b6a;
+
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.bookingRequestFilter:hover {
+  transform: translateY(-1px);
+
+  border-color: rgba(112, 73, 202, 0.28);
+
+  color: #7049ca;
+}
+
+
+.bookingRequestFilter > span {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: 22px;
+  height: 22px;
+
+  padding: 0 6px;
+
+  border-radius: 999px;
+
+  background: rgba(112, 73, 202, 0.07);
+
+  color: #7049ca;
+
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+
+.bookingRequestFilter.active {
+  border-color: transparent;
+
+  background:
+    linear-gradient(
+      135deg,
+      #28a9ff 0%,
+      #6657e8 42%,
+      #a844d7 72%,
+      #e53b9c 100%
+    );
+
+  color: #ffffff;
+
+  box-shadow:
+    0 6px 18px
+    rgba(105, 74, 197, 0.2);
+}
+
+
+.bookingRequestFilter.active > span {
+  background: rgba(255, 255, 255, 0.18);
+
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   LISTE
+========================================================= */
+
+.animalBookingRequestsList {
+  display: grid;
+
+  gap: 18px;
+}
+
+
+/* =========================================================
+   CARTE
+========================================================= */
+
+.animalBookingRequestCard {
+  position: relative;
+
+  overflow: hidden;
+
+  padding: 22px 22px 20px 25px;
+
+  border: 1px solid rgba(103, 83, 180, 0.12);
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff 0%,
+      #fefcff 100%
+    );
+
+  box-shadow:
+    0 6px 22px
+    rgba(71, 52, 116, 0.055);
+}
+
+
+.animalBookingRequestCard::before {
+  content: "";
+
+  position: absolute;
+
+  top: 16px;
+  bottom: 16px;
+  left: 0;
+
+  width: 4px;
+
+  border-radius: 0 5px 5px 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      #28a9ff,
+      #6657e8,
+      #a844d7,
+      #e53b9c
+    );
+}
+
+
+.animalBookingRequestCard.status-refused::before {
+  background: #c8c2ca;
+}
+
+
+.animalBookingRequestCard.status-accepted::before {
+  background:
+    linear-gradient(
+      180deg,
+      #28a9ff,
+      #6657e8,
+      #a844d7
+    );
+}
+
+
+/* =========================================================
+   HEADER CARTE
+========================================================= */
+
+.bookingRequestCardHeader {
+  display: flex;
+
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 18px;
+
+  padding-bottom: 18px;
+
+  border-bottom:
+    1px solid
+    rgba(103, 83, 180, 0.08);
+}
+
+
+.bookingRequestProfessional {
+  display: grid;
+
+  gap: 3px;
+
+  min-width: 0;
+}
+
+
+.bookingRequestSmallLabel {
+  color: #958e9b;
+
+  font-size: 0.7rem;
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.045em;
+}
+
+
+.bookingRequestProfessional strong {
+  overflow: hidden;
+
+  color: #211b2d;
+
+  font-size: 1.08rem;
+  font-weight: 800;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+.bookingRequestService {
+  color: #746d7c;
+
+  font-size: 0.87rem;
+}
+
+
+/* =========================================================
+   STATUT
+========================================================= */
+
+.bookingRequestStatus {
+  display: inline-flex;
+
+  flex: 0 0 auto;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 6px 11px;
+
+  border-radius: 999px;
+
+  font-size: 0.74rem;
+  font-weight: 750;
+
+  white-space: nowrap;
+}
+
+
+.bookingRequestStatus.status-pending {
+  border: 1px solid rgba(112, 73, 202, 0.13);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(40, 169, 255, 0.09),
+      rgba(102, 87, 232, 0.1)
+    );
+
+  color: #6849bf;
+}
+
+
+.bookingRequestStatus.status-alternativeProposed {
+  border: 1px solid rgba(218, 59, 157, 0.15);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(102, 87, 232, 0.09),
+      rgba(229, 59, 156, 0.1)
+    );
+
+  color: #a83c9a;
+}
+
+
+.bookingRequestStatus.status-accepted {
+  border: 1px solid rgba(48, 160, 103, 0.15);
+
+  background: rgba(48, 160, 103, 0.08);
+
+  color: #278755;
+}
+
+
+.bookingRequestStatus.status-refused {
+  border: 1px solid rgba(211, 57, 89, 0.14);
+
+  background: rgba(211, 57, 89, 0.07);
+
+  color: #c13551;
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.bookingRequestSection {
+  margin-top: 19px;
+}
+
+
+.bookingRequestSectionTitle {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  margin-bottom: 9px;
+
+  color: #3f3748;
+
+  font-size: 0.81rem;
+  font-weight: 750;
+}
+
+
+.bookingRequestSectionTitle.proposed {
+  color: #8747ba;
+}
+
+
+.bookingRequestSectionIcon {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 25px;
+  height: 25px;
+
+  border-radius: 8px;
+
+  background: rgba(102, 87, 232, 0.065);
+
+  font-size: 0.8rem;
+}
+
+
+/* =========================================================
+   DATES
+========================================================= */
+
+.bookingRequestDateCard {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding: 13px 15px;
+
+  border: 1px solid rgba(103, 83, 180, 0.09);
+  border-radius: 13px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(40, 169, 255, 0.03),
+      rgba(102, 87, 232, 0.04)
+    );
+}
+
+
+.bookingRequestDateCard strong {
+  color: #292230;
+
+  font-size: 0.88rem;
+  font-weight: 750;
+
+  text-transform: capitalize;
+}
+
+
+.bookingRequestDateCard > span {
+  color: #7049ca;
+
+  font-size: 0.87rem;
+  font-weight: 800;
+}
+
+
+.bookingRequestDateCard.proposed {
+  border-color: rgba(168, 68, 215, 0.15);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(102, 87, 232, 0.07),
+      rgba(168, 68, 215, 0.07),
+      rgba(229, 59, 156, 0.055)
+    );
+}
+
+
+/* =========================================================
+   INFORMATIONS TRANSMISES
+========================================================= */
+
+.bookingRequestInformations {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 9px;
+}
+
+
+.bookingRequestInformation {
+  display: grid;
+
+  gap: 4px;
+
+  padding: 11px 13px;
+
+  border: 1px solid rgba(103, 83, 180, 0.08);
+  border-radius: 11px;
+
+  background: #fdfcff;
+}
+
+
+.bookingRequestInformation > span {
+  color: #918a98;
+
+  font-size: 0.71rem;
+  font-weight: 650;
+}
+
+
+.bookingRequestInformation > strong {
+  color: #4a424f;
+
+  font-size: 0.83rem;
+  font-weight: 650;
+
+  line-height: 1.45;
+
+  overflow-wrap: anywhere;
+}
+
+
+.bookingRequestInformationFull {
+  grid-column: 1 / -1;
+}
+
+
+/* =========================================================
+   MESSAGE STATUT
+========================================================= */
+
+.bookingRequestStatusMessage {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top: 19px;
+
+  padding: 12px 14px;
+
+  border-radius: 12px;
+}
+
+
+.bookingRequestStatusMessage > span {
+  display: flex;
+
+  flex: 0 0 auto;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 27px;
+  height: 27px;
+
+  border-radius: 50%;
+
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+
+
+.bookingRequestStatusMessage p {
+  margin: 0;
+
+  font-size: 0.82rem;
+  font-weight: 600;
+
+  line-height: 1.45;
+}
+
+
+/* PENDING */
+
+.bookingRequestStatusMessage.status-pending {
+  background: rgba(102, 87, 232, 0.055);
+
+  color: #6653a7;
+}
+
+.bookingRequestStatusMessage.status-pending > span {
+  background: rgba(102, 87, 232, 0.09);
+}
+
+
+/* ALTERNATIVE */
+
+.bookingRequestStatusMessage.status-alternativeProposed {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(102, 87, 232, 0.06),
+      rgba(229, 59, 156, 0.055)
+    );
+
+  color: #85469c;
+}
+
+.bookingRequestStatusMessage.status-alternativeProposed > span {
+  background: rgba(168, 68, 215, 0.09);
+}
+
+
+/* ACCEPTÉ */
+
+.bookingRequestStatusMessage.status-accepted {
+  background: rgba(48, 160, 103, 0.06);
+
+  color: #297e52;
+}
+
+.bookingRequestStatusMessage.status-accepted > span {
+  background: rgba(48, 160, 103, 0.1);
+}
+
+
+/* REFUSÉ */
+
+.bookingRequestStatusMessage.status-refused {
+  background: rgba(211, 57, 89, 0.055);
+
+  color: #ad4055;
+}
+
+.bookingRequestStatusMessage.status-refused > span {
+  background: rgba(211, 57, 89, 0.09);
+}
+
+
+/* =========================================================
+   MOTIF REFUS
+========================================================= */
+
+.bookingRequestRefusal {
+  display: grid;
+
+  gap: 5px;
+
+  margin-top: 10px;
+
+  padding: 12px 14px;
+
+  border: 1px solid rgba(211, 57, 89, 0.12);
+  border-radius: 11px;
+
+  background: rgba(211, 57, 89, 0.035);
+}
+
+
+.bookingRequestRefusal > span {
+  color: #b13c54;
+
+  font-size: 0.72rem;
+  font-weight: 750;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.025em;
+}
+
+
+.bookingRequestRefusal p {
+  margin: 0;
+
+  color: #72545c;
+
+  font-size: 0.83rem;
+  line-height: 1.45;
+}
+
+
+/* =========================================================
+   CHARGEMENT
+========================================================= */
+
+.animalBookingRequestsLoading {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  min-height: 180px;
+
+  color: #77707f;
+
+  font-size: 0.9rem;
+}
+
+
+.bookingRequestLoader {
+  width: 20px;
+  height: 20px;
+
+  border: 2px solid rgba(102, 87, 232, 0.15);
+  border-top-color: #7652ce;
+  border-radius: 50%;
+
+  animation:
+    bookingRequestSpin
+    0.7s linear infinite;
+}
+
+
+@keyframes bookingRequestSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   ERREUR
+========================================================= */
+
+.animalBookingRequestsError {
+  padding: 13px 15px;
+
+  border: 1px solid rgba(211, 57, 89, 0.18);
+  border-radius: 13px;
+
+  background: rgba(211, 57, 89, 0.06);
+
+  color: #c13551;
+
+  font-size: 0.9rem;
+}
+
+
+/* =========================================================
+   VIDE
+========================================================= */
+
+.emptyBookingRequests,
+.emptyFilteredRequests {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  padding: 48px 24px;
+
+  border: 1px solid rgba(103, 83, 180, 0.11);
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff,
+      #fdfbff
+    );
+
+  text-align: center;
+
+  box-shadow:
+    0 6px 22px
+    rgba(71, 52, 116, 0.045);
+}
+
+
+.emptyBookingRequestsIcon {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 58px;
+  height: 58px;
+
+  margin-bottom: 15px;
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(40, 169, 255, 0.1),
+      rgba(102, 87, 232, 0.11),
+      rgba(229, 59, 156, 0.08)
+    );
+
+  font-size: 1.45rem;
+}
+
+
+.emptyBookingRequests h2 {
+  margin: 0 0 7px;
+
+  color: #211b2d;
+
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+
+.emptyBookingRequests p,
+.emptyFilteredRequests p {
+  margin: 0;
+
+  color: #77707f;
+
+  font-size: 0.88rem;
+}
+
+
+.emptyFilteredRequests > span {
+  margin-bottom: 10px;
+
+  font-size: 1.4rem;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 650px) {
+
+  .animalBookingRequestsPage {
+    width: calc(100% - 24px);
+
+    padding: 24px 0 45px;
+  }
+
+
+  .animalBookingRequestsHeader h1 {
+    font-size: 1.65rem;
+  }
+
+
+  .bookingRequestFilters {
+    margin-right: -12px;
+    margin-left: -12px;
+
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+
+  .animalBookingRequestCard {
+    padding: 18px 15px 17px 19px;
+
+    border-radius: 17px;
+  }
+
+
+  .bookingRequestCardHeader {
+    gap: 12px;
+  }
+
+
+  .bookingRequestProfessional strong {
+    font-size: 0.98rem;
+  }
+
+
+  .bookingRequestStatus {
+    padding: 5px 8px;
+
+    font-size: 0.69rem;
+  }
+
+
+  .bookingRequestInformations {
+    grid-template-columns: 1fr;
+  }
+
+
+  .bookingRequestInformationFull {
+    grid-column: auto;
+  }
+
+}
+
+
+@media (max-width: 430px) {
+
+  .bookingRequestCardHeader {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+
+  .bookingRequestProfessional strong {
+    white-space: normal;
+  }
+
+
+  .bookingRequestDateCard {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 4px;
+  }
+
+}

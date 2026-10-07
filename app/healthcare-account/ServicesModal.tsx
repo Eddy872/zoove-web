@@ -22,6 +22,9 @@ type ServiceFormItem = {
   price: string
   duration: string
   devise: string
+  bookingMode: string
+  requiredInformations: string[]
+  customQuestions: string[]
 }
 
 type ServicesModalProps = {
@@ -79,7 +82,10 @@ function createEmptyService():
     description: "",
     price: "",
     duration: "",
-    devise: "€"
+    devise: "€",
+    bookingMode: "direct",
+    requiredInformations: [],
+    customQuestions: []
   }
 }
 
@@ -108,7 +114,20 @@ function createInitialServices(
         : "",
 
     devise:
-      service.devise || "€"
+      service.devise || "€",
+
+    bookingMode:
+      service.bookingMode || "direct",
+
+    requiredInformations:
+      Array.isArray(service.requiredInformations)
+        ? service.requiredInformations
+        : [],
+
+    customQuestions:
+      Array.isArray(service.customQuestions)
+        ? service.customQuestions
+        : []
   }))
 }
 
@@ -222,6 +241,97 @@ export default function ServicesModal({
     )
   }
 
+  function toggleRequiredInformation(
+    serviceIndex: number,
+    information: string
+  ) {
+    setFormServices(currentServices =>
+      currentServices.map((service, index) => {
+        if (index !== serviceIndex) {
+          return service
+        }
+
+        const selected =
+          service.requiredInformations.includes(
+            information
+          )
+
+        return {
+          ...service,
+          requiredInformations: selected
+            ? service.requiredInformations.filter(
+                item => item !== information
+              )
+            : [
+                ...service.requiredInformations,
+                information
+              ]
+        }
+      })
+    )
+  }
+
+  function addCustomQuestion(
+    serviceIndex: number
+  ) {
+    setFormServices(currentServices =>
+      currentServices.map((service, index) =>
+        index === serviceIndex
+          ? {
+              ...service,
+              customQuestions: [
+                ...service.customQuestions,
+                ""
+              ]
+            }
+          : service
+      )
+    )
+  }
+
+  function updateCustomQuestion(
+    serviceIndex: number,
+    questionIndex: number,
+    value: string
+  ) {
+    setFormServices(currentServices =>
+      currentServices.map((service, index) =>
+        index === serviceIndex
+          ? {
+              ...service,
+              customQuestions:
+                service.customQuestions.map(
+                  (question, index) =>
+                    index === questionIndex
+                      ? value
+                      : question
+                )
+            }
+          : service
+      )
+    )
+  }
+
+  function removeCustomQuestion(
+    serviceIndex: number,
+    questionIndex: number
+  ) {
+    setFormServices(currentServices =>
+      currentServices.map((service, index) =>
+        index === serviceIndex
+          ? {
+              ...service,
+              customQuestions:
+                service.customQuestions.filter(
+                  (_, index) =>
+                    index !== questionIndex
+                )
+            }
+          : service
+      )
+    )
+  }
+
   function validate(): boolean {
     const invalidService =
       formServices.find(
@@ -319,7 +429,18 @@ export default function ServicesModal({
 
             devise:
               service.devise.trim() ||
-              "€"
+              "€",
+
+            bookingMode:
+              service.bookingMode,
+
+            requiredInformations:
+              service.requiredInformations,
+
+            customQuestions:
+              service.customQuestions
+                .map(question => question.trim())
+                .filter(Boolean)
           })
         )
 
@@ -646,6 +767,220 @@ export default function ServicesModal({
                           }
                         />
                       </label>
+
+                      <div className="servicesModalFullWidth serviceBookingSection">
+                        <div className="serviceBookingSectionHeader">
+                          <div>
+                            <h4>{translate(language, "Prise de rendez-vous")}</h4>
+                            <p>
+                              {translate(
+                                language,
+                                "Choisissez comment cette prestation peut être réservée."
+                              )}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="serviceBookingModeGrid">
+                          <button
+                            type="button"
+                            className={
+                              service.bookingMode === "direct"
+                                ? "serviceBookingModeCard serviceBookingModeCardActive"
+                                : "serviceBookingModeCard"
+                            }
+                            onClick={() =>
+                              updateService(
+                                serviceIndex,
+                                "bookingMode",
+                                "direct"
+                              )
+                            }
+                            disabled={isSaving}
+                          >
+                            <span className="serviceBookingModeIcon">⚡</span>
+                            <span className="serviceBookingModeContent">
+                              <strong>{translate(language, "Réservation directe")}</strong>
+                              <small>
+                                {translate(
+                                  language,
+                                  "Le rendez-vous est confirmé directement sur un créneau disponible."
+                                )}
+                              </small>
+                            </span>
+                            <span className="serviceBookingModeCheck">
+                              {service.bookingMode === "direct" ? "✓" : ""}
+                            </span>
+                          </button>
+
+                          <button
+                            type="button"
+                            className={
+                              service.bookingMode === "approvalRequired"
+                                ? "serviceBookingModeCard serviceBookingModeCardActive"
+                                : "serviceBookingModeCard"
+                            }
+                            onClick={() =>
+                              updateService(
+                                serviceIndex,
+                                "bookingMode",
+                                "approvalRequired"
+                              )
+                            }
+                            disabled={isSaving}
+                          >
+                            <span className="serviceBookingModeIcon">✓</span>
+                            <span className="serviceBookingModeContent">
+                              <strong>{translate(language, "Validation requise")}</strong>
+                              <small>
+                                {translate(
+                                  language,
+                                  "Le propriétaire envoie une demande que vous acceptez avant de créer le rendez-vous."
+                                )}
+                              </small>
+                            </span>
+                            <span className="serviceBookingModeCheck">
+                              {service.bookingMode === "approvalRequired" ? "✓" : ""}
+                            </span>
+                          </button>
+                        </div>
+
+                        {service.bookingMode === "approvalRequired" && (
+                          <>
+                            <div className="serviceBookingSubsection">
+                              <div className="serviceBookingSubsectionHeader">
+                                <h5>{translate(language, "Informations à demander")}</h5>
+                                <p>
+                                  {translate(
+                                    language,
+                                    "Sélectionnez les informations nécessaires avant d'accepter la demande."
+                                  )}
+                                </p>
+                              </div>
+
+                              <div className="serviceRequiredInfoGrid">
+                                {[
+                                  ["weight", "Poids"],
+                                  ["behavior", "Comportement"],
+                                  ["coatCondition", "État du pelage"],
+                                  ["notes", "Informations complémentaires"]
+                                ].map(([value, label]) => {
+                                  const selected =
+                                    service.requiredInformations.includes(value)
+
+                                  return (
+                                    <button
+                                      key={value}
+                                      type="button"
+                                      className={
+                                        selected
+                                          ? "serviceRequiredInfoOption serviceRequiredInfoOptionActive"
+                                          : "serviceRequiredInfoOption"
+                                      }
+                                      onClick={() =>
+                                        toggleRequiredInformation(
+                                          serviceIndex,
+                                          value
+                                        )
+                                      }
+                                      disabled={isSaving}
+                                    >
+                                      <span className="serviceRequiredInfoCheckbox">
+                                        {selected ? "✓" : ""}
+                                      </span>
+                                      <span>{translate(language, label)}</span>
+                                    </button>
+                                  )
+                                })}
+                              </div>
+                            </div>
+
+                            <div className="serviceBookingSubsection">
+                              <div className="serviceBookingSubsectionHeader serviceCustomQuestionsHeader">
+                                <div>
+                                  <h5>{translate(language, "Questions personnalisées")}</h5>
+                                  <p>
+                                    {translate(
+                                      language,
+                                      "Ajoutez les questions propres à cette prestation."
+                                    )}
+                                  </p>
+                                </div>
+
+                                <button
+                                  type="button"
+                                  className="serviceAddQuestionButton"
+                                  onClick={() =>
+                                    addCustomQuestion(serviceIndex)
+                                  }
+                                  disabled={isSaving}
+                                >
+                                  + {translate(language, "Ajouter une question")}
+                                </button>
+                              </div>
+
+                              {service.customQuestions.length === 0 ? (
+                                <div className="serviceCustomQuestionsEmpty">
+                                  {translate(
+                                    language,
+                                    "Aucune question personnalisée."
+                                  )}
+                                </div>
+                              ) : (
+                                <div className="serviceCustomQuestionsList">
+                                  {service.customQuestions.map(
+                                    (question, questionIndex) => (
+                                      <div
+                                        className="serviceCustomQuestionRow"
+                                        key={`${service.id}-${questionIndex}`}
+                                      >
+                                        <span className="serviceCustomQuestionNumber">
+                                          {questionIndex + 1}
+                                        </span>
+
+                                        <input
+                                          type="text"
+                                          value={question}
+                                          placeholder={translate(
+                                            language,
+                                            "Ex. Votre animal suit-il un traitement ?"
+                                          )}
+                                          onChange={event =>
+                                            updateCustomQuestion(
+                                              serviceIndex,
+                                              questionIndex,
+                                              event.target.value
+                                            )
+                                          }
+                                          disabled={isSaving}
+                                        />
+
+                                        <button
+                                          type="button"
+                                          className="serviceCustomQuestionRemove"
+                                          onClick={() =>
+                                            removeCustomQuestion(
+                                              serviceIndex,
+                                              questionIndex
+                                            )
+                                          }
+                                          disabled={isSaving}
+                                          aria-label={translate(
+                                            language,
+                                            "Supprimer la question"
+                                          )}
+                                        >
+                                          ×
+                                        </button>
+                                      </div>
+                                    )
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          </>
+                        )}
+                      </div>
                     </div>
                   </div>
                 )

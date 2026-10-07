@@ -5,14 +5,13 @@ export type SaveRDVData = {
   serviceID: string
   collaborator: string
   phoneNumber: string
+  infos: string
 
   authorizationID: string
 
   stripePaymentIntentID: string
   stripeTransferID: string
   paymentStatus: string
-
-  duration: number
 }
 
 export async function saveRDV(
@@ -38,6 +37,7 @@ export async function saveRDV(
         serviceID: data.serviceID,
         collaborator: data.collaborator,
         phoneNumber: data.phoneNumber,
+        infos: data.infos,
 
         authorizationID:
           data.authorizationID,
@@ -49,9 +49,7 @@ export async function saveRDV(
           data.stripeTransferID,
 
         paymentStatus:
-          data.paymentStatus,
-
-        duration: data.duration
+          data.paymentStatus
       })
     }
   )

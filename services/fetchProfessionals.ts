@@ -667,9 +667,18 @@ async function fetchProfessionalSourcePage(
     const response =
       await database.performQuery(query)
       
-      const activeRecords = (
-        response.records ?? []
-      ).filter(hasActivePackage)
+      
+       const activeRecords =
+         (response.records ?? []).filter(
+           (record: any) =>
+             hasActivePackage(record)
+         )
+       
+      
+      /*
+       const activeRecords =
+         response.records ?? []
+       */
 
     console.log(
       `Fetch ${source.recordType}`,

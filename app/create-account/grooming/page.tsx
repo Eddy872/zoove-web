@@ -62,6 +62,10 @@ type ServiceFormItem = {
   price: string
   duration: string
   devise: string
+
+  bookingMode: string
+  requiredInformations: string[]
+  customQuestions: string[]
 }
 
 const weekDays: WeekDay[] = [
@@ -526,43 +530,164 @@ export default function CreateGroomingAccountPage() {
       )
     }
 
-  const addService = () => {
-    setServices(
-      (currentServices) => [
-        ...currentServices,
-        {
-          id: generateID(),
-          name: "",
-          description: "",
-          price: "",
-          duration: "",
-          devise: "€"
-        }
-      ]
-    )
-  }
+    const addService = () => {
+      setServices(
+        currentServices => [
+          ...currentServices,
+          {
+            id: generateID(),
+            name: "",
+            description: "",
+            price: "",
+            duration: "",
+            devise: "€",
 
-  const updateService = (
-    serviceIndex: number,
-    field: keyof Omit<
-      ServiceFormItem,
-      "id"
-    >,
-    value: string
-  ) => {
-    setServices(
-      (currentServices) =>
-        currentServices.map(
-          (service, index) =>
-            index === serviceIndex
-              ? {
-                  ...service,
-                  [field]: value
-                }
-              : service
-        )
-    )
-  }
+            bookingMode: "direct",
+            requiredInformations: [],
+            customQuestions: []
+          }
+        ]
+      )
+    }
+
+    const updateService = <
+      K extends keyof Omit<
+        ServiceFormItem,
+        "id"
+      >
+    >(
+      serviceIndex: number,
+      field: K,
+      value: ServiceFormItem[K]
+    ) => {
+      setServices(
+        currentServices =>
+          currentServices.map(
+            (service, index) =>
+              index === serviceIndex
+                ? {
+                    ...service,
+                    [field]: value
+                  }
+                : service
+          )
+      )
+    }
+    
+    const toggleRequiredInformation = (
+      serviceIndex: number,
+      information: string
+    ) => {
+      setServices(
+        currentServices =>
+          currentServices.map(
+            (service, index) => {
+              if (
+                index !== serviceIndex
+              ) {
+                return service
+              }
+
+              const exists =
+                service.requiredInformations.includes(
+                  information
+                )
+
+              return {
+                ...service,
+
+                requiredInformations:
+                  exists
+                    ? service.requiredInformations.filter(
+                        item =>
+                          item !== information
+                      )
+                    : [
+                        ...service.requiredInformations,
+                        information
+                      ]
+              }
+            }
+          )
+      )
+    }
+    
+    const addCustomQuestion = (
+      serviceIndex: number
+    ) => {
+      setServices(
+        currentServices =>
+          currentServices.map(
+            (service, index) =>
+              index === serviceIndex
+                ? {
+                    ...service,
+                    customQuestions: [
+                      ...service.customQuestions,
+                      ""
+                    ]
+                  }
+                : service
+          )
+      )
+    }
+
+    const updateCustomQuestion = (
+      serviceIndex: number,
+      questionIndex: number,
+      value: string
+    ) => {
+      setServices(
+        currentServices =>
+          currentServices.map(
+            (service, index) => {
+              if (
+                index !== serviceIndex
+              ) {
+                return service
+              }
+
+              return {
+                ...service,
+
+                customQuestions:
+                  service.customQuestions.map(
+                    (
+                      question,
+                      index
+                    ) =>
+                      index === questionIndex
+                        ? value
+                        : question
+                  )
+              }
+            }
+          )
+      )
+    }
+
+    const removeCustomQuestion = (
+      serviceIndex: number,
+      questionIndex: number
+    ) => {
+      setServices(
+        currentServices =>
+          currentServices.map(
+            (service, index) =>
+              index === serviceIndex
+                ? {
+                    ...service,
+
+                    customQuestions:
+                      service.customQuestions.filter(
+                        (_, index) =>
+                          index !== questionIndex
+                      )
+                  }
+                : service
+          )
+      )
+    }
 
   const removeService = (
     serviceIndex: number
@@ -820,41 +945,53 @@ export default function CreateGroomingAccountPage() {
                 )
             )
 
-          const formattedServices:
-            Service[] =
-            services.map(
-              (service) => ({
-                id:
-                  service.id ||
-                  generateID(),
+            const formattedServices:
+              Service[] =
+              services.map(
+                service => ({
+                  id:
+                    service.id ||
+                    generateID(),
 
-                groomingID: "",
+                  groomingID: "",
 
-                name:
-                  service.name.trim(),
+                  name:
+                    service.name.trim(),
 
-                description:
-                  service.description.trim(),
+                  description:
+                    service.description.trim(),
 
-                price:
-                  Number(
-                    service.price.replace(
-                      ",",
-                      "."
-                    )
-                  ),
+                  price:
+                    Number(
+                      service.price.replace(
+                        ",",
+                        "."
+                      )
+                    ),
 
-                duration:
-                  Number(
-                    service.duration
-                  ),
+                  duration:
+                    Number(
+                      service.duration
+                    ),
 
-                devise:
-                  service.devise.trim() ||
-                  "€"
-              })
-            )
+                  devise:
+                    service.devise.trim() ||
+                    "€",
 
+                  bookingMode:
+                    service.bookingMode,
+
+                  requiredInformations:
+                    service.requiredInformations,
+
+                  customQuestions:
+                    service.customQuestions
+                      .map(question =>
+                        question.trim()
+                      )
+                      .filter(Boolean)
+                })
+              )
           const payload = {
             name:
               name.trim(),
@@ -1550,163 +1687,346 @@ export default function CreateGroomingAccountPage() {
                       </button>
                     </div>
 
-                    <div className="createAccountFieldsGrid">
-                      <label>
-                        <span>
-                          {translate(
-                            language,
-                            "Nom"
-                          )}
-                        </span>
+                      <div className="createAccountFieldsGrid">
+                        <label>
+                          <span>
+                            {translate(
+                              language,
+                              "Nom"
+                            )}
+                          </span>
 
-                        <input
-                          type="text"
-                          value={
-                            service.name
-                          }
-                          onChange={(
-                            event
-                          ) =>
-                            updateService(
-                              serviceIndex,
-                              "name",
-                              event.target
-                                .value
-                            )
-                          }
-                          required
-                        />
-                      </label>
+                          <input
+                            type="text"
+                            value={service.name}
+                            onChange={event =>
+                              updateService(
+                                serviceIndex,
+                                "name",
+                                event.target.value
+                              )
+                            }
+                            required
+                          />
+                        </label>
 
-                      <label>
-                        <span>
-                          {translate(
-                            language,
-                            "Devise"
-                          )}
-                        </span>
+                        <label>
+                          <span>
+                            {translate(
+                              language,
+                              "Devise"
+                            )}
+                          </span>
 
-                        <select
-                          value={
-                            service.devise
-                          }
-                          onChange={(
-                            event
-                          ) =>
-                            updateService(
-                              serviceIndex,
-                              "devise",
-                              event.target
-                                .value
-                            )
-                          }
-                        >
-                          {availableCurrencies.map(
-                            (
-                              currency
-                            ) => (
-                              <option
-                                key={
-                                  currency.code
+                          <select
+                            value={service.devise}
+                            onChange={event =>
+                              updateService(
+                                serviceIndex,
+                                "devise",
+                                event.target.value
+                              )
+                            }
+                          >
+                            {availableCurrencies.map(
+                              currency => (
+                                <option
+                                  key={currency.code}
+                                  value={currency.code}
+                                >
+                                  {currency.label}
+                                </option>
+                              )
+                            )}
+                          </select>
+                        </label>
+
+                        <label className="fullWidthField">
+                          <span>
+                            {translate(
+                              language,
+                              "Description"
+                            )}
+                          </span>
+
+                          <textarea
+                            value={service.description}
+                            onChange={event =>
+                              updateService(
+                                serviceIndex,
+                                "description",
+                                event.target.value
+                              )
+                            }
+                            rows={3}
+                            required
+                          />
+                        </label>
+
+                        <label>
+                          <span>
+                            {translate(
+                              language,
+                              "Prix minimum"
+                            )}
+                          </span>
+
+                          <input
+                            type="number"
+                            min="0"
+                            step="0.01"
+                            value={service.price}
+                            onChange={event =>
+                              updateService(
+                                serviceIndex,
+                                "price",
+                                event.target.value
+                              )
+                            }
+                            required
+                          />
+                        </label>
+
+                        <label>
+                          <span>
+                            {translate(
+                              language,
+                              "Durée minimum (minutes)"
+                            )}
+                          </span>
+
+                          <input
+                            type="number"
+                            min="1"
+                            step="1"
+                            value={service.duration}
+                            onChange={event =>
+                              updateService(
+                                serviceIndex,
+                                "duration",
+                                event.target.value
+                              )
+                            }
+                            required
+                          />
+                        </label>
+
+                        <label className="fullWidthField">
+                          <span>
+                            {translate(
+                              language,
+                              "Mode de réservation"
+                            )}
+                          </span>
+
+                          <select
+                            value={service.bookingMode}
+                            onChange={event =>
+                              updateService(
+                                serviceIndex,
+                                "bookingMode",
+                                event.target.value
+                              )
+                            }
+                          >
+                            <option value="direct">
+                              {translate(
+                                language,
+                                "Réservation directe"
+                              )}
+                            </option>
+
+                            <option value="approvalRequired">
+                              {translate(
+                                language,
+                                "Demande de rendez-vous"
+                              )}
+                            </option>
+                          </select>
+                        </label>
+
+                        <div className="fullWidthField serviceOptionsSection">
+                          <span className="serviceSectionLabel">
+                            {translate(
+                              language,
+                              "Informations demandées avant le rendez-vous"
+                            )}
+                          </span>
+
+                          <div className="serviceCheckboxGrid">
+                            <label className="serviceCheckboxOption">
+                              <input
+                                type="checkbox"
+                                checked={
+                                  service.requiredInformations.includes(
+                                    "behavior"
+                                  )
                                 }
-                                value={
-                                  currency.code
+                                onChange={() =>
+                                  toggleRequiredInformation(
+                                    serviceIndex,
+                                    "behavior"
+                                  )
                                 }
-                              >
-                                {
-                                  currency.label
+                              />
+
+                              <span>
+                                {translate(
+                                  language,
+                                  "Comportement"
+                                )}
+                              </span>
+                            </label>
+
+                            <label className="serviceCheckboxOption">
+                              <input
+                                type="checkbox"
+                                checked={
+                                  service.requiredInformations.includes(
+                                    "coatCondition"
+                                  )
                                 }
-                              </option>
-                            )
+                                onChange={() =>
+                                  toggleRequiredInformation(
+                                    serviceIndex,
+                                    "coatCondition"
+                                  )
+                                }
+                              />
+
+                              <span>
+                                {translate(
+                                  language,
+                                  "État du pelage"
+                                )}
+                              </span>
+                            </label>
+
+                            <label className="serviceCheckboxOption">
+                              <input
+                                type="checkbox"
+                                checked={
+                                  service.requiredInformations.includes(
+                                    "weight"
+                                  )
+                                }
+                                onChange={() =>
+                                  toggleRequiredInformation(
+                                    serviceIndex,
+                                    "weight"
+                                  )
+                                }
+                              />
+
+                              <span>
+                                {translate(
+                                  language,
+                                  "Poids"
+                                )}
+                              </span>
+                            </label>
+
+                            <label className="serviceCheckboxOption">
+                              <input
+                                type="checkbox"
+                                checked={
+                                  service.requiredInformations.includes(
+                                    "notes"
+                                  )
+                                }
+                                onChange={() =>
+                                  toggleRequiredInformation(
+                                    serviceIndex,
+                                    "notes"
+                                  )
+                                }
+                              />
+
+                              <span>
+                                {translate(
+                                  language,
+                                  "Informations complémentaires"
+                                )}
+                              </span>
+                            </label>
+                          </div>
+                        </div>
+
+                        <div className="fullWidthField serviceQuestionsSection">
+                          <span className="serviceSectionLabel">
+                            {translate(
+                              language,
+                              "Questions personnalisées"
+                            )}
+                          </span>
+
+                          {service.customQuestions.length > 0 && (
+                            <div className="serviceQuestionsList">
+                              {service.customQuestions.map(
+                                (
+                                  question,
+                                  questionIndex
+                                ) => (
+                                  <div
+                                    className="serviceQuestionRow"
+                                    key={questionIndex}
+                                  >
+                                    <input
+                                      type="text"
+                                      value={question}
+                                      placeholder={translate(
+                                        language,
+                                        "Votre question..."
+                                      )}
+                                      onChange={event =>
+                                        updateCustomQuestion(
+                                          serviceIndex,
+                                          questionIndex,
+                                          event.target.value
+                                        )
+                                      }
+                                    />
+
+                                    <button
+                                      type="button"
+                                      className="serviceQuestionRemove"
+                                      onClick={() =>
+                                        removeCustomQuestion(
+                                          serviceIndex,
+                                          questionIndex
+                                        )
+                                      }
+                                      aria-label={translate(
+                                        language,
+                                        "Supprimer la question"
+                                      )}
+                                    >
+                                      ×
+                                    </button>
+                                  </div>
+                                )
+                              )}
+                            </div>
                           )}
-                        </select>
-                      </label>
 
-                      <label className="fullWidthField">
-                        <span>
-                          {translate(
-                            language,
-                            "Description"
-                          )}
-                        </span>
+                          <button
+                            type="button"
+                            className="serviceAddQuestionButton"
+                            onClick={() =>
+                              addCustomQuestion(
+                                serviceIndex
+                              )
+                            }
+                          >
+                            <span>+</span>
 
-                        <textarea
-                          value={
-                            service.description
-                          }
-                          onChange={(
-                            event
-                          ) =>
-                            updateService(
-                              serviceIndex,
-                              "description",
-                              event.target
-                                .value
-                            )
-                          }
-                          rows={3}
-                          required
-                        />
-                      </label>
-
-                      <label>
-                        <span>
-                          {translate(
-                            language,
-                            "Prix"
-                          )}
-                        </span>
-
-                        <input
-                          type="number"
-                          min="0"
-                          step="0.01"
-                          value={
-                            service.price
-                          }
-                          onChange={(
-                            event
-                          ) =>
-                            updateService(
-                              serviceIndex,
-                              "price",
-                              event.target
-                                .value
-                            )
-                          }
-                          required
-                        />
-                      </label>
-
-                      <label>
-                        <span>
-                          {translate(
-                            language,
-                            "Durée (minutes)"
-                          )}
-                        </span>
-
-                        <input
-                          type="number"
-                          min="1"
-                          step="1"
-                          value={
-                            service.duration
-                          }
-                          onChange={(
-                            event
-                          ) =>
-                            updateService(
-                              serviceIndex,
-                              "duration",
-                              event.target
-                                .value
-                            )
-                          }
-                          required
-                        />
-                      </label>
-                    </div>
+                            {translate(
+                              language,
+                              "Ajouter une question"
+                            )}
+                          </button>
+                        </div>
+                      </div>
                   </div>
                 )
               )}

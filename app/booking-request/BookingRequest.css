@@ -1,0 +1,467 @@
+.bookingRequestPage {
+  min-height: 100vh;
+  background: #f6f7fb;
+  padding: 32px 18px 56px;
+  box-sizing: border-box;
+}
+
+.bookingRequestContainer {
+  width: min(920px, 100%);
+  margin: 0 auto;
+}
+
+.bookingRequestTopBar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.bookingRequestBackButton {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 6px 20px rgba(25, 31, 52, 0.08);
+  cursor: pointer;
+  font-size: 32px;
+  line-height: 1;
+}
+
+.bookingRequestEyebrow,
+.bookingRequestSmallLabel {
+  display: block;
+  margin-bottom: 5px;
+  color: #74798a;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.bookingRequestTopBar h1,
+.bookingRequestCard h2,
+.bookingRequestCard h3,
+.bookingRequestSuccess h1,
+.bookingRequestState h1 {
+  margin: 0;
+}
+
+.bookingRequestTopBar h1 {
+  font-size: clamp(25px, 4vw, 34px);
+}
+
+.bookingRequestCard {
+  margin-bottom: 18px;
+  padding: 24px;
+  border: 1px solid rgba(31, 36, 55, 0.07);
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 10px 32px rgba(25, 31, 52, 0.06);
+}
+
+.bookingRequestProfessional {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.bookingRequestProfessional img {
+  width: 66px;
+  height: 66px;
+  border-radius: 18px;
+  object-fit: cover;
+}
+
+.bookingRequestProfessional p,
+.bookingRequestServiceDescription,
+.bookingRequestSectionTitle p,
+.bookingRequestSuccessExplanation {
+  margin: 8px 0 0;
+  color: #6d7280;
+  line-height: 1.5;
+}
+
+.bookingRequestSectionHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.bookingRequestPrice {
+  flex: 0 0 auto;
+  text-align: right;
+}
+
+.bookingRequestPrice span {
+  display: block;
+  color: #777c8c;
+  font-size: 12px;
+}
+
+.bookingRequestPrice strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 18px;
+}
+
+.bookingRequestSectionTitle {
+  margin-bottom: 20px;
+}
+
+.bookingRequestSectionTitle h2 {
+  font-size: 20px;
+}
+
+.bookingRequestFields,
+.bookingRequestQuestions,
+.bookingRequestDateGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.bookingRequestField {
+  min-width: 0;
+}
+
+.bookingRequestFieldFull {
+  grid-column: 1 / -1;
+}
+
+.bookingRequestField label {
+  display: block;
+  margin-bottom: 8px;
+  color: #303443;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.bookingRequestField input:not([type="range"]),
+.bookingRequestField textarea {
+  width: 100%;
+  border: 1px solid #dfe2eb;
+  border-radius: 14px;
+  background: #fff;
+  padding: 13px 14px;
+  box-sizing: border-box;
+  color: #202331;
+  font: inherit;
+  outline: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.bookingRequestField textarea {
+  min-height: 105px;
+  resize: vertical;
+}
+
+.bookingRequestField input:not([type="range"]):focus,
+.bookingRequestField textarea:focus {
+  border-color: #6557e8;
+  box-shadow: 0 0 0 4px rgba(101, 87, 232, 0.1);
+}
+
+.bookingRequestWeight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bookingRequestWeight input {
+  flex: 1;
+}
+
+.bookingRequestWeight span {
+  color: #686d7b;
+  font-weight: 700;
+}
+
+.bookingRequestCustomQuestions {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #eceef4;
+}
+
+/* SITTER — DURÉE */
+.bookingRequestDurationField {
+  padding: 18px;
+  border: 1px solid #e4e1fa;
+  border-radius: 18px;
+  background: #faf9ff;
+}
+
+.bookingRequestDurationHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.bookingRequestDurationHeader label {
+  margin: 0;
+}
+
+.bookingRequestDurationHeader strong {
+  min-width: 58px;
+  padding: 7px 10px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 14px rgba(25, 31, 52, 0.08);
+  text-align: center;
+  font-size: 16px;
+}
+
+.bookingRequestDurationSlider {
+  width: 100%;
+  margin: 6px 0 2px;
+  cursor: pointer;
+  accent-color: #6557e8;
+}
+
+.bookingRequestDurationScale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  color: #858a98;
+  font-size: 12px;
+}
+
+.bookingRequestDurationLoading {
+  margin: 10px 0 0;
+  color: #6557e8;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.bookingRequestEmptyTime {
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  padding: 12px 14px;
+  box-sizing: border-box;
+  border: 1px dashed #d9dce6;
+  border-radius: 14px;
+  background: #fafbfc;
+  color: #777c89;
+}
+
+.bookingRequestTimeSlots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(82px, 1fr));
+  gap: 10px;
+}
+
+.bookingRequestTimeSlot {
+  min-height: 44px;
+  border: 1px solid #dfe2eb;
+  border-radius: 12px;
+  background: #fff;
+  color: #343847;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.bookingRequestTimeSlot:hover {
+  transform: translateY(-1px);
+  border-color: #8b7ff1;
+}
+
+.bookingRequestTimeSlotSelected {
+  border-color: #6557e8;
+  background: #6557e8;
+  color: #fff;
+  box-shadow: 0 7px 18px rgba(101, 87, 232, 0.22);
+}
+
+.bookingRequestOptionalTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bookingRequestOptionalTitle span {
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #f0f1f5;
+  color: #747987;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.bookingRequestPreferredDays {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.bookingRequestDayButton {
+  min-width: 56px;
+  min-height: 42px;
+  border: 1px solid #dfe2eb;
+  border-radius: 12px;
+  background: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.bookingRequestDayButtonSelected {
+  border-color: #6557e8;
+  background: #6557e8;
+  color: #fff;
+}
+
+.bookingRequestError {
+  margin: 0 0 18px;
+  padding: 13px 15px;
+  border-radius: 14px;
+  background: #fff1f2;
+  color: #b42335;
+  font-weight: 600;
+}
+
+.bookingRequestActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.bookingRequestPrimaryButton,
+.bookingRequestSecondaryButton {
+  min-height: 48px;
+  padding: 0 20px;
+  border-radius: 14px;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.bookingRequestPrimaryButton {
+  border: 0;
+  background: #6557e8;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(101, 87, 232, 0.22);
+}
+
+.bookingRequestSecondaryButton {
+  border: 1px solid #dfe2eb;
+  background: #fff;
+  color: #353947;
+}
+
+.bookingRequestPrimaryButton:disabled,
+.bookingRequestSecondaryButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.bookingRequestState,
+.bookingRequestSuccess {
+  width: min(620px, 100%);
+  margin: 60px auto;
+  padding: 34px;
+  box-sizing: border-box;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 10px 32px rgba(25, 31, 52, 0.07);
+  text-align: center;
+}
+
+.bookingRequestSuccessIcon {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: #eaf9ef;
+  color: #238b4b;
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.bookingRequestSuccess .bookingRequestPrimaryButton,
+.bookingRequestState .bookingRequestSecondaryButton {
+  margin-top: 22px;
+}
+
+.bookingRequestLoader {
+  width: 34px;
+  height: 34px;
+  margin: 0 auto 16px;
+  border: 4px solid #ececf4;
+  border-top-color: #6557e8;
+  border-radius: 50%;
+  animation: bookingRequestSpin 0.8s linear infinite;
+}
+
+@keyframes bookingRequestSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 680px) {
+  .bookingRequestPage {
+    padding: 20px 12px 40px;
+  }
+
+  .bookingRequestCard {
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .bookingRequestFields,
+  .bookingRequestQuestions,
+  .bookingRequestDateGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .bookingRequestFieldFull {
+    grid-column: auto;
+  }
+
+  .bookingRequestSectionHeader {
+    flex-direction: column;
+  }
+
+  .bookingRequestPrice {
+    text-align: left;
+  }
+
+  .bookingRequestActions {
+    flex-direction: column-reverse;
+  }
+
+  .bookingRequestPrimaryButton,
+  .bookingRequestSecondaryButton {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   TÉLÉPHONE / RAPPEL SMS
+========================================================= */
+
+.bookingRequestPhoneField {
+  margin-top: 20px;
+}
+
+.bookingRequestPhoneField input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.bookingRequestPhoneHint {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  opacity: 0.65;
+}

@@ -9,6 +9,9 @@ import {
 import { translate } from "@/translations/translations"
 import BookingModal from "@/components/BookingModal"
 import Image from "next/image"
+import {
+  useRouter
+} from "next/navigation"
 
 type Props = {
   pro: any
@@ -16,6 +19,7 @@ type Props = {
 
 export default function ProfessionalTabs({ pro }: Props) {
     const { language } = useLanguage()
+    const router = useRouter()
   const [selectedTab, setSelectedTab] = useState("Informations")
     const [bookingService, setBookingService] = useState<any>(null)
     const packageValue = Number(
@@ -47,6 +51,40 @@ export default function ProfessionalTabs({ pro }: Props) {
     "Samedi",
     "Dimanche"
   ]
+    
+    const handleServiceBooking = (
+      service: any
+    ) => {
+      if (
+        service.bookingMode ===
+        "approvalRequired"
+      ) {
+        router.push(
+          `/booking-request?professionalID=${encodeURIComponent(
+            pro.id
+          )}&serviceID=${encodeURIComponent(
+            service.id
+          )}`
+        )
+
+        return
+      }
+      setBookingService(
+        service
+      )
+    }
+    
+    const handleSitterBookingRequest = (
+      service: string
+    ) => {
+      router.push(
+        `/booking-request?professionalID=${encodeURIComponent(
+          pro.id
+        )}&serviceID=${encodeURIComponent(
+          service
+        )}&professionalType=sitter`
+      )
+    }
 
   const planning = pro.type === "Sitter" ? pro.availability : pro.schedules
     
@@ -206,29 +244,71 @@ export default function ProfessionalTabs({ pro }: Props) {
                   ))}
                 </div>
 
-              <div className="reserveContainer">
-                                    <button className="reserveServiceButton" onClick={() => setBookingService({ name: "Garde" })}>
-                   {translate(language, "Réserver")}
-                </button>
-              </div>
+                <div className="reserveContainer">
+                  <button
+                    className="reserveServiceButton"
+                    onClick={() =>
+                      handleSitterBookingRequest("garde")
+                    }
+                  >
+                    {translate(
+                      language,
+                      "Demander un créneau"
+                    )}
+                  </button>
+                </div>
             </>
           ) : (
             <>
-              {pro.services.map((service: any) => (
-                <div key={service.id} className="serviceCard">
-                  <div>
-                    <h3>{service.name}</h3>
-                    <p>{service.description}</p>
-                    <strong>
-                      {service.price} {service.devise} — {service.duration} min
-                    </strong>
-                  </div>
+               {pro.services.map((service: any) => (
+                 <div
+                   key={service.id}
+                   className="serviceCard"
+                 >
+                   <div className="serviceCardContent">
+                     <h3 className="serviceCardName">
+                       {service.name}
+                     </h3>
 
-                                                   <button className="reserveServiceButton" onClick={() => setBookingService(service)}>
-                   {translate(language, "Réserver")}
-                  </button>
-                </div>
-              ))}
+                     <div className="serviceCardMain">
+                       <p className="serviceCardDescription">
+                         {service.description}
+                       </p>
+                        <button
+                          type="button"
+                          className="reserveServiceButton"
+                          onClick={() =>
+                            handleServiceBooking(
+                              service
+                            )
+                          }
+                        >
+                          {translate(
+                            language,
+                            service.bookingMode ===
+                              "approvalRequired"
+                              ? "Demander un créneau"
+                              : "Réserver"
+                          )}
+                        </button>
+                     </div>
+
+                     <div className="serviceCardPrice">
+                       <span>
+                         {translate(
+                           language,
+                           "À partir de "
+                         )}
+                       </span>
+
+                       <strong>
+                         {service.price}{" "}
+                         {service.devise}
+                       </strong>
+                     </div>
+                   </div>
+                 </div>
+               ))}
             </>
           )}
         </section>

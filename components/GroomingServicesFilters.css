@@ -1,0 +1,109 @@
+.groomingServiceFilters {
+  margin: 0 7% 24px;
+  padding: 20px 24px;
+
+  background: #ffffff;
+  border-radius: 20px;
+
+  box-shadow:
+    0 10px 25px rgba(26, 20, 80, 0.08);
+}
+
+.groomingServiceFiltersTitle {
+  display: block;
+
+  margin-bottom: 14px;
+
+  color: #09113d;
+
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.groomingServiceFiltersOptions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.groomingServiceFilter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 16px;
+
+  background: #f8f7fb;
+  border: 1px solid #e7e1eb;
+  border-radius: 999px;
+
+  color: #332a3d;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.groomingServiceFilter:hover {
+  transform: translateY(-1px);
+
+  border-color: #7c4dff;
+
+  box-shadow:
+    0 6px 16px rgba(124, 77, 255, 0.12);
+}
+
+.groomingServiceFilter input {
+  width: 18px;
+  height: 18px;
+
+  margin: 0;
+
+  accent-color: #7c4dff;
+
+  cursor: pointer;
+}
+
+.groomingServiceFilter:has(input:checked) {
+  color: white;
+
+  border-color: transparent;
+
+  background: linear-gradient(
+    135deg,
+    #00bfff 0%,
+    #536dfe 30%,
+    #7c4dff 55%,
+    #d946ef 80%,
+    #ff4fa3 100%
+  );
+
+  box-shadow:
+    0 8px 20px rgba(124, 77, 255, 0.22);
+}
+
+.groomingServiceFilter:has(input:checked) input {
+  accent-color: #ffffff;
+}
+
+@media (max-width: 600px) {
+
+  .groomingServiceFilters {
+    padding: 18px;
+  }
+
+  .groomingServiceFiltersOptions {
+    gap: 10px;
+  }
+
+  .groomingServiceFilter {
+    padding: 9px 13px;
+    font-size: 13px;
+  }
+}

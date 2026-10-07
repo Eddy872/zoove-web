@@ -33,6 +33,7 @@ import {
 
 import "./ProfessionalAgenda.css"
 
+
 type ProfessionalAccountType =
   | "sitter"
   | "grooming"
@@ -79,14 +80,18 @@ type AnimalClient =
     >
   >
 
-type AgendaService =
-  Awaited<
-    ReturnType<
-      typeof fetchServicesForProfessional
-    >
-  > extends Array<infer Item>
-    ? Item
-    : never
+type AgendaService = {
+  id: string
+  name: string
+  description?: string
+  price?: number
+  duration?: number
+  devise?: string
+  bookingMode?: string
+  requiredInformations?: string[]
+  customQuestions?: string[]
+}
+
 
 const HOURS = Array.from(
   { length: 13 },
@@ -117,6 +122,7 @@ const PAYMENT_LABELS: Record<
 
 const HOUR_HEIGHT = 88
 
+
 function normalizeLanguage(
   value: unknown
 ): Language {
@@ -135,6 +141,7 @@ function normalizeLanguage(
   return "fr"
 }
 
+
 function pad(
   value: number
 ) {
@@ -145,6 +152,7 @@ function pad(
     "0"
   )
 }
+
 
 function toDateInputValue(
   date: Date
@@ -160,6 +168,7 @@ function toDateInputValue(
   ].join("-")
 }
 
+
 function addDays(
   date: Date,
   numberOfDays: number
@@ -174,6 +183,7 @@ function addDays(
 
   return result
 }
+
 
 function startOfWeek(
   date: Date
@@ -204,6 +214,7 @@ function startOfWeek(
   return result
 }
 
+
 function endOfWeek(
   date: Date
 ) {
@@ -212,6 +223,7 @@ function endOfWeek(
     6
   )
 }
+
 
 function startOfMonth(
   date: Date
@@ -222,6 +234,7 @@ function startOfMonth(
     1
   )
 }
+
 
 function isSameDay(
   firstDate: Date,
@@ -236,6 +249,7 @@ function isSameDay(
       secondDate.getDate()
   )
 }
+
 
 function formatLongDate(
   date: Date,
@@ -267,6 +281,7 @@ function formatLongDate(
   ).format(date)
 }
 
+
 function formatMonth(
   date: Date,
   language: Language
@@ -294,6 +309,7 @@ function formatMonth(
     }
   ).format(date)
 }
+
 
 function formatDuration(
   minutes: number,
@@ -333,6 +349,7 @@ function formatDuration(
   )}`
 }
 
+
 function getAppointmentDuration(
   appointment: Appointment
 ) {
@@ -344,6 +361,7 @@ function getAppointmentDuration(
     15
   )
 }
+
 
 function getAppointmentHeight(
   appointment: Appointment
@@ -358,6 +376,7 @@ function getAppointmentHeight(
   )
 }
 
+
 function getAppointmentEndDate(
   appointment: Appointment
 ) {
@@ -370,6 +389,7 @@ function getAppointmentEndDate(
   )
 }
 
+
 function getAppointmentTopOffset(
   appointment: Appointment
 ) {
@@ -379,6 +399,7 @@ function getAppointmentTopOffset(
     60
   ) * HOUR_HEIGHT
 }
+
 
 function getAppointmentStatus(
   appointment: Appointment
@@ -425,6 +446,7 @@ function getAppointmentStatus(
   return "pending"
 }
 
+
 function getPaymentStatus(
   appointment: Appointment
 ): PaymentStatus | null {
@@ -446,6 +468,7 @@ function getPaymentStatus(
   return null
 }
 
+
 function getOptionalAppointmentString(
   appointment: Appointment,
   key: string
@@ -465,6 +488,7 @@ function getOptionalAppointmentString(
     ? value
     : ""
 }
+
 
 function normalizeCollaborators(
   value: unknown
@@ -528,7 +552,9 @@ function normalizeCollaborators(
                 collaborator.recordName ??
                 `${name}-${index}`
               ),
+
             name,
+
             role:
               typeof collaborator.role ===
                 "string"
@@ -547,6 +573,15 @@ function normalizeCollaborators(
         item !== null
     )
 }
+
+const SITTER_SERVICE_NAMES:
+  Record<string, string> = {
+    garde: "Garde",
+    visites: "Visites",
+    promenades: "Promenades",
+    hebergement: "Hébergement",
+    transport: "Transport"
+  }
 
 export default function ProfessionalAgendaPage() {
   const router =
@@ -606,6 +641,7 @@ export default function ProfessionalAgendaPage() {
       sessionUser
     ])
 
+
   const [
     appointments,
     setAppointments
@@ -613,6 +649,7 @@ export default function ProfessionalAgendaPage() {
     useState<
       Appointment[]
     >([])
+
 
   const [
     animalsById,
@@ -625,6 +662,7 @@ export default function ProfessionalAgendaPage() {
       >
     >({})
 
+
   const animals =
     useMemo(
       () =>
@@ -636,6 +674,7 @@ export default function ProfessionalAgendaPage() {
       ]
     )
 
+
   const [
     services,
     setServices
@@ -643,6 +682,7 @@ export default function ProfessionalAgendaPage() {
     useState<
       AgendaService[]
     >([])
+
 
   const [
     currentDate,
@@ -652,6 +692,7 @@ export default function ProfessionalAgendaPage() {
       new Date()
     )
 
+
   const [
     agendaView,
     setAgendaView
@@ -659,6 +700,7 @@ export default function ProfessionalAgendaPage() {
     useState<
       AgendaView
     >("week")
+
 
   const [
     selectedStatus,
@@ -669,6 +711,7 @@ export default function ProfessionalAgendaPage() {
       "all"
     >("all")
 
+
   const [
     selectedCollaborator,
     setSelectedCollaborator
@@ -677,11 +720,13 @@ export default function ProfessionalAgendaPage() {
       "all"
     )
 
+
   const [
     search,
     setSearch
   ] =
     useState("")
+
 
   const [
     selectedAppointment,
@@ -691,11 +736,13 @@ export default function ProfessionalAgendaPage() {
       Appointment | null
     >(null)
 
+
   const [
     isCreationOpen,
     setIsCreationOpen
   ] =
     useState(false)
+
 
   const [
     isAppointmentLimitOpen,
@@ -703,11 +750,13 @@ export default function ProfessionalAgendaPage() {
   ] =
     useState(false)
 
+
   const [
     showStripeRequiredModal,
     setShowStripeRequiredModal
   ] =
     useState(false)
+
 
   async function loadAppointments() {
     if (!session) {
@@ -734,83 +783,158 @@ export default function ProfessionalAgendaPage() {
     }
   }
 
+
   useEffect(() => {
     loadAppointments()
   }, [
     session
   ])
 
-  useEffect(() => {
-    let cancelled =
-      false
 
-    async function loadAnimals() {
-      if (
-        appointments.length ===
-        0
-      ) {
-        if (!cancelled) {
-          setAnimalsById({})
+    /*
+     * =====================================================
+     * CHARGEMENT DES ANIMAUX
+     * =====================================================
+     */
+
+    useEffect(() => {
+      let cancelled = false
+
+      async function loadAnimals() {
+        if (!session) {
+          if (!cancelled) {
+            setAnimalsById({})
+          }
+
+          return
         }
 
-        return
-      }
+        /*
+         * Animaux déjà liés au professionnel.
+         *
+         * Grooming / Healthcare :
+         * session.user.userIDs contient les IDs des animaux
+         * déjà connus de l'établissement.
+         */
+        const professionalAnimalIDs =
+          session.accountType === "grooming" ||
+          session.accountType === "healthcare"
+            ? Array.isArray(sessionUser?.userIDs)
+              ? sessionUser.userIDs.filter(
+                  (id: unknown): id is string =>
+                    typeof id === "string" &&
+                    Boolean(id.trim())
+                )
+              : []
+            : []
 
-      const uniqueIDs =
-        [
-          ...new Set(
-            appointments
-              .map(
-                appointment =>
-                  appointment.userID
-              )
-              .filter(Boolean)
-          )
+        /*
+         * Animaux présents dans les rendez-vous.
+         *
+         * RDV.userID = animalID
+         */
+        const appointmentAnimalIDs =
+          appointments
+            .map(
+              appointment =>
+                appointment.userID
+            )
+            .filter(
+              (id): id is string =>
+                typeof id === "string" &&
+                Boolean(id.trim())
+            )
+
+        /*
+         * On fusionne les deux sources afin de récupérer :
+         *
+         * - les animaux déjà connus du professionnel
+         * - les animaux présents dans ses rendez-vous
+         *
+         * Set supprime automatiquement les doublons.
+         */
+        const uniqueIDs = [
+          ...new Set([
+            ...professionalAnimalIDs,
+            ...appointmentAnimalIDs
+          ])
         ]
 
-      const loadedAnimals =
-        await Promise.all(
-          uniqueIDs.map(
-            id =>
-              fetchClientById(
-                id
-              )
-          )
-        )
+        if (uniqueIDs.length === 0) {
+          if (!cancelled) {
+            setAnimalsById({})
+          }
 
-      if (cancelled) {
-        return
+          return
+        }
+
+          const results =
+            await Promise.allSettled(
+              uniqueIDs.map(
+                async id => {
+                  try {
+                    const animal =
+                      await fetchClientById(id)
+
+                    return {
+                      id,
+                      animal
+                    }
+                  } catch (error) {
+                    console.warn(
+                      `[AGENDA] Animal introuvable ou inaccessible : ${id}`,
+                      error
+                    )
+
+                    return {
+                      id,
+                      animal: null
+                    }
+                  }
+                }
+              )
+            )
+
+          if (cancelled) {
+            return
+          }
+
+          const map:
+            Record<
+              string,
+              AnimalClient
+            > = {}
+
+          results.forEach(result => {
+            if (
+              result.status === "fulfilled" &&
+              result.value.animal
+            ) {
+              map[result.value.id] =
+                result.value.animal
+            }
+          })
+
+          setAnimalsById(map)
       }
 
-      const map:
-        Record<
-          string,
-          AnimalClient
-        > = {}
+      loadAnimals()
 
-      loadedAnimals.forEach(
-        animal => {
-          if (animal) {
-            map[
-              animal.id
-            ] = animal
-          }
-        }
-      )
+      return () => {
+        cancelled = true
+      }
+    }, [
+      appointments,
+      session,
+      sessionUser
+    ])
 
-      setAnimalsById(
-        map
-      )
-    }
 
-    loadAnimals()
-
-    return () => {
-      cancelled = true
-    }
-  }, [
-    appointments
-  ])
+  /*
+   * =====================================================
+   * CHARGEMENT DES SERVICES
+   * =====================================================
+   */
 
   useEffect(() => {
     let cancelled =
@@ -861,11 +985,13 @@ export default function ProfessionalAgendaPage() {
     session
   ])
 
+
   const hasTeam =
     accountType ===
       "grooming" ||
     accountType ===
       "healthcare"
+
 
   const weekDays =
     useMemo(
@@ -893,6 +1019,7 @@ export default function ProfessionalAgendaPage() {
         currentDate
       ]
     )
+
 
   const monthDays =
     useMemo(
@@ -925,6 +1052,7 @@ export default function ProfessionalAgendaPage() {
         currentDate
       ]
     )
+
 
   const filteredAppointments =
     useMemo(
@@ -972,12 +1100,19 @@ export default function ProfessionalAgendaPage() {
                 appointment.userID
               ]
 
+            const service =
+              services.find(
+                service =>
+                  service.id ===
+                  appointment.serviceID
+              )
+
             return [
               animal?.name ??
                 "",
               animal?.species ??
                 "",
-              appointment.serviceName ??
+              service?.name ??
                 "",
               appointment.phoneNumber ??
                 "",
@@ -999,11 +1134,13 @@ export default function ProfessionalAgendaPage() {
       [
         appointments,
         animalsById,
+        services,
         search,
         selectedCollaborator,
         selectedStatus
       ]
     )
+
 
   const todayAppointments =
     appointments.filter(
@@ -1014,6 +1151,7 @@ export default function ProfessionalAgendaPage() {
         )
     )
 
+
   const pendingAppointments =
     appointments.filter(
       appointment =>
@@ -1022,6 +1160,7 @@ export default function ProfessionalAgendaPage() {
         ) ===
         "pending"
     )
+
 
   const totalPlannedMinutes =
     todayAppointments.reduce(
@@ -1036,6 +1175,7 @@ export default function ProfessionalAgendaPage() {
       0
     )
 
+
   const selectedAnimal =
     selectedAppointment
       ? animalsById[
@@ -1043,6 +1183,46 @@ export default function ProfessionalAgendaPage() {
             .userID
         ]
       : null
+
+
+  /*
+   * =====================================================
+   * SERVICE DU RDV SÉLECTIONNÉ
+   * =====================================================
+   */
+
+  const selectedService =
+    selectedAppointment
+      ? services.find(
+          service =>
+            service.id ===
+            selectedAppointment
+              .serviceID
+        )
+      : null
+    
+    
+    const selectedServiceName =
+      selectedAppointment
+        ? accountType === "sitter"
+          ? SITTER_SERVICE_NAMES[
+              selectedAppointment.serviceID
+            ] ??
+            selectedAppointment.serviceID ??
+            translate(
+              language,
+              "Prestation"
+            )
+          : selectedService?.name ??
+            translate(
+              language,
+              "Prestation"
+            )
+        : translate(
+            language,
+            "Prestation"
+          )
+
 
   const bookingProfessional =
     useMemo(
@@ -1099,6 +1279,7 @@ export default function ProfessionalAgendaPage() {
       ]
     )
 
+
   function navigatePrevious() {
     if (
       agendaView ===
@@ -1140,6 +1321,7 @@ export default function ProfessionalAgendaPage() {
         )
     )
   }
+
 
   function navigateNext() {
     if (
@@ -1183,6 +1365,7 @@ export default function ProfessionalAgendaPage() {
     )
   }
 
+
   function renderAppointmentCard(
     appointment:
       Appointment,
@@ -1193,6 +1376,33 @@ export default function ProfessionalAgendaPage() {
       animalsById[
         appointment.userID
       ]
+
+    /*
+     * On retrouve la prestation à partir
+     * du serviceID du RDV.
+     */
+    const service =
+      services.find(
+        service =>
+          service.id ===
+          appointment.serviceID
+      )
+
+      const serviceName =
+        accountType === "sitter"
+          ? SITTER_SERVICE_NAMES[
+              appointment.serviceID
+            ] ??
+            appointment.serviceID ??
+            translate(
+              language,
+              "Prestation"
+            )
+          : service?.name ??
+            translate(
+              language,
+              "Prestation"
+            )
 
     return (
       <button
@@ -1279,13 +1489,14 @@ export default function ProfessionalAgendaPage() {
         </div>
 
         <span>
-          {
-            appointment.serviceName
-          }
-          {" - "}
-          {
-            appointment.collaborator
-          }
+          {serviceName}
+
+          {appointment.collaborator && (
+            <>
+              {" - "}
+              {appointment.collaborator}
+            </>
+          )}
         </span>
 
         {hasTeam &&
@@ -1304,8 +1515,10 @@ export default function ProfessionalAgendaPage() {
     )
   }
 
+
   return (
     <main className="professionalAgendaPage">
+
       <header className="professionalAgendaHeader">
         <div>
           <div className="professionalAgendaTitleRow">
@@ -1409,7 +1622,9 @@ export default function ProfessionalAgendaPage() {
         </div>
       </header>
 
+
       <section className="agendaStatsGrid">
+
         <article className="agendaStatCard">
           <span>
             {translate(
@@ -1441,6 +1656,7 @@ export default function ProfessionalAgendaPage() {
           </small>
         </article>
 
+
         <article className="agendaStatCard">
           <span>
             {translate(
@@ -1462,6 +1678,7 @@ export default function ProfessionalAgendaPage() {
             )}
           </small>
         </article>
+
 
         <article className="agendaStatCard">
           <span>
@@ -1485,10 +1702,14 @@ export default function ProfessionalAgendaPage() {
             )}
           </small>
         </article>
+
       </section>
 
+
       <section className="agendaToolbar">
+
         <div className="agendaDateNavigation">
+
           <button
             type="button"
             aria-label={translate(
@@ -1559,9 +1780,12 @@ export default function ProfessionalAgendaPage() {
                 language
               )}
           </h2>
+
         </div>
 
+
         <div className="agendaViewSelector">
+
           <button
             type="button"
             className={
@@ -1621,13 +1845,18 @@ export default function ProfessionalAgendaPage() {
               "Mois"
             )}
           </button>
+
         </div>
+
       </section>
 
+
       <section className="agendaMainCard">
+
         {agendaView ===
           "day" && (
           <div className="agendaDayView">
+
             <div className="agendaDayHeader">
               <div>
                 <span>
@@ -1650,7 +1879,9 @@ export default function ProfessionalAgendaPage() {
               </div>
             </div>
 
+
             <div className="agendaDayTimeline">
+
               {HOURS.map(
                 hour => (
                   <div
@@ -1691,14 +1922,19 @@ export default function ProfessionalAgendaPage() {
                   </div>
                 )
               )}
+
             </div>
+
           </div>
         )}
+
 
         {agendaView ===
           "week" && (
           <div className="agendaWeekScroll">
+
             <div className="agendaWeekGrid">
+
               <div className="agendaWeekCorner">
                 {translate(
                   language,
@@ -1745,6 +1981,7 @@ export default function ProfessionalAgendaPage() {
                   </div>
                 )
               )}
+
 
               {HOURS.map(
                 hour => (
@@ -1800,16 +2037,21 @@ export default function ProfessionalAgendaPage() {
                         )
                       }
                     )}
+
                   </div>
                 )
               )}
+
             </div>
+
           </div>
         )}
+
 
         {agendaView ===
           "month" && (
           <div className="agendaMonthGrid">
+
             {[
               "Lun.",
               "Mar.",
@@ -1833,6 +2075,7 @@ export default function ProfessionalAgendaPage() {
                 </div>
               )
             )}
+
 
             {monthDays.map(
               day => {
@@ -1904,7 +2147,9 @@ export default function ProfessionalAgendaPage() {
                       }
                     </button>
 
+
                     <div className="agendaMonthAppointments">
+
                       {dayAppointments
                         .slice(
                           0,
@@ -1917,6 +2162,7 @@ export default function ProfessionalAgendaPage() {
                               true
                             )
                         )}
+
 
                       {dayAppointments.length >
                         3 && (
@@ -1944,14 +2190,19 @@ export default function ProfessionalAgendaPage() {
                           )}
                         </button>
                       )}
+
                     </div>
+
                   </div>
                 )
               }
             )}
+
           </div>
         )}
+
       </section>
+
 
       {showStripeRequiredModal && (
         <div
@@ -1960,6 +2211,7 @@ export default function ProfessionalAgendaPage() {
           aria-modal="true"
         >
           <div className="offerConfirmationCard">
+
             <button
               type="button"
               className="offerConfirmationClose"
@@ -2002,6 +2254,7 @@ export default function ProfessionalAgendaPage() {
             </p>
 
             <div className="stripeRequiredActions">
+
               <button
                 type="button"
                 className="stripeLaterButton"
@@ -2035,10 +2288,13 @@ export default function ProfessionalAgendaPage() {
                   "Configurer Stripe"
                 )}
               </button>
+
             </div>
+
           </div>
         </div>
       )}
+
 
       {selectedAppointment && (
         <div
@@ -2063,8 +2319,11 @@ export default function ProfessionalAgendaPage() {
             aria-modal="true"
             aria-labelledby="appointment-details-title"
           >
+
             <header className="agendaModalHeader">
+
               <div className="agendaModalAnimalHeader">
+
                 <img
                   src={
                     selectedAnimal?.photo ??
@@ -2078,6 +2337,7 @@ export default function ProfessionalAgendaPage() {
                 />
 
                 <div>
+
                   <span className="agendaModalEyebrow">
                     {translate(
                       language,
@@ -2094,12 +2354,13 @@ export default function ProfessionalAgendaPage() {
                   </h2>
 
                   <p>
-                    {
-                      selectedAppointment.serviceName
-                    }
+                       {selectedServiceName}
                   </p>
+
                 </div>
+
               </div>
+
 
               <button
                 type="button"
@@ -2116,9 +2377,12 @@ export default function ProfessionalAgendaPage() {
               >
                 ×
               </button>
+
             </header>
 
+
             <div className="agendaAppointmentStatusRow">
+
               <span
                 className={`agendaStatusBadge agendaStatusBadge--${getAppointmentStatus(
                   selectedAppointment
@@ -2134,6 +2398,7 @@ export default function ProfessionalAgendaPage() {
                 )}
               </span>
 
+
               {getPaymentStatus(
                 selectedAppointment
               ) && (
@@ -2148,9 +2413,12 @@ export default function ProfessionalAgendaPage() {
                   )}
                 </span>
               )}
+
             </div>
 
+
             <div className="agendaDetailsGrid">
+
               <article>
                 <span>
                   {translate(
@@ -2166,6 +2434,7 @@ export default function ProfessionalAgendaPage() {
                   )}
                 </strong>
               </article>
+
 
               <article>
                 <span>
@@ -2211,6 +2480,7 @@ export default function ProfessionalAgendaPage() {
                 </small>
               </article>
 
+
               <article>
                 <span>
                   {translate(
@@ -2220,11 +2490,10 @@ export default function ProfessionalAgendaPage() {
                 </span>
 
                 <strong>
-                  {
-                    selectedAppointment.serviceName
-                  }
+                   {selectedServiceName}
                 </strong>
               </article>
+
 
               {hasTeam && (
                 <article>
@@ -2245,6 +2514,7 @@ export default function ProfessionalAgendaPage() {
                 </article>
               )}
 
+
               <article>
                 <span>
                   {translate(
@@ -2261,13 +2531,16 @@ export default function ProfessionalAgendaPage() {
                     )}
                 </strong>
               </article>
+
             </div>
+
 
             {getOptionalAppointmentString(
               selectedAppointment,
               "address"
             ) && (
               <div className="agendaDetailsBlock">
+
                 <span>
                   {translate(
                     language,
@@ -2281,14 +2554,17 @@ export default function ProfessionalAgendaPage() {
                     "address"
                   )}
                 </p>
+
               </div>
             )}
+
 
             {getOptionalAppointmentString(
               selectedAppointment,
               "notes"
             ) && (
               <div className="agendaDetailsBlock">
+
                 <span>
                   {translate(
                     language,
@@ -2302,10 +2578,13 @@ export default function ProfessionalAgendaPage() {
                     "notes"
                   )}
                 </p>
+
               </div>
             )}
 
+
             <footer className="agendaModalActions">
+
               {selectedAppointment.phoneNumber && (
                 <a
                   href={`tel:${selectedAppointment.phoneNumber.replace(
@@ -2335,10 +2614,13 @@ export default function ProfessionalAgendaPage() {
                   "Fermer"
                 )}
               </button>
+
             </footer>
+
           </section>
         </div>
       )}
+
 
       {isCreationOpen &&
         session &&
@@ -2373,6 +2655,7 @@ export default function ProfessionalAgendaPage() {
         />
       )}
 
+
       {isAppointmentLimitOpen && (
         <div
           className="appointmentLimitOverlay"
@@ -2392,6 +2675,7 @@ export default function ProfessionalAgendaPage() {
                 event.stopPropagation()
             }
           >
+
             <button
               type="button"
               className="appointmentLimitClose"
@@ -2408,12 +2692,14 @@ export default function ProfessionalAgendaPage() {
               ×
             </button>
 
+
             <div
               className="appointmentLimitIcon"
               aria-hidden="true"
             >
               🐾
             </div>
+
 
             <span className="appointmentLimitBadge">
               {translate(
@@ -2422,6 +2708,7 @@ export default function ProfessionalAgendaPage() {
               )}
             </span>
 
+
             <h2 id="appointmentLimitTitle">
               {translate(
                 language,
@@ -2429,12 +2716,14 @@ export default function ProfessionalAgendaPage() {
               )}
             </h2>
 
+
             <p className="appointmentLimitDescription">
               {translate(
                 language,
                 "Vous avez atteint le nombre maximal de réservations autorisées avec votre offre actuelle."
               )}
             </p>
+
 
             <p className="appointmentLimitDetails">
               {session?.accountType ===
@@ -2449,6 +2738,7 @@ export default function ProfessionalAgendaPage() {
                   )}
             </p>
 
+
             <p className="appointmentLimitUpgradeText">
               {translate(
                 language,
@@ -2456,7 +2746,9 @@ export default function ProfessionalAgendaPage() {
               )}
             </p>
 
+
             <div className="appointmentLimitActions">
+
               <button
                 type="button"
                 className="appointmentLimitSecondaryButton"
@@ -2471,6 +2763,7 @@ export default function ProfessionalAgendaPage() {
                   "Plus tard"
                 )}
               </button>
+
 
               <button
                 type="button"
@@ -2494,10 +2787,13 @@ export default function ProfessionalAgendaPage() {
                   →
                 </span>
               </button>
+
             </div>
+
           </div>
         </div>
       )}
+
     </main>
   )
 }

@@ -21,19 +21,32 @@ import {
   searchAnimalsByName
 } from "@/services/fetchAnimalAccount"
 
+import {
+  fetchLatestAnimalRDV
+} from "@/services/fetchLatestAnimalRDV"
+
 import "./BookingModal.css"
+
 
 type ProfessionalAccountType =
   | "sitter"
   | "grooming"
   | "healthcare"
 
+
 type Service = {
   id: string
   name: string
+  description?: string
   duration: number
   price?: number
+  devise?: string
+
+  bookingMode: string
+  requiredInformations: string[]
+  customQuestions: string[]
 }
+
 
 type AnimalClient = {
   id: string
@@ -42,6 +55,7 @@ type AnimalClient = {
   phoneNumber?: string
   photo?: string
 }
+
 
 type Professional = {
   id: string
@@ -53,14 +67,21 @@ type Professional = {
   disponibilities?: string[]
   availability?: string[]
   schedules?: string[]
-    type?: string
+
+  type?: string
 }
+
 
 type Props = {
   accountType: ProfessionalAccountType
   professional: Professional
 
+  /*
+   * Animaux déjà associés au professionnel.
+   * Sert à déterminer si l'animal est connu.
+   */
   animals: AnimalClient[]
+
   services: Service[]
   collaborators: string[]
 
@@ -68,15 +89,18 @@ type Props = {
   onCreated?: () => void
 }
 
+
 type DaySchedule = {
   isOpen: boolean
   openingMinutes: number
   closingMinutes: number
 }
 
+
 /*
- * Ces valeurs restent en français car elles servent à lire
- * les horaires enregistrés dans CloudKit.
+ * Ces valeurs restent en français car elles
+ * servent à lire les horaires enregistrés
+ * dans CloudKit.
  */
 const frenchDays = [
   "Dimanche",
@@ -88,8 +112,9 @@ const frenchDays = [
   "Samedi"
 ]
 
+
 /*
- * Les valeurs servent de clés de traduction.
+ * Clés de traduction.
  */
 const months = [
   "Janvier",
@@ -106,6 +131,7 @@ const months = [
   "Décembre"
 ]
 
+
 const weekDays = [
   "Lun",
   "Mar",
@@ -115,6 +141,7 @@ const weekDays = [
   "Sam",
   "Dim"
 ]
+
 
 function timeToMinutes(
   time: string
@@ -133,6 +160,7 @@ function timeToMinutes(
   return hours * 60 + minutes
 }
 
+
 function minutesToTime(
   minutes: number
 ): string {
@@ -149,6 +177,7 @@ function minutesToTime(
     remainingMinutes
   ).padStart(2, "0")}`
 }
+
 
 function parseDaySchedule(
   planning: string[] | undefined,
@@ -209,12 +238,15 @@ function parseDaySchedule(
 
   return {
     isOpen: true,
+
     openingMinutes:
       timeToMinutes(opening),
+
     closingMinutes:
       timeToMinutes(closing)
   }
 }
+
 
 function createTimeSlots(
   schedule: DaySchedule,
@@ -230,9 +262,11 @@ function createTimeSlots(
   for (
     let start =
       schedule.openingMinutes;
+
     start +
         requiredDurationMinutes <=
       schedule.closingMinutes;
+
     start += interval
   ) {
     slots.push(
@@ -242,6 +276,7 @@ function createTimeSlots(
 
   return slots
 }
+
 
 export default function ProfessionalBookingModal({
   accountType,
@@ -262,6 +297,13 @@ export default function ProfessionalBookingModal({
   const isSitter =
     accountType === "sitter"
 
+
+  /*
+   * =========================
+   * ANIMAL
+   * =========================
+   */
+
   const [
     animalSearch,
     setAnimalSearch
@@ -278,21 +320,74 @@ export default function ProfessionalBookingModal({
   ] = useState(false)
 
   const [
-    selectedAnimalID,
-    setSelectedAnimalID
-  ] = useState("")
-
-  const [
     selectedAnimal,
     setSelectedAnimal
   ] = useState<AnimalClient | null>(
     null
   )
 
+
+  /*
+   * =========================
+   * SERVICE
+   * =========================
+   */
+
   const [
     selectedServiceID,
     setSelectedServiceID
   ] = useState("")
+
+
+  /*
+   * =========================
+   * INFORMATIONS ANIMAL / RDV
+   * =========================
+   */
+
+  const [
+    behavior,
+    setBehavior
+  ] = useState("")
+
+  const [
+    coatCondition,
+    setCoatCondition
+  ] = useState("")
+
+  const [
+    weight,
+    setWeight
+  ] = useState("")
+
+  const [
+    notes,
+    setNotes
+  ] = useState("")
+    
+    const [
+      phoneNumber,
+      setPhoneNumber
+    ] = useState("")
+
+  const [
+    isLoadingPreviousInformations,
+    setIsLoadingPreviousInformations
+  ] = useState(false)
+
+  const [
+    customAnswers,
+    setCustomAnswers
+  ] = useState<Record<string, string>>(
+    {}
+  )
+
+
+  /*
+   * =========================
+   * COLLABORATEUR
+   * =========================
+   */
 
   const [
     selectedCollaborator,
@@ -303,10 +398,19 @@ export default function ProfessionalBookingModal({
       : collaborators[0] ?? ""
   )
 
+
+  /*
+   * =========================
+   * DATE
+   * =========================
+   */
+
   const [
     selectedDay,
     setSelectedDay
-  ] = useState(today.getDate())
+  ] = useState(
+    today.getDate()
+  )
 
   const [
     selectedMonth,
@@ -327,10 +431,24 @@ export default function ProfessionalBookingModal({
     setSelectedTime
   ] = useState("")
 
+
+  /*
+   * =========================
+   * SITTER
+   * =========================
+   */
+
   const [
     duration,
     setDuration
   ] = useState(1)
+
+
+  /*
+   * =========================
+   * RDV EXISTANTS
+   * =========================
+   */
 
   const [
     bookedAppointments,
@@ -344,6 +462,13 @@ export default function ProfessionalBookingModal({
     setIsLoadingAppointments
   ] = useState(false)
 
+
+  /*
+   * =========================
+   * SAVE
+   * =========================
+   */
+
   const [
     isSaving,
     setIsSaving
@@ -354,6 +479,13 @@ export default function ProfessionalBookingModal({
     setSaveError
   ] = useState("")
 
+
+  /*
+   * =========================
+   * RECHERCHE ANIMAL
+   * =========================
+   */
+
   useEffect(() => {
     const query =
       animalSearch.trim()
@@ -361,6 +493,7 @@ export default function ProfessionalBookingModal({
     if (query.length < 2) {
       setAnimalResults([])
       setIsSearchingAnimals(false)
+
       return
     }
 
@@ -413,6 +546,7 @@ export default function ProfessionalBookingModal({
     }
   }, [animalSearch])
 
+
   const filteredAnimals =
     useMemo(() => {
       const query =
@@ -446,6 +580,13 @@ export default function ProfessionalBookingModal({
       animalResults
     ])
 
+
+  /*
+   * =========================
+   * SERVICE SÉLECTIONNÉ
+   * =========================
+   */
+
   const selectedService =
     useMemo(
       () =>
@@ -460,6 +601,215 @@ export default function ProfessionalBookingModal({
       ]
     )
 
+
+  /*
+   * =========================
+   * ANIMAL CONNU ?
+   * =========================
+   */
+
+  const isKnownAnimal =
+    useMemo(() => {
+      if (!selectedAnimal) {
+        return false
+      }
+
+      return animals.some(
+        animal =>
+          animal.id ===
+          selectedAnimal.id
+      )
+    }, [
+      animals,
+      selectedAnimal
+    ])
+
+
+  /*
+   * =========================
+   * ANCIENNES INFORMATIONS
+   * DE L'ANIMAL
+   * =========================
+   *
+   * Pour un animal déjà connu :
+   *
+   * - on cherche son dernier RDV
+   *   chez CE professionnel ;
+   *
+   * - on lit RDV.infos ;
+   *
+   * - on préremplit uniquement
+   *   les requiredInformations
+   *   de la prestation actuelle.
+   *
+   * Les customQuestions ne sont
+   * volontairement pas reprises.
+   */
+
+  useEffect(() => {
+    let cancelled = false
+
+    async function loadPreviousInformations() {
+      /*
+       * On repart de champs vides
+       * à chaque combinaison
+       * animal / prestation.
+       */
+      setBehavior("")
+      setCoatCondition("")
+      setWeight("")
+      setNotes("")
+        setPhoneNumber("")
+
+      if (
+        isSitter ||
+        !selectedAnimal ||
+        !selectedService ||
+        !isKnownAnimal
+      ) {
+        setIsLoadingPreviousInformations(
+          false
+        )
+
+        return
+      }
+
+      try {
+        setIsLoadingPreviousInformations(
+          true
+        )
+
+        const previous =
+          await fetchLatestAnimalRDV(
+            professional.id,
+            selectedAnimal.id
+          )
+          
+          console.log(
+            "=== DERNIER RDV ANIMAL ===",
+            previous
+          )
+
+        if (cancelled) {
+          return
+        }
+
+        if (!previous) {
+            console.log("AUcun LAST RDV")
+          return
+        }
+          
+          setPhoneNumber(
+            previous.phoneNumber ?? ""
+          )
+
+        const required =
+          selectedService
+            .requiredInformations ??
+          []
+
+        /*
+         * POIDS
+         */
+        if (
+          required.includes(
+            "weight"
+          )
+        ) {
+          setWeight(
+            previous.weight != null
+              ? String(
+                  previous.weight
+                )
+              : ""
+          )
+        }
+
+        /*
+         * COMPORTEMENT
+         */
+        if (
+          required.includes(
+            "behavior"
+          )
+        ) {
+          setBehavior(
+            previous.behavior ?? ""
+          )
+        }
+
+        /*
+         * ÉTAT DU PELAGE
+         */
+        if (
+          required.includes(
+            "coatCondition"
+          )
+        ) {
+          setCoatCondition(
+            previous.coatCondition ??
+              ""
+          )
+        }
+
+        /*
+         * INFORMATIONS
+         * COMPLÉMENTAIRES
+         */
+        if (
+          required.includes(
+            "notes"
+          )
+        ) {
+          setNotes(
+            previous.notes ?? ""
+          )
+        }
+      } catch (error) {
+        console.error(
+          "Erreur récupération anciennes informations animal :",
+          error
+        )
+      } finally {
+        if (!cancelled) {
+          setIsLoadingPreviousInformations(
+            false
+          )
+        }
+      }
+    }
+
+    loadPreviousInformations()
+
+    return () => {
+      cancelled = true
+    }
+  }, [
+    isSitter,
+    selectedAnimal,
+    selectedService,
+    isKnownAnimal,
+    professional.id
+  ])
+
+
+  /*
+   * Les réponses aux questions personnalisées
+   * appartiennent à la prestation.
+   *
+   * On les efface lorsqu'on change de service.
+   */
+  useEffect(() => {
+    setCustomAnswers({})
+  }, [selectedServiceID])
+
+
+  /*
+   * =========================
+   * PLANNING
+   * =========================
+   */
+
   const planning: string[] =
     isSitter
       ? professional.disponibilities ??
@@ -467,10 +817,12 @@ export default function ProfessionalBookingModal({
         []
       : professional.schedules ?? []
 
+
   const appointmentCollaborator =
     isSitter
       ? professional.name
       : selectedCollaborator
+
 
   const selectedDate =
     useMemo(
@@ -487,6 +839,7 @@ export default function ProfessionalBookingModal({
       ]
     )
 
+
   const requiredDurationMinutes =
     isSitter
       ? duration * 60
@@ -494,6 +847,7 @@ export default function ProfessionalBookingModal({
           selectedService?.duration ??
           30
         )
+
 
   const selectedDaySchedule =
     useMemo(
@@ -507,6 +861,13 @@ export default function ProfessionalBookingModal({
         selectedDate
       ]
     )
+
+
+  /*
+   * =========================
+   * CHARGEMENT DES RDV
+   * =========================
+   */
 
   useEffect(() => {
     let cancelled = false
@@ -564,6 +925,7 @@ export default function ProfessionalBookingModal({
     appointmentCollaborator
   ])
 
+
   const getExistingAppointmentDuration =
     useCallback(
       (
@@ -603,6 +965,7 @@ export default function ProfessionalBookingModal({
         services
       ]
     )
+
 
   const isSlotAvailable =
     useCallback(
@@ -682,6 +1045,7 @@ export default function ProfessionalBookingModal({
       ]
     )
 
+
   const getAvailableTimesForDate =
     useCallback(
       (
@@ -731,6 +1095,7 @@ export default function ProfessionalBookingModal({
       ]
     )
 
+
   const availableTimes =
     useMemo(
       () =>
@@ -742,6 +1107,7 @@ export default function ProfessionalBookingModal({
         getAvailableTimesForDate
       ]
     )
+
 
   useEffect(() => {
     if (
@@ -757,6 +1123,7 @@ export default function ProfessionalBookingModal({
     selectedTime
   ])
 
+
   useEffect(() => {
     setSelectedTime("")
   }, [
@@ -765,12 +1132,20 @@ export default function ProfessionalBookingModal({
     duration
   ])
 
+
+  /*
+   * =========================
+   * CALENDRIER
+   * =========================
+   */
+
   const daysInMonth =
     new Date(
       selectedYear,
       selectedMonth,
       0
     ).getDate()
+
 
   const firstDayOfMonth =
     new Date(
@@ -779,10 +1154,12 @@ export default function ProfessionalBookingModal({
       1
     ).getDay()
 
+
   const leadingEmptyDays =
     firstDayOfMonth === 0
       ? 6
       : firstDayOfMonth - 1
+
 
   function isPastDate(
     date: Date
@@ -804,14 +1181,16 @@ export default function ProfessionalBookingModal({
     return testedDate < currentDate
   }
 
+
   function isAvailableDate(
     day: number
   ): boolean {
-    const date = new Date(
-      selectedYear,
-      selectedMonth - 1,
-      day
-    )
+    const date =
+      new Date(
+        selectedYear,
+        selectedMonth - 1,
+        day
+      )
 
     if (isPastDate(date)) {
       return false
@@ -824,6 +1203,7 @@ export default function ProfessionalBookingModal({
     )
   }
 
+
   function selectDay(
     day: number
   ) {
@@ -835,6 +1215,7 @@ export default function ProfessionalBookingModal({
     setSelectedTime("")
     setSaveError("")
   }
+
 
   function previousMonth() {
     if (selectedMonth === 1) {
@@ -853,6 +1234,7 @@ export default function ProfessionalBookingModal({
     setSelectedTime("")
   }
 
+
   function nextMonth() {
     if (selectedMonth === 12) {
       setSelectedMonth(1)
@@ -869,6 +1251,7 @@ export default function ProfessionalBookingModal({
     setSelectedDay(1)
     setSelectedTime("")
   }
+
 
   function buildAppointmentDate():
     Date | null {
@@ -899,6 +1282,13 @@ export default function ProfessionalBookingModal({
     )
   }
 
+
+  /*
+   * =========================
+   * ENREGISTREMENT
+   * =========================
+   */
+
   async function handleSubmit(
     event: FormEvent
   ) {
@@ -906,6 +1296,10 @@ export default function ProfessionalBookingModal({
 
     setSaveError("")
 
+
+    /*
+     * Animal obligatoire
+     */
     if (!selectedAnimal) {
       setSaveError(
         translate(
@@ -916,7 +1310,28 @@ export default function ProfessionalBookingModal({
 
       return
     }
+      
+      
+      /*
+       * Numéro de téléphone obligatoire
+       */
+      if (
+        !phoneNumber.trim()
+      ) {
+        setSaveError(
+          translate(
+            language,
+            "Renseignez le numéro de téléphone du client."
+          )
+        )
 
+        return
+      }
+
+
+    /*
+     * Service obligatoire
+     */
     if (
       !isSitter &&
       !selectedService
@@ -931,6 +1346,96 @@ export default function ProfessionalBookingModal({
       return
     }
 
+
+    /*
+     * Vérification des informations
+     * demandées par la prestation.
+     */
+    if (
+      !isSitter &&
+      selectedService
+    ) {
+      const required =
+        selectedService
+          .requiredInformations ??
+        []
+
+
+      if (
+        required.includes(
+          "behavior"
+        ) &&
+        !behavior.trim()
+      ) {
+        setSaveError(
+          translate(
+            language,
+            "Renseignez le comportement de l'animal."
+          )
+        )
+
+        return
+      }
+
+
+      if (
+        required.includes(
+          "coatCondition"
+        ) &&
+        !coatCondition.trim()
+      ) {
+        setSaveError(
+          translate(
+            language,
+            "Renseignez l'état du pelage."
+          )
+        )
+
+        return
+      }
+
+
+      if (
+        required.includes(
+          "weight"
+        ) &&
+        (
+          !weight ||
+          Number(weight) <= 0
+        )
+      ) {
+        setSaveError(
+          translate(
+            language,
+            "Renseignez le poids de l'animal."
+          )
+        )
+
+        return
+      }
+
+
+      if (
+        required.includes(
+          "notes"
+        ) &&
+        !notes.trim()
+      ) {
+        setSaveError(
+          translate(
+            language,
+            "Ajoutez les informations complémentaires."
+          )
+        )
+
+        return
+      }
+    }
+
+
+    /*
+     * Collaborateur obligatoire
+     */
     if (
       !appointmentCollaborator
     ) {
@@ -944,8 +1449,10 @@ export default function ProfessionalBookingModal({
       return
     }
 
+
     const appointmentDate =
       buildAppointmentDate()
+
 
     if (!appointmentDate) {
       setSaveError(
@@ -958,12 +1465,17 @@ export default function ProfessionalBookingModal({
       return
     }
 
+
+    /*
+     * Dernière vérification du créneau
+     */
     const slotStillAvailable =
       isSlotAvailable(
         selectedDate,
         selectedTime,
         requiredDurationMinutes
       )
+
 
     if (!slotStillAvailable) {
       setSaveError(
@@ -974,26 +1486,93 @@ export default function ProfessionalBookingModal({
       )
 
       setSelectedTime("")
+
       return
     }
 
+
+    /*
+     * Pet sitter
+     */
     const totalPrice =
       Number(
         professional.tarif ?? 0
       ) * duration
+
 
     const serviceID =
       isSitter
         ? `Sitting-${duration}-${totalPrice}`
         : selectedService?.id ?? ""
 
+
+    /*
+     * On n'enregistre que les informations
+     * demandées par la prestation actuelle.
+     */
+    const requiredInformations =
+      selectedService
+        ?.requiredInformations ??
+      []
+
+
+    const rdvInfos =
+      JSON.stringify({
+        knownAnimal:
+          isKnownAnimal,
+
+        behavior:
+          requiredInformations.includes(
+            "behavior"
+          )
+            ? behavior.trim()
+            : "",
+
+        coatCondition:
+          requiredInformations.includes(
+            "coatCondition"
+          )
+            ? coatCondition.trim()
+            : "",
+
+        weight:
+          requiredInformations.includes(
+            "weight"
+          ) &&
+          weight
+            ? Number(weight)
+            : null,
+
+        notes:
+          requiredInformations.includes(
+            "notes"
+          )
+            ? notes.trim()
+            : "",
+
+        customAnswers:
+          Object.fromEntries(
+            Object.entries(
+              customAnswers
+            ).filter(
+              ([, answer]) =>
+                answer.trim() !== ""
+            )
+          )
+      })
+
+
     try {
       setIsSaving(true)
+
 
       await saveRDV({
         groomingID:
           professional.id,
 
+        /*
+         * RDV.userID = animalID
+         */
         userID:
           selectedAnimal.id,
 
@@ -1005,34 +1584,38 @@ export default function ProfessionalBookingModal({
         collaborator:
           appointmentCollaborator,
 
-        phoneNumber:
-          selectedAnimal.phoneNumber ??
+      phoneNumber:
+        phoneNumber.trim(),
+
+        infos:
+          rdvInfos,
+
+        authorizationID:
           "",
 
-        authorizationID: "",
-          
-      stripePaymentIntentID:
-            "",
+        stripePaymentIntentID:
+          "",
 
-          stripeTransferID:
-            "",
+        stripeTransferID:
+          "",
 
-          paymentStatus:
-          professional.type === "Sitter"
-              ? "pending"
-              : "confirmed",
-
-        duration:
-          requiredDurationMinutes
+        paymentStatus:
+          professional.type ===
+          "Sitter"
+            ? "pending"
+            : "confirmed"
       })
+
 
       onCreated?.()
       onClose()
+
     } catch (error) {
       console.error(
         "Erreur lors de la création du rendez-vous :",
         error
       )
+
 
       setSaveError(
         error instanceof Error &&
@@ -1043,39 +1626,61 @@ export default function ProfessionalBookingModal({
               "Impossible d'enregistrer le rendez-vous."
             )
       )
+
     } finally {
       setIsSaving(false)
     }
   }
 
-  const canSave =
-    Boolean(selectedAnimal) &&
-    Boolean(
-      isSitter ||
-      selectedService
-    ) &&
-    Boolean(
-      appointmentCollaborator
-    ) &&
-    Boolean(selectedTime) &&
-    !isLoadingAppointments &&
-    !isSaving
+
+  /*
+   * =========================
+   * CAN SAVE
+   * =========================
+   */
+
+    const canSave =
+      Boolean(selectedAnimal) &&
+      Boolean(phoneNumber.trim()) &&
+      Boolean(
+        isSitter ||
+        selectedService
+      ) &&
+      Boolean(
+        appointmentCollaborator
+      ) &&
+      Boolean(selectedTime) &&
+      !isLoadingAppointments &&
+      !isLoadingPreviousInformations &&
+      !isSaving
+
+
+  /*
+   * =========================
+   * RENDER
+   * =========================
+   */
 
   return (
     <div className="bookingOverlay">
+
       <div
         className="bookingBackdrop"
         onClick={onClose}
       />
 
+
       <aside className="bookingPanel">
+
         <div className="bookingHeader">
+
           <h2>
             {translate(
               language,
               "Nouveau rendez-vous"
             )}
           </h2>
+
 
           <button
             type="button"
@@ -1087,10 +1692,19 @@ export default function ProfessionalBookingModal({
           >
             ×
           </button>
+
         </div>
 
+
         <form onSubmit={handleSubmit}>
+
+
+          {/* =========================
+              ANIMAL
+          ========================= */}
+
           <div className="bookingBlock">
+
             <label htmlFor="animalSearch">
               {translate(
                 language,
@@ -1098,16 +1712,22 @@ export default function ProfessionalBookingModal({
               )}
             </label>
 
+
             <div className="animalSearchContainer">
+
               <input
                 id="animalSearch"
                 type="search"
+
                 value={animalSearch}
+
                 placeholder={translate(
                   language,
                   "Rechercher un animal..."
                 )}
+
                 autoComplete="off"
+
                 onChange={event => {
                   setAnimalSearch(
                     event.target.value
@@ -1117,13 +1737,17 @@ export default function ProfessionalBookingModal({
                     null
                   )
 
-                  setSelectedAnimalID(
-                    ""
-                  )
+                  setBehavior("")
+                  setCoatCondition("")
+                  setWeight("")
+                  setNotes("")
+                    setPhoneNumber("")
+                  setCustomAnswers({})
 
                   setSaveError("")
                 }}
               />
+
 
               {isSearchingAnimals && (
                 <div className="animalSearchMessage">
@@ -1134,6 +1758,7 @@ export default function ProfessionalBookingModal({
                 </div>
               )}
 
+
               {!isSearchingAnimals &&
                 animalSearch
                   .trim()
@@ -1141,120 +1766,275 @@ export default function ProfessionalBookingModal({
                 filteredAnimals.length ===
                   0 &&
                 !selectedAnimal && (
-                  <div className="animalSearchMessage">
-                    {translate(
-                      language,
-                      "Aucun animal trouvé."
-                    )}
-                  </div>
-                )}
+
+                <div className="animalSearchMessage">
+                  {translate(
+                    language,
+                    "Aucun animal trouvé."
+                  )}
+                </div>
+              )}
+
 
               {!isSearchingAnimals &&
                 filteredAnimals.length >
                   0 &&
                 !selectedAnimal && (
-                  <div className="professionalAnimalResults">
-                    {filteredAnimals.map(
-                      animal => (
-                        <button
-                          key={animal.id}
-                          type="button"
-                          className="professionalAnimalResult"
-                          onClick={() => {
-                            setSelectedAnimal(
-                              animal
-                            )
 
-                            setSelectedAnimalID(
-                              animal.id
-                            )
+                <div className="professionalAnimalResults">
 
-                            setAnimalSearch(
+                  {filteredAnimals.map(
+                    animal => (
+
+                      <button
+                        key={animal.id}
+
+                        type="button"
+
+                        className="professionalAnimalResult"
+
+                        onClick={() => {
+                          setSelectedAnimal(
+                            animal
+                          )
+
+                          setAnimalSearch(
+                            animal.name
+                          )
+
+                          setAnimalResults(
+                            []
+                          )
+
+                          setBehavior("")
+                          setCoatCondition("")
+                          setWeight("")
+                          setNotes("")
+                            setPhoneNumber("")
+                          setCustomAnswers({})
+
+                          setSaveError("")
+                        }}
+                      >
+
+                        {animal.photo ? (
+                          <img
+                            src={
+                              animal.photo
+                            }
+                            alt={
                               animal.name
-                            )
+                            }
+                          />
+                        ) : (
+                          <span className="animalPhotoPlaceholder">
+                            🐾
+                          </span>
+                        )}
 
-                            setAnimalResults(
-                              []
-                            )
 
-                            setSaveError(
-                              ""
-                            )
-                          }}
-                        >
-                          {animal.photo ? (
-                            <img
-                              src={
-                                animal.photo
-                              }
-                              alt={
-                                animal.name
-                              }
-                            />
-                          ) : (
-                            <span className="animalPhotoPlaceholder">
-                              🐾
-                            </span>
-                          )}
+                        <div className="professionalAnimalResultContent">
 
                           <strong>
                             {animal.name}
                           </strong>
-                        </button>
-                      )
-                    )}
-                  </div>
-                )}
+
+                          {animal.species && (
+                            <span>
+                              {animal.species}
+                            </span>
+                          )}
+
+                        </div>
+
+                      </button>
+                    )
+                  )}
+
+                </div>
+              )}
+
             </div>
 
+
             {selectedAnimal && (
-              <div className="selectedAnimalCard">
-                {selectedAnimal.photo ? (
-                  <img
-                    src={
-                      selectedAnimal.photo
-                    }
-                    alt={
-                      selectedAnimal.name
-                    }
-                  />
-                ) : (
-                  <span className="animalPhotoPlaceholder">
-                    🐾
-                  </span>
+              <>
+
+                <div className="selectedAnimalCard">
+
+                  {selectedAnimal.photo ? (
+                    <img
+                      src={
+                        selectedAnimal.photo
+                      }
+                      alt={
+                        selectedAnimal.name
+                      }
+                    />
+                  ) : (
+                    <span className="animalPhotoPlaceholder">
+                      🐾
+                    </span>
+                  )}
+
+
+                  <div className="selectedAnimalContent">
+
+                    <strong>
+                      {selectedAnimal.name}
+                    </strong>
+
+                    {selectedAnimal.species && (
+                      <span>
+                        {selectedAnimal.species}
+                      </span>
+                    )}
+
+                  </div>
+
+
+                  <button
+                    type="button"
+
+                    aria-label={translate(
+                      language,
+                      "Supprimer"
+                    )}
+
+                    onClick={() => {
+                      setSelectedAnimal(
+                        null
+                      )
+
+                      setAnimalSearch("")
+                      setAnimalResults([])
+
+                      setBehavior("")
+                      setCoatCondition("")
+                      setWeight("")
+                      setNotes("")
+                        setPhoneNumber("")
+                      setCustomAnswers({})
+
+                      setSaveError("")
+                    }}
+                  >
+                    ×
+                  </button>
+
+                </div>
+
+
+                {!isSitter && (
+
+                  <div
+                    className={[
+                      "clientStatus",
+
+                      isKnownAnimal
+                        ? "clientStatusKnown"
+                        : "clientStatusNew"
+
+                    ].join(" ")}
+                  >
+
+                    <span className="clientStatusIcon">
+                      {isKnownAnimal
+                        ? "✓"
+                        : "+"
+                      }
+                    </span>
+
+
+                    <div>
+
+                      <strong>
+                        {translate(
+                          language,
+
+                          isKnownAnimal
+                            ? "Animal connu"
+                            : "Nouvel animal"
+                        )}
+                      </strong>
+
+
+                      <p>
+                        {translate(
+                          language,
+
+                          isKnownAnimal
+                            ? "Cet animal a déjà été reçu par votre établissement."
+                            : "Cet animal n'a pas encore été reçu par votre établissement."
+                        )}
+                      </p>
+
+                    </div>
+
+                  </div>
+
                 )}
 
-                <strong>
-                  {selectedAnimal.name}
-                </strong>
-
-                <button
-                  type="button"
-                  aria-label={translate(
-                    language,
-                    "Supprimer"
-                  )}
-                  onClick={() => {
-                    setSelectedAnimal(
-                      null
-                    )
-
-                    setSelectedAnimalID(
-                      ""
-                    )
-
-                    setAnimalSearch("")
-                    setAnimalResults([])
-                  }}
-                >
-                  ×
-                </button>
-              </div>
+              </>
             )}
+
           </div>
 
-          {!isSitter && (
+          {/* =========================
+              TÉLÉPHONE
+          ========================= */}
+
+          {selectedAnimal && (
+
             <div className="bookingBlock">
+
+              <label htmlFor="phoneNumber">
+                {translate(
+                  language,
+                  "Numéro de téléphone"
+                )}
+              </label>
+
+              <input
+                id="phoneNumber"
+                type="tel"
+                inputMode="tel"
+                autoComplete="tel"
+                required
+                value={phoneNumber}
+                placeholder={translate(
+                  language,
+                  "Ex. 06 12 34 56 78"
+                )}
+                onChange={event => {
+                  setPhoneNumber(
+                    event.target.value
+                  )
+
+                  setSaveError("")
+                }}
+              />
+
+              <p className="bookingFieldHint">
+                {translate(
+                  language,
+                  "Confirmez ce numéro avec le client. Il sera utilisé pour le rappel SMS du rendez-vous."
+                )}
+              </p>
+
+            </div>
+
+          )}
+          
+
+          {/* =========================
+              PRESTATION
+          ========================= */}
+
+          {!isSitter && (
+
+            <div className="bookingBlock">
+
               <label>
                 {translate(
                   language,
@@ -1262,11 +2042,14 @@ export default function ProfessionalBookingModal({
                 )}
               </label>
 
+
               <select
                 required
+
                 value={
                   selectedServiceID
                 }
+
                 onChange={event => {
                   setSelectedServiceID(
                     event.target.value
@@ -1276,6 +2059,7 @@ export default function ProfessionalBookingModal({
                   setSaveError("")
                 }}
               >
+
                 <option value="">
                   {translate(
                     language,
@@ -1283,29 +2067,403 @@ export default function ProfessionalBookingModal({
                   )}
                 </option>
 
+
                 {services.map(
                   service => (
+
                     <option
                       key={service.id}
                       value={service.id}
                     >
                       {service.name}
                       {" — "}
-                      {service.duration}{" "}
+                      {service.duration}
+                      {" "}
                       {translate(
                         language,
                         "min"
                       )}
                     </option>
+
                   )
                 )}
+
               </select>
+
             </div>
           )}
 
+
+          {/* =========================
+              INFORMATIONS DEMANDÉES
+              PAR LA PRESTATION
+          ========================= */}
+
+          {selectedAnimal &&
+            !isSitter &&
+            selectedService &&
+            (
+              selectedService
+                .requiredInformations
+                ?.length > 0 ||
+              selectedService
+                .customQuestions
+                ?.length > 0
+            ) && (
+
+            <div className="bookingBlock animalInformationsBlock">
+
+              {selectedService
+                .requiredInformations
+                ?.length > 0 && (
+                <>
+
+                  <div className="animalInformationHeader">
+
+                    <div>
+
+                      <label>
+                        {translate(
+                          language,
+                          "Informations sur l'animal"
+                        )}
+                      </label>
+
+                      <p>
+                        {translate(
+                          language,
+                          "Renseignez les informations demandées pour cette prestation."
+                        )}
+                      </p>
+
+                      {isLoadingPreviousInformations && (
+                        <p className="previousInformationsLoading">
+                          {translate(
+                            language,
+                            "Récupération des informations précédentes..."
+                          )}
+                        </p>
+                      )}
+
+                    </div>
+
+
+                    <span
+                      className={[
+                        "clientStatusBadge",
+
+                        isKnownAnimal
+                          ? "clientStatusBadgeKnown"
+                          : "clientStatusBadgeNew"
+
+                      ].join(" ")}
+                    >
+                      {translate(
+                        language,
+
+                        isKnownAnimal
+                          ? "Animal connu"
+                          : "Nouvel animal"
+                      )}
+                    </span>
+
+                  </div>
+
+
+                  <div className="serviceInformationsGrid">
+
+
+                    {/* POIDS */}
+
+                    {selectedService
+                      .requiredInformations
+                      .includes(
+                        "weight"
+                      ) && (
+
+                      <div className="serviceInformationField">
+
+                        <label htmlFor="weight">
+                          {translate(
+                            language,
+                            "Poids"
+                          )}
+                        </label>
+
+                        <div className="weightInput">
+
+                          <input
+                            id="weight"
+                            type="number"
+                            min="0"
+                            step="0.1"
+
+                            value={weight}
+
+                            placeholder="0"
+
+                            disabled={
+                              isLoadingPreviousInformations
+                            }
+
+                            onChange={event => {
+                              setWeight(
+                                event.target.value
+                              )
+
+                              setSaveError("")
+                            }}
+                          />
+
+                          <span>
+                            kg
+                          </span>
+
+                        </div>
+
+                      </div>
+                    )}
+
+
+                    {/* COMPORTEMENT */}
+
+                    {selectedService
+                      .requiredInformations
+                      .includes(
+                        "behavior"
+                      ) && (
+
+                      <div className="serviceInformationField">
+
+                        <label htmlFor="behavior">
+                          {translate(
+                            language,
+                            "Comportement"
+                          )}
+                        </label>
+
+                        <input
+                          id="behavior"
+                          type="text"
+
+                          value={behavior}
+
+                          disabled={
+                            isLoadingPreviousInformations
+                          }
+
+                          placeholder={translate(
+                            language,
+                            "Ex. calme, anxieux, réactif..."
+                          )}
+
+                          onChange={event => {
+                            setBehavior(
+                              event.target.value
+                            )
+
+                            setSaveError("")
+                          }}
+                        />
+
+                      </div>
+                    )}
+
+
+                    {/* ÉTAT DU PELAGE */}
+
+                    {selectedService
+                      .requiredInformations
+                      .includes(
+                        "coatCondition"
+                      ) && (
+
+                      <div className="serviceInformationField serviceInformationFull">
+
+                        <label htmlFor="coatCondition">
+                          {translate(
+                            language,
+                            "État du pelage"
+                          )}
+                        </label>
+
+                        <textarea
+                          id="coatCondition"
+
+                          value={
+                            coatCondition
+                          }
+
+                          disabled={
+                            isLoadingPreviousInformations
+                          }
+
+                          placeholder={translate(
+                            language,
+                            "Ex. bon état, quelques nœuds, très emmêlé..."
+                          )}
+
+                          onChange={event => {
+                            setCoatCondition(
+                              event.target.value
+                            )
+
+                            setSaveError("")
+                          }}
+                        />
+
+                      </div>
+                    )}
+
+
+                    {/* INFORMATIONS COMPLÉMENTAIRES */}
+
+                    {selectedService
+                      .requiredInformations
+                      .includes(
+                        "notes"
+                      ) && (
+
+                      <div className="serviceInformationField serviceInformationFull">
+
+                        <label htmlFor="notes">
+                          {translate(
+                            language,
+                            "Informations complémentaires"
+                          )}
+                        </label>
+
+                        <textarea
+                          id="notes"
+
+                          value={notes}
+
+                          disabled={
+                            isLoadingPreviousInformations
+                          }
+
+                          placeholder={translate(
+                            language,
+                            "Ajouter une information..."
+                          )}
+
+                          onChange={event => {
+                            setNotes(
+                              event.target.value
+                            )
+
+                            setSaveError("")
+                          }}
+                        />
+
+                      </div>
+                    )}
+
+                  </div>
+
+                </>
+              )}
+
+
+              {/* =========================
+                  CUSTOM QUESTIONS
+              ========================= */}
+
+              {selectedService
+                .customQuestions
+                ?.length > 0 && (
+
+                <div className="customQuestionsSection">
+
+                  <div className="customQuestionsHeader">
+
+                    <label>
+                      {translate(
+                        language,
+                        "Questions complémentaires"
+                      )}
+                    </label>
+
+                    <p>
+                      {translate(
+                        language,
+                        "Informations demandées pour cette prestation."
+                      )}
+                    </p>
+
+                  </div>
+
+
+                  <div className="customQuestions">
+
+                    {selectedService
+                      .customQuestions
+                      .map(
+                        (
+                          question,
+                          index
+                        ) => (
+
+                        <div
+                          key={`${question}-${index}`}
+                          className="customQuestionField"
+                        >
+
+                          <label>
+                            {question}
+                          </label>
+
+                          <textarea
+                            value={
+                              customAnswers[
+                                question
+                              ] ?? ""
+                            }
+
+                            placeholder={translate(
+                              language,
+                              "Votre réponse..."
+                            )}
+
+                            onChange={event => {
+                              setCustomAnswers(
+                                current => ({
+                                  ...current,
+
+                                  [question]:
+                                    event
+                                      .target
+                                      .value
+                                })
+                              )
+
+                              setSaveError("")
+                            }}
+                          />
+
+                        </div>
+
+                      )
+                    )}
+
+                  </div>
+
+                </div>
+              )}
+
+            </div>
+          )}
+
+
+          {/* =========================
+              SITTER
+          ========================= */}
+
           {isSitter && (
             <>
+
               <div className="bookingBlock">
+
                 <label>
                   {translate(
                     language,
@@ -1313,16 +2471,21 @@ export default function ProfessionalBookingModal({
                   )}
                 </label>
 
+
                 <div className="bookingSelect">
                   {translate(
                     language,
                     "Garde"
                   )}
                 </div>
+
               </div>
 
+
               <div className="bookingBlock durationBlock">
+
                 <div className="durationHeader">
+
                   <label>
                     {translate(
                       language,
@@ -1330,8 +2493,10 @@ export default function ProfessionalBookingModal({
                     )}
                   </label>
 
+
                   <strong>
                     {duration}{" "}
+
                     {duration === 1
                       ? translate(
                           language,
@@ -1340,21 +2505,29 @@ export default function ProfessionalBookingModal({
                       : translate(
                           language,
                           "heures"
-                        )}
+                        )
+                    }
                   </strong>
+
                 </div>
+
 
                 <input
                   className="durationSlider"
+
                   type="range"
+
                   min="1"
                   max="10"
                   step="1"
+
                   value={duration}
+
                   onChange={event => {
                     setDuration(
                       Number(
-                        event.target
+                        event
+                          .target
                           .value
                       )
                     )
@@ -1363,7 +2536,9 @@ export default function ProfessionalBookingModal({
                   }}
                 />
 
+
                 <div className="durationLimits">
+
                   <span>
                     1{" "}
                     {translate(
@@ -1379,63 +2554,86 @@ export default function ProfessionalBookingModal({
                       "h"
                     )}
                   </span>
+
                 </div>
+
               </div>
+
             </>
           )}
+
+
+          {/* =========================
+              COLLABORATEUR
+          ========================= */}
 
           {!isSitter &&
             collaborators.length >
               0 && (
-              <div className="bookingBlock">
-                <label>
+
+            <div className="bookingBlock">
+
+              <label>
+                {translate(
+                  language,
+                  "Collaborateur"
+                )}
+              </label>
+
+
+              <select
+                required
+
+                value={
+                  selectedCollaborator
+                }
+
+                onChange={event => {
+                  setSelectedCollaborator(
+                    event.target.value
+                  )
+
+                  setSelectedTime("")
+                  setSaveError("")
+                }}
+              >
+
+                <option value="">
                   {translate(
                     language,
-                    "Collaborateur"
+                    "Sélectionner un collaborateur"
                   )}
-                </label>
+                </option>
 
-                <select
-                  required
-                  value={
-                    selectedCollaborator
-                  }
-                  onChange={event => {
-                    setSelectedCollaborator(
-                      event.target.value
-                    )
 
-                    setSelectedTime("")
-                    setSaveError("")
-                  }}
-                >
-                  <option value="">
-                    {translate(
-                      language,
-                      "Sélectionner un collaborateur"
-                    )}
-                  </option>
+                {collaborators.map(
+                  collaborator => (
 
-                  {collaborators.map(
-                    collaborator => (
-                      <option
-                        key={
-                          collaborator
-                        }
-                        value={
-                          collaborator
-                        }
-                      >
-                        {collaborator}
-                      </option>
-                    )
-                  )}
-                </select>
-              </div>
-            )}
+                    <option
+                      key={
+                        collaborator
+                      }
+
+                      value={
+                        collaborator
+                      }
+                    >
+                      {collaborator}
+                    </option>
+
+                  )
+                )}
+
+              </select>
+
+            </div>
+          )}
+
 
           {isSitter && (
+
             <div className="bookingBlock">
+
               <label>
                 {translate(
                   language,
@@ -1443,14 +2641,23 @@ export default function ProfessionalBookingModal({
                 )}
               </label>
 
+
               <div className="bookingSelect">
                 {professional.name}
               </div>
+
             </div>
           )}
 
+
+          {/* =========================
+              DATE + HEURE
+          ========================= */}
+
           <div className="bookingGrid">
+
             <div>
+
               <label>
                 {translate(
                   language,
@@ -1458,14 +2665,19 @@ export default function ProfessionalBookingModal({
                 )}
               </label>
 
+
               <div className="calendarBox">
+
                 <div className="calendarTitle">
+
                   <button
                     type="button"
+
                     aria-label={translate(
                       language,
                       "Mois précédent"
                     )}
+
                     onClick={
                       previousMonth
                     }
@@ -1473,34 +2685,43 @@ export default function ProfessionalBookingModal({
                     ‹
                   </button>
 
+
                   <span>
                     {translate(
                       language,
+
                       months[
                         selectedMonth -
-                          1
+                        1
                       ]
                     )}{" "}
                     {selectedYear}
                   </span>
 
+
                   <button
                     type="button"
+
                     aria-label={translate(
                       language,
                       "Mois suivant"
                     )}
+
                     onClick={
                       nextMonth
                     }
                   >
                     ›
                   </button>
+
                 </div>
 
+
                 <div className="calendarDays">
+
                   {weekDays.map(
                     day => (
+
                       <strong
                         key={day}
                       >
@@ -1509,58 +2730,78 @@ export default function ProfessionalBookingModal({
                           day
                         )}
                       </strong>
+
                     )
                   )}
+
 
                   {Array.from({
                     length:
                       leadingEmptyDays
+
                   }).map(
                     (_, index) => (
+
                       <span
                         key={`empty-${index}`}
+
                         className="calendarEmptyDay"
                       />
+
                     )
                   )}
+
 
                   {Array.from({
                     length:
                       daysInMonth
+
                   }).map(
                     (_, index) => {
+
                       const day =
                         index + 1
+
 
                       const isAvailable =
                         isAvailableDate(
                           day
                         )
 
+
                       const isSelected =
                         selectedDay ===
                           day &&
                         isAvailable
 
+
                       return (
+
                         <button
                           key={day}
+
                           type="button"
+
                           disabled={
                             !isAvailable
                           }
+
                           className={[
                             isSelected
                               ? "selectedDay"
                               : "",
+
                             !isAvailable
                               ? "disabledDay"
                               : ""
+
                           ]
                             .filter(
                               Boolean
                             )
-                            .join(" ")}
+                            .join(" ")
+                          }
+
                           onClick={() =>
                             selectDay(
                               day
@@ -1569,14 +2810,20 @@ export default function ProfessionalBookingModal({
                         >
                           {day}
                         </button>
+
                       )
                     }
                   )}
+
                 </div>
+
               </div>
+
             </div>
 
+
             <div>
+
               <label>
                 {translate(
                   language,
@@ -1584,41 +2831,55 @@ export default function ProfessionalBookingModal({
                 )}
               </label>
 
+
               {isLoadingAppointments ? (
+
                 <p className="closedDayMessage">
                   {translate(
                     language,
                     "Chargement..."
                   )}
                 </p>
-              ) : !selectedDaySchedule.isOpen ? (
+
+              ) : !selectedDaySchedule
+                    .isOpen ? (
+
                 <p className="closedDayMessage">
                   {translate(
                     language,
                     "Fermé"
                   )}
                 </p>
+
               ) : availableTimes.length ===
-                0 ? (
+                  0 ? (
+
                 <p className="closedDayMessage">
                   {translate(
                     language,
                     "Aucun créneau disponible."
                   )}
                 </p>
+
               ) : (
+
                 <div className="timeGrid">
+
                   {availableTimes.map(
                     time => (
+
                       <button
                         key={time}
+
                         type="button"
+
                         className={
                           selectedTime ===
                           time
                             ? "selectedTime"
                             : ""
                         }
+
                         onClick={() => {
                           setSelectedTime(
                             time
@@ -1631,23 +2892,42 @@ export default function ProfessionalBookingModal({
                       >
                         {time}
                       </button>
+
                     )
                   )}
+
                 </div>
               )}
+
             </div>
+
           </div>
 
+
+          {/* =========================
+              ERREUR
+          ========================= */}
+
           {saveError && (
+
             <p className="bookingError">
               {saveError}
             </p>
+
           )}
 
+
+          {/* =========================
+              ACTIONS
+          ========================= */}
+
           <div className="agendaModalActions">
+
             <button
               type="button"
+
               className="agendaSecondaryButton"
+
               onClick={onClose}
             >
               {translate(
@@ -1656,11 +2936,15 @@ export default function ProfessionalBookingModal({
               )}
             </button>
 
+
             <button
               type="submit"
+
               className="confirmBookingButton"
+
               disabled={!canSave}
             >
+
               {isSaving
                 ? translate(
                     language,
@@ -1669,11 +2953,17 @@ export default function ProfessionalBookingModal({
                 : translate(
                     language,
                     "Enregistrer le rendez-vous"
-                  )}
+                  )
+              }
+
             </button>
+
           </div>
+
         </form>
+
       </aside>
+
     </div>
   )
 }

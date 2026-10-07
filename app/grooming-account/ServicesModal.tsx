@@ -22,6 +22,10 @@ type ServiceFormItem = {
   price: string
   duration: string
   devise: string
+
+  bookingMode: string
+  requiredInformations: string[]
+  customQuestions: string[]
 }
 
 type ServicesModalProps = {
@@ -79,7 +83,11 @@ function createEmptyService():
     description: "",
     price: "",
     duration: "",
-    devise: "€"
+    devise: "€",
+
+    bookingMode: "direct",
+    requiredInformations: [],
+    customQuestions: []
   }
 }
 
@@ -108,7 +116,19 @@ function createInitialServices(
         : "",
 
     devise:
-      service.devise || "€"
+      service.devise || "€",
+
+    bookingMode:
+      service.bookingMode ||
+      "direct",
+
+    requiredInformations:
+      service.requiredInformations ??
+      [],
+
+    customQuestions:
+      service.customQuestions ??
+      []
   }))
 }
 
@@ -199,28 +219,146 @@ export default function ServicesModal({
     )
   }
 
-  function updateService(
-    serviceIndex: number,
-    field: keyof Omit<
+    function updateService<K extends keyof Omit<
       ServiceFormItem,
       "id"
-    >,
-    value: string
-  ) {
-    setFormServices(
-      currentServices =>
-        currentServices.map(
-          (service, index) =>
-            index === serviceIndex
-              ? {
-                  ...service,
-                  [field]:
-                    value
-                }
-              : service
-        )
-    )
-  }
+    >>(
+      serviceIndex: number,
+      field: K,
+      value: ServiceFormItem[K]
+    ) {
+      setFormServices(
+        currentServices =>
+          currentServices.map(
+            (service, index) =>
+              index === serviceIndex
+                ? {
+                    ...service,
+                    [field]: value
+                  }
+                : service
+          )
+      )
+    }
+    
+    function toggleRequiredInformation(
+      serviceIndex: number,
+      information: string
+    ) {
+      setFormServices(
+        currentServices =>
+          currentServices.map(
+            (service, index) => {
+              if (
+                index !== serviceIndex
+              ) {
+                return service
+              }
+
+              const exists =
+                service.requiredInformations.includes(
+                  information
+                )
+
+              return {
+                ...service,
+
+                requiredInformations:
+                  exists
+                    ? service.requiredInformations.filter(
+                        item =>
+                          item !==
+                          information
+                      )
+                    : [
+                        ...service.requiredInformations,
+                        information
+                      ]
+              }
+            }
+          )
+      )
+    }
+    
+    function addCustomQuestion(
+      serviceIndex: number
+    ) {
+      setFormServices(
+        currentServices =>
+          currentServices.map(
+            (service, index) =>
+              index === serviceIndex
+                ? {
+                    ...service,
+
+                    customQuestions: [
+                      ...service.customQuestions,
+                      ""
+                    ]
+                  }
+                : service
+          )
+      )
+    }
+
+    function updateCustomQuestion(
+      serviceIndex: number,
+      questionIndex: number,
+      value: string
+    ) {
+      setFormServices(
+        currentServices =>
+          currentServices.map(
+            (service, index) => {
+              if (
+                index !== serviceIndex
+              ) {
+                return service
+              }
+
+              return {
+                ...service,
+
+                customQuestions:
+                  service.customQuestions.map(
+                    (
+                      question,
+                      index
+                    ) =>
+                      index ===
+                      questionIndex
+                        ? value
+                        : question
+                  )
+              }
+            }
+          )
+      )
+    }
+
+    function removeCustomQuestion(
+      serviceIndex: number,
+      questionIndex: number
+    ) {
+      setFormServices(
+        currentServices =>
+          currentServices.map(
+            (service, index) =>
+              index === serviceIndex
+                ? {
+                    ...service,
+
+                    customQuestions:
+                      service.customQuestions.filter(
+                        (_, index) =>
+                          index !==
+                          questionIndex
+                      )
+                  }
+                : service
+          )
+      )
+    }
 
   function validate(): boolean {
     const invalidService =
@@ -287,41 +425,50 @@ export default function ServicesModal({
     setError("")
 
     try {
-      const formattedServices:
-        Service[] =
-        formServices.map(
-          service => ({
-            id:
-              service.id ||
-              generateID(),
+        const formattedServices:
+          Service[] =
+          formServices.map(
+            service => ({
+              id:
+                service.id ||
+                generateID(),
 
-            groomingID:
-              healthcareID,
+              groomingID:
+                healthcareID,
 
-            name:
-              service.name.trim(),
+              name:
+                service.name.trim(),
 
-            description:
-              service.description.trim(),
+              description:
+                service.description.trim(),
 
-            price:
-              Number(
-                service.price.replace(
-                  ",",
-                  "."
-                )
-              ),
+              price:
+                Number(
+                  service.price.replace(
+                    ",",
+                    "."
+                  )
+                ),
 
-            duration:
-              Number(
-                service.duration
-              ),
+              duration:
+                Number(
+                  service.duration
+                ),
 
-            devise:
-              service.devise.trim() ||
-              "€"
-          })
-        )
+              devise:
+                service.devise.trim() ||
+                "€",
+
+              bookingMode:
+                service.bookingMode,
+
+              requiredInformations:
+                service.requiredInformations,
+
+              customQuestions:
+                service.customQuestions
+            })
+          )
 
       await onSave(
         formattedServices
@@ -591,7 +738,7 @@ export default function ServicesModal({
                         <span>
                           {translate(
                             language,
-                            "Prix"
+                            "Prix minimum"
                           )}
                         </span>
 
@@ -621,7 +768,7 @@ export default function ServicesModal({
                         <span>
                           {translate(
                             language,
-                            "Durée (minutes)"
+                            "Durée minimum (minutes)"
                           )}
                         </span>
 
@@ -646,7 +793,228 @@ export default function ServicesModal({
                           }
                         />
                       </label>
+                      
+                      <label className="servicesModalFullWidth">
+                        <span>
+                          {translate(
+                            language,
+                            "Mode de réservation"
+                          )}
+                        </span>
+
+                        <select
+                          value={
+                            service.bookingMode
+                          }
+                          onChange={event =>
+                            updateService(
+                              serviceIndex,
+                              "bookingMode",
+                              event.target.value
+                            )
+                          }
+                          disabled={isSaving}
+                        >
+                          <option value="direct">
+                            {translate(
+                              language,
+                              "Réservation directe"
+                            )}
+                          </option>
+
+                          <option value="approvalRequired">
+                            {translate(
+                              language,
+                              "Demande de rendez-vous"
+                            )}
+                          </option>
+                        </select>
+                      </label>
                     </div>
+                      <div className="servicesModalFullWidth servicesModalOptionsSection">
+                        <span className="servicesModalSectionLabel">
+                          {translate(
+                            language,
+                            "Informations demandées avant le rendez-vous"
+                          )}
+                        </span>
+
+                        <div className="servicesModalCheckboxGrid">
+                          <label className="servicesModalCheckbox">
+                            <input
+                              type="checkbox"
+                              checked={
+                                service.requiredInformations.includes(
+                                  "behavior"
+                                )
+                              }
+                              onChange={() =>
+                                toggleRequiredInformation(
+                                  serviceIndex,
+                                  "behavior"
+                                )
+                              }
+                              disabled={isSaving}
+                            />
+
+                            <span>
+                              {translate(
+                                language,
+                                "Comportement"
+                              )}
+                            </span>
+                          </label>
+
+                          <label className="servicesModalCheckbox">
+                            <input
+                              type="checkbox"
+                              checked={
+                                service.requiredInformations.includes(
+                                  "coatCondition"
+                                )
+                              }
+                              onChange={() =>
+                                toggleRequiredInformation(
+                                  serviceIndex,
+                                  "coatCondition"
+                                )
+                              }
+                              disabled={isSaving}
+                            />
+
+                            <span>
+                              {translate(
+                                language,
+                                "État du pelage"
+                              )}
+                            </span>
+                          </label>
+
+                          <label className="servicesModalCheckbox">
+                            <input
+                              type="checkbox"
+                              checked={
+                                service.requiredInformations.includes(
+                                  "weight"
+                                )
+                              }
+                              onChange={() =>
+                                toggleRequiredInformation(
+                                  serviceIndex,
+                                  "weight"
+                                )
+                              }
+                              disabled={isSaving}
+                            />
+
+                            <span>
+                              {translate(
+                                language,
+                                "Poids"
+                              )}
+                            </span>
+                          </label>
+
+                          <label className="servicesModalCheckbox">
+                            <input
+                              type="checkbox"
+                              checked={
+                                service.requiredInformations.includes(
+                                  "notes"
+                                )
+                              }
+                              onChange={() =>
+                                toggleRequiredInformation(
+                                  serviceIndex,
+                                  "notes"
+                                )
+                              }
+                              disabled={isSaving}
+                            />
+
+                            <span>
+                              {translate(
+                                language,
+                                "Informations complémentaires"
+                              )}
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                      <div className="servicesModalFullWidth servicesModalQuestionsSection">
+                        <span className="servicesModalSectionLabel">
+                          {translate(
+                            language,
+                            "Questions personnalisées"
+                          )}
+                        </span>
+
+                        {service.customQuestions.length > 0 && (
+                          <div className="servicesModalQuestionsList">
+                            {service.customQuestions.map(
+                              (question, questionIndex) => (
+                                <div
+                                  className="servicesModalQuestionRow"
+                                  key={questionIndex}
+                                >
+                                  <input
+                                    type="text"
+                                    value={question}
+                                    placeholder={translate(
+                                      language,
+                                      "Votre question..."
+                                    )}
+                                    onChange={event =>
+                                      updateCustomQuestion(
+                                        serviceIndex,
+                                        questionIndex,
+                                        event.target.value
+                                      )
+                                    }
+                                    disabled={isSaving}
+                                  />
+
+                                  <button
+                                    type="button"
+                                    className="servicesModalQuestionRemove"
+                                    onClick={() =>
+                                      removeCustomQuestion(
+                                        serviceIndex,
+                                        questionIndex
+                                      )
+                                    }
+                                    disabled={isSaving}
+                                    aria-label={translate(
+                                      language,
+                                      "Supprimer la question"
+                                    )}
+                                  >
+                                    ×
+                                  </button>
+                                </div>
+                              )
+                            )}
+                          </div>
+                        )}
+
+                        <button
+                          type="button"
+                          className="servicesModalAddQuestion"
+                          onClick={() =>
+                            addCustomQuestion(
+                              serviceIndex
+                            )
+                          }
+                          disabled={isSaving}
+                        >
+                          <span>+</span>
+
+                          {translate(
+                            language,
+                            "Ajouter une question"
+                          )}
+                        </button>
+                      </div>
                   </div>
                 )
               )}

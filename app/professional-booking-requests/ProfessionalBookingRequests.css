@@ -1,0 +1,1790 @@
+/* =========================================================
+   PAGE
+========================================================= */
+
+.professionalBookingRequestsPage {
+  width: min(920px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 34px 0 60px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.professionalBookingRequestsHeader {
+  margin-bottom: 24px;
+}
+
+.professionalBookingRequestsHeader h1 {
+  margin: 0;
+
+  color: #171421;
+
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.professionalBookingRequestsHeader p {
+  margin: 7px 0 0;
+
+  color: #77707f;
+
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   FILTRES
+========================================================= */
+
+.professionalBookingRequestFilters {
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  margin-bottom: 24px;
+  padding-bottom: 3px;
+
+  overflow-x: auto;
+
+  scrollbar-width: none;
+}
+
+.professionalBookingRequestFilters::-webkit-scrollbar {
+  display: none;
+}
+
+.professionalBookingRequestFilter {
+  display: inline-flex;
+
+  flex: 0 0 auto;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  min-height: 39px;
+
+  padding: 8px 13px;
+
+  border:
+    1px solid
+    rgba(103, 83, 180, 0.13);
+
+  border-radius: 999px;
+
+  background: #ffffff;
+
+  color: #625b6a;
+
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.professionalBookingRequestFilter:hover {
+  transform: translateY(-1px);
+
+  border-color:
+    rgba(112, 73, 202, 0.28);
+
+  color: #7049ca;
+}
+
+.professionalBookingRequestFilter > span {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: 22px;
+  height: 22px;
+
+  padding: 0 6px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(112, 73, 202, 0.07);
+
+  color: #7049ca;
+
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.professionalBookingRequestFilter.active {
+  border-color: transparent;
+
+  background:
+    linear-gradient(
+      135deg,
+      #28a9ff 0%,
+      #6657e8 42%,
+      #a844d7 72%,
+      #e53b9c 100%
+    );
+
+  color: #ffffff;
+
+  box-shadow:
+    0 6px 18px
+    rgba(105, 74, 197, 0.2);
+}
+
+.professionalBookingRequestFilter.active > span {
+  background:
+    rgba(255, 255, 255, 0.18);
+
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   LISTE
+========================================================= */
+
+.professionalBookingRequestsList {
+  display: grid;
+
+  gap: 18px;
+}
+
+
+/* =========================================================
+   CARTE
+========================================================= */
+
+.professionalBookingRequestCard {
+  position: relative;
+
+  overflow: hidden;
+
+  padding: 22px 22px 20px 25px;
+
+  border:
+    1px solid
+    rgba(103, 83, 180, 0.12);
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff 0%,
+      #fefcff 100%
+    );
+
+  box-shadow:
+    0 6px 22px
+    rgba(71, 52, 116, 0.055);
+}
+
+.professionalBookingRequestCard::before {
+  content: "";
+
+  position: absolute;
+
+  top: 16px;
+  bottom: 16px;
+  left: 0;
+
+  width: 4px;
+
+  border-radius: 0 5px 5px 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      #28a9ff,
+      #6657e8,
+      #a844d7,
+      #e53b9c
+    );
+}
+
+.professionalBookingRequestCard.status-refused::before {
+  background: #c8c2ca;
+}
+
+.professionalBookingRequestCard.status-accepted::before {
+  background:
+    linear-gradient(
+      180deg,
+      #28a9ff,
+      #6657e8,
+      #a844d7
+    );
+}
+
+
+/* =========================================================
+   HEADER CARTE
+========================================================= */
+
+.professionalBookingRequestCardHeader {
+  display: flex;
+
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 18px;
+
+  padding-bottom: 18px;
+
+  border-bottom:
+    1px solid
+    rgba(103, 83, 180, 0.08);
+}
+
+.professionalBookingRequestAnimal {
+  display: grid;
+
+  gap: 3px;
+
+  min-width: 0;
+}
+
+.professionalBookingRequestSmallLabel {
+  color: #958e9b;
+
+  font-size: 0.7rem;
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.045em;
+}
+
+.professionalBookingRequestAnimal strong {
+  overflow: hidden;
+
+  color: #211b2d;
+
+  font-size: 1.08rem;
+  font-weight: 800;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.professionalBookingRequestService {
+  color: #746d7c;
+
+  font-size: 0.87rem;
+}
+
+
+/* =========================================================
+   STATUT
+========================================================= */
+
+.professionalBookingRequestStatus {
+  display: inline-flex;
+
+  flex: 0 0 auto;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 6px 11px;
+
+  border-radius: 999px;
+
+  font-size: 0.74rem;
+  font-weight: 750;
+
+  white-space: nowrap;
+}
+
+.professionalBookingRequestStatus.status-pending {
+  border:
+    1px solid
+    rgba(112, 73, 202, 0.13);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(40, 169, 255, 0.09),
+      rgba(102, 87, 232, 0.1)
+    );
+
+  color: #6849bf;
+}
+
+.professionalBookingRequestStatus.status-alternativeProposed {
+  border:
+    1px solid
+    rgba(218, 59, 157, 0.15);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(102, 87, 232, 0.09),
+      rgba(229, 59, 156, 0.1)
+    );
+
+  color: #a83c9a;
+}
+
+.professionalBookingRequestStatus.status-accepted {
+  border:
+    1px solid
+    rgba(48, 160, 103, 0.15);
+
+  background:
+    rgba(48, 160, 103, 0.08);
+
+  color: #278755;
+}
+
+.professionalBookingRequestStatus.status-refused {
+  border:
+    1px solid
+    rgba(211, 57, 89, 0.14);
+
+  background:
+    rgba(211, 57, 89, 0.07);
+
+  color: #c13551;
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.professionalBookingRequestSection {
+  margin-top: 19px;
+}
+
+.professionalBookingRequestSectionTitle {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  margin-bottom: 9px;
+
+  color: #3f3748;
+
+  font-size: 0.81rem;
+  font-weight: 750;
+}
+
+.professionalBookingRequestSectionTitle.proposed {
+  color: #8747ba;
+}
+
+.professionalBookingRequestSectionIcon {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 25px;
+  height: 25px;
+
+  border-radius: 8px;
+
+  background:
+    rgba(102, 87, 232, 0.065);
+
+  font-size: 0.8rem;
+}
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+.professionalBookingRequestDateCard {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding: 13px 15px;
+
+  border:
+    1px solid
+    rgba(103, 83, 180, 0.09);
+
+  border-radius: 13px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(40, 169, 255, 0.03),
+      rgba(102, 87, 232, 0.04)
+    );
+}
+
+.professionalBookingRequestDateCard strong {
+  color: #292230;
+
+  font-size: 0.88rem;
+  font-weight: 750;
+
+  text-transform: capitalize;
+}
+
+.professionalBookingRequestDateCard > span {
+  color: #7049ca;
+
+  font-size: 0.87rem;
+  font-weight: 800;
+}
+
+.professionalBookingRequestDateCard.proposed {
+  border-color:
+    rgba(168, 68, 215, 0.15);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(102, 87, 232, 0.07),
+      rgba(168, 68, 215, 0.07),
+      rgba(229, 59, 156, 0.055)
+    );
+}
+
+
+/* =========================================================
+   INFORMATIONS
+========================================================= */
+
+.professionalBookingRequestInformations {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 9px;
+}
+
+.professionalBookingRequestInformation {
+  display: grid;
+
+  gap: 4px;
+
+  padding: 11px 13px;
+
+  border:
+    1px solid
+    rgba(103, 83, 180, 0.08);
+
+  border-radius: 11px;
+
+  background: #fdfcff;
+}
+
+.professionalBookingRequestInformation > span {
+  color: #918a98;
+
+  font-size: 0.71rem;
+  font-weight: 650;
+}
+
+.professionalBookingRequestInformation > strong {
+  color: #4a424f;
+
+  font-size: 0.83rem;
+  font-weight: 650;
+
+  line-height: 1.45;
+
+  overflow-wrap: anywhere;
+}
+
+.professionalBookingRequestInformationFull {
+  grid-column: 1 / -1;
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.professionalBookingRequestActions {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 9px;
+
+  margin-top: 20px;
+}
+
+.professionalBookingRequestButton {
+  min-height: 42px;
+
+  padding: 9px 15px;
+
+  border-radius: 11px;
+
+  font: inherit;
+  font-size: 0.81rem;
+  font-weight: 750;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.professionalBookingRequestButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.professionalBookingRequestButton:disabled {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+}
+
+
+/* ACCEPTER */
+
+.professionalBookingRequestButton.accept {
+  border: none;
+
+  background:
+    linear-gradient(
+      135deg,
+      #28a9ff,
+      #6657e8,
+      #a844d7
+    );
+
+  color: #ffffff;
+
+  box-shadow:
+    0 5px 14px
+    rgba(102, 87, 232, 0.18);
+}
+
+
+/* PROPOSER */
+
+.professionalBookingRequestButton.propose {
+  border:
+    1px solid
+    rgba(112, 73, 202, 0.18);
+
+  background:
+    rgba(112, 73, 202, 0.055);
+
+  color: #7049ca;
+}
+
+
+/* REFUSER */
+
+.professionalBookingRequestButton.refuse {
+  border:
+    1px solid
+    rgba(211, 57, 89, 0.14);
+
+  background:
+    rgba(211, 57, 89, 0.04);
+
+  color: #bd3e57;
+}
+
+
+/* =========================================================
+   FORMULAIRES INLINE
+========================================================= */
+
+.professionalBookingRequestInlineForm {
+  display: grid;
+
+  gap: 10px;
+
+  margin-top: 13px;
+
+  padding: 15px;
+
+  border:
+    1px solid
+    rgba(112, 73, 202, 0.12);
+
+  border-radius: 13px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(40, 169, 255, 0.025),
+      rgba(102, 87, 232, 0.035),
+      rgba(168, 68, 215, 0.025)
+    );
+}
+
+.professionalBookingRequestInlineForm label {
+  color: #51475c;
+
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+.professionalBookingRequestInlineForm input,
+.professionalBookingRequestInlineForm textarea {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 11px 12px;
+
+  border:
+    1px solid
+    rgba(103, 83, 180, 0.15);
+
+  border-radius: 10px;
+
+  outline: none;
+
+  background: #ffffff;
+
+  color: #292230;
+
+  font: inherit;
+  font-size: 0.85rem;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.professionalBookingRequestInlineForm textarea {
+  resize: vertical;
+}
+
+.professionalBookingRequestInlineForm input:focus,
+.professionalBookingRequestInlineForm textarea:focus {
+  border-color:
+    rgba(112, 73, 202, 0.5);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(112, 73, 202, 0.08);
+}
+
+.professionalBookingRequestInlineFormActions {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 8px;
+}
+
+.professionalBookingRequestConfirmButton,
+.professionalBookingRequestConfirmRefuseButton,
+.professionalBookingRequestCancelButton {
+  min-height: 38px;
+
+  padding: 8px 13px;
+
+  border-radius: 9px;
+
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 750;
+
+  cursor: pointer;
+}
+
+.professionalBookingRequestConfirmButton {
+  border: none;
+
+  background:
+    linear-gradient(
+      135deg,
+      #28a9ff,
+      #6657e8,
+      #a844d7
+    );
+
+  color: #ffffff;
+}
+
+.professionalBookingRequestConfirmRefuseButton {
+  border: none;
+
+  background: #c7435c;
+
+  color: #ffffff;
+}
+
+.professionalBookingRequestCancelButton {
+  border:
+    1px solid
+    rgba(103, 83, 180, 0.13);
+
+  background: #ffffff;
+
+  color: #69616f;
+}
+
+.professionalBookingRequestConfirmButton:disabled,
+.professionalBookingRequestConfirmRefuseButton:disabled,
+.professionalBookingRequestCancelButton:disabled {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   MESSAGES DE STATUT
+========================================================= */
+
+.professionalBookingRequestMessage {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top: 19px;
+
+  padding: 12px 14px;
+
+  border-radius: 12px;
+}
+
+.professionalBookingRequestMessage > span {
+  display: flex;
+
+  flex: 0 0 auto;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 27px;
+  height: 27px;
+
+  border-radius: 50%;
+
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+
+.professionalBookingRequestMessage p {
+  margin: 0;
+
+  font-size: 0.82rem;
+  font-weight: 600;
+
+  line-height: 1.45;
+}
+
+
+/* ALTERNATIVE */
+
+.professionalBookingRequestMessage.alternative {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(102, 87, 232, 0.06),
+      rgba(229, 59, 156, 0.055)
+    );
+
+  color: #85469c;
+}
+
+.professionalBookingRequestMessage.alternative > span {
+  background:
+    rgba(168, 68, 215, 0.09);
+}
+
+
+/* ACCEPTÉE */
+
+.professionalBookingRequestMessage.accepted {
+  background:
+    rgba(48, 160, 103, 0.06);
+
+  color: #297e52;
+}
+
+.professionalBookingRequestMessage.accepted > span {
+  background:
+    rgba(48, 160, 103, 0.1);
+}
+
+
+/* REFUSÉE */
+
+.professionalBookingRequestMessage.refused {
+  background:
+    rgba(211, 57, 89, 0.055);
+
+  color: #ad4055;
+}
+
+.professionalBookingRequestMessage.refused > span {
+  background:
+    rgba(211, 57, 89, 0.09);
+}
+
+
+/* =========================================================
+   MOTIF REFUS
+========================================================= */
+
+.professionalBookingRequestRefusalReason {
+  display: grid;
+
+  gap: 5px;
+
+  margin-top: 10px;
+
+  padding: 12px 14px;
+
+  border:
+    1px solid
+    rgba(211, 57, 89, 0.12);
+
+  border-radius: 11px;
+
+  background:
+    rgba(211, 57, 89, 0.035);
+}
+
+.professionalBookingRequestRefusalReason > span {
+  color: #b13c54;
+
+  font-size: 0.72rem;
+  font-weight: 750;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.025em;
+}
+
+.professionalBookingRequestRefusalReason p {
+  margin: 0;
+
+  color: #72545c;
+
+  font-size: 0.83rem;
+  line-height: 1.45;
+}
+
+
+/* =========================================================
+   ERREUR
+========================================================= */
+
+.professionalBookingRequestsError {
+  margin-bottom: 16px;
+
+  padding: 13px 15px;
+
+  border:
+    1px solid
+    rgba(211, 57, 89, 0.18);
+
+  border-radius: 13px;
+
+  background:
+    rgba(211, 57, 89, 0.06);
+
+  color: #c13551;
+
+  font-size: 0.9rem;
+}
+
+
+/* =========================================================
+   CHARGEMENT
+========================================================= */
+
+.professionalBookingRequestsLoading {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  min-height: 180px;
+
+  color: #77707f;
+
+  font-size: 0.9rem;
+}
+
+.professionalBookingRequestLoader {
+  width: 20px;
+  height: 20px;
+
+  border:
+    2px solid
+    rgba(102, 87, 232, 0.15);
+
+  border-top-color: #7652ce;
+
+  border-radius: 50%;
+
+  animation:
+    professionalBookingRequestSpin
+    0.7s linear infinite;
+}
+
+@keyframes professionalBookingRequestSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   EMPTY STATES
+========================================================= */
+
+.professionalBookingRequestsEmpty,
+.professionalBookingRequestsFilteredEmpty {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  padding: 48px 24px;
+
+  border:
+    1px solid
+    rgba(103, 83, 180, 0.11);
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff,
+      #fdfbff
+    );
+
+  text-align: center;
+
+  box-shadow:
+    0 6px 22px
+    rgba(71, 52, 116, 0.045);
+}
+
+.professionalBookingRequestsEmptyIcon {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 58px;
+  height: 58px;
+
+  margin-bottom: 15px;
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(40, 169, 255, 0.1),
+      rgba(102, 87, 232, 0.11),
+      rgba(229, 59, 156, 0.08)
+    );
+
+  font-size: 1.45rem;
+}
+
+.professionalBookingRequestsEmpty h2 {
+  margin: 0 0 7px;
+
+  color: #211b2d;
+
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.professionalBookingRequestsEmpty p,
+.professionalBookingRequestsFilteredEmpty p {
+  margin: 0;
+
+  color: #77707f;
+
+  font-size: 0.88rem;
+}
+
+.professionalBookingRequestsFilteredEmpty > span {
+  margin-bottom: 10px;
+
+  font-size: 1.4rem;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 650px) {
+
+  .professionalBookingRequestsPage {
+    width: calc(100% - 24px);
+
+    padding: 24px 0 45px;
+  }
+
+  .professionalBookingRequestsHeader h1 {
+    font-size: 1.65rem;
+  }
+
+  .professionalBookingRequestFilters {
+    margin-right: -12px;
+    margin-left: -12px;
+
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .professionalBookingRequestCard {
+    padding: 18px 15px 17px 19px;
+
+    border-radius: 17px;
+  }
+
+  .professionalBookingRequestCardHeader {
+    gap: 12px;
+  }
+
+  .professionalBookingRequestAnimal strong {
+    font-size: 0.98rem;
+  }
+
+  .professionalBookingRequestStatus {
+    padding: 5px 8px;
+
+    font-size: 0.69rem;
+  }
+
+  .professionalBookingRequestInformations {
+    grid-template-columns: 1fr;
+  }
+
+  .professionalBookingRequestInformationFull {
+    grid-column: auto;
+  }
+
+  .professionalBookingRequestActions {
+    display: grid;
+
+    grid-template-columns: 1fr;
+  }
+
+  .professionalBookingRequestButton {
+    width: 100%;
+  }
+
+}
+
+
+@media (max-width: 430px) {
+
+  .professionalBookingRequestCardHeader {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .professionalBookingRequestAnimal strong {
+    white-space: normal;
+  }
+
+  .professionalBookingRequestDateCard {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 4px;
+  }
+
+  .professionalBookingRequestInlineFormActions {
+    display: grid;
+
+    grid-template-columns: 1fr;
+  }
+
+  .professionalBookingRequestConfirmButton,
+  .professionalBookingRequestConfirmRefuseButton,
+  .professionalBookingRequestCancelButton {
+    width: 100%;
+  }
+
+}
+
+
+/* =========================================================
+   PLANIFICATEUR DE RENDEZ-VOUS
+========================================================= */
+
+.professionalBookingRequestScheduler {
+  display: grid;
+  gap: 18px;
+  margin-top: 16px;
+  padding: 18px;
+  border: 1px solid rgba(103, 83, 180, 0.13);
+  border-radius: 16px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(40, 169, 255, 0.025),
+      rgba(102, 87, 232, 0.035),
+      rgba(229, 59, 156, 0.025)
+    );
+}
+
+.professionalBookingRequestSchedulerHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.professionalBookingRequestSchedulerHeader h3 {
+  margin: 4px 0 0;
+  color: #292230;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.professionalBookingRequestDurationValue {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  min-width: 70px;
+  min-height: 38px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      135deg,
+      #28a9ff,
+      #6657e8,
+      #a844d7
+    );
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 800;
+  box-shadow:
+    0 5px 14px
+    rgba(102, 87, 232, 0.17);
+}
+
+.professionalBookingRequestSchedulerBlock {
+  display: grid;
+  gap: 11px;
+}
+
+.professionalBookingRequestSchedulerLabel {
+  display: grid;
+  gap: 3px;
+}
+
+.professionalBookingRequestSchedulerLabel strong {
+  color: #453c4d;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.professionalBookingRequestSchedulerLabel span {
+  color: #8a828f;
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+
+
+/* DURÉE */
+
+.professionalBookingRequestDurationSlider {
+  width: 100%;
+  accent-color: #7652ce;
+  cursor: pointer;
+}
+
+.professionalBookingRequestSliderScale {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #9a929f;
+  font-size: 0.68rem;
+  font-weight: 650;
+}
+
+
+/* COLLABORATEURS */
+
+.professionalBookingRequestCollaborators {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.professionalBookingRequestCollaborator {
+  min-height: 38px;
+  padding: 8px 13px;
+  border:
+    1px solid
+    rgba(112, 73, 202, 0.16);
+  border-radius: 999px;
+  background: #ffffff;
+  color: #655d6c;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 750;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.professionalBookingRequestCollaborator:hover {
+  transform: translateY(-1px);
+  border-color:
+    rgba(112, 73, 202, 0.32);
+  color: #7049ca;
+}
+
+.professionalBookingRequestCollaborator.active {
+  border-color: transparent;
+  background:
+    linear-gradient(
+      135deg,
+      #28a9ff,
+      #6657e8,
+      #a844d7
+    );
+  color: #ffffff;
+  box-shadow:
+    0 5px 14px
+    rgba(102, 87, 232, 0.17);
+}
+
+
+/* JOURS SOUHAITÉS */
+
+.professionalBookingRequestPreferredDays {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.professionalBookingRequestPreferredDays > span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 5px 10px;
+  border:
+    1px solid
+    rgba(229, 59, 156, 0.13);
+  border-radius: 999px;
+  background:
+    rgba(229, 59, 156, 0.055);
+  color: #a43e88;
+  font-size: 0.72rem;
+  font-weight: 750;
+}
+
+
+/* CHARGEMENT DISPONIBILITÉS */
+
+.professionalBookingRequestSchedulerLoading {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 50px;
+  color: #77707f;
+  font-size: 0.8rem;
+}
+
+.professionalBookingRequestNoSlots {
+  padding: 13px 14px;
+  border:
+    1px dashed
+    rgba(103, 83, 180, 0.16);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.65);
+  color: #7c7482;
+  font-size: 0.79rem;
+  line-height: 1.5;
+}
+
+
+/* CRÉNEAUX */
+
+.professionalBookingRequestSlots {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.professionalBookingRequestSlot {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  padding: 11px 12px;
+  border:
+    1px solid
+    rgba(103, 83, 180, 0.1);
+  border-radius: 11px;
+  background: #ffffff;
+  color: #4b4351;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.professionalBookingRequestSlot:hover {
+  transform: translateY(-1px);
+  border-color:
+    rgba(112, 73, 202, 0.28);
+  box-shadow:
+    0 5px 14px
+    rgba(71, 52, 116, 0.07);
+}
+
+.professionalBookingRequestSlot.preferred {
+  border-color:
+    rgba(229, 59, 156, 0.18);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(102, 87, 232, 0.035),
+      rgba(229, 59, 156, 0.045)
+    );
+}
+
+.professionalBookingRequestSlot.requested {
+  border-color:
+    rgba(40, 169, 255, 0.28);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(40, 169, 255, 0.07),
+      rgba(102, 87, 232, 0.06)
+    );
+}
+
+.professionalBookingRequestSlot.active {
+  border-color: #7652ce;
+  box-shadow:
+    0 0 0 3px
+    rgba(112, 73, 202, 0.09);
+}
+
+.professionalBookingRequestSlotDate {
+  overflow: hidden;
+  color: #756d7c;
+  font-size: 0.71rem;
+  font-weight: 650;
+  text-transform: capitalize;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.professionalBookingRequestSlot > strong {
+  color: #2c2533;
+  font-size: 0.92rem;
+  font-weight: 850;
+}
+
+.professionalBookingRequestSlotBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 2px;
+}
+
+.professionalBookingRequestSlotBadges > span {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 6px;
+  border-radius: 999px;
+  font-size: 0.61rem;
+  font-weight: 800;
+}
+
+.professionalBookingRequestSlotBadges .requested {
+  background:
+    rgba(40, 169, 255, 0.09);
+  color: #2688c7;
+}
+
+.professionalBookingRequestSlotBadges .preferred {
+  background:
+    rgba(229, 59, 156, 0.08);
+  color: #a33e88;
+}
+
+
+/* RÉSUMÉ / CONFIRMATION */
+
+.professionalBookingRequestSelectionSummary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px;
+  border:
+    1px solid
+    rgba(112, 73, 202, 0.14);
+  border-radius: 13px;
+  background: #ffffff;
+}
+
+.professionalBookingRequestSelectionSummary > div {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.professionalBookingRequestSelectionSummary span {
+  color: #8d8593;
+  font-size: 0.69rem;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.professionalBookingRequestSelectionSummary strong {
+  color: #352d3d;
+  font-size: 0.83rem;
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+.professionalBookingRequestSelectionSummary small {
+  color: #746c7a;
+  font-size: 0.73rem;
+  font-weight: 650;
+}
+
+.professionalBookingRequestConfirmSlotButton {
+  flex: 0 0 auto;
+  min-height: 40px;
+  padding: 9px 14px;
+  border: none;
+  border-radius: 10px;
+  background:
+    linear-gradient(
+      135deg,
+      #28a9ff,
+      #6657e8,
+      #a844d7,
+      #e53b9c
+    );
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.77rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow:
+    0 5px 14px
+    rgba(102, 87, 232, 0.18);
+}
+
+.professionalBookingRequestConfirmSlotButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.professionalBookingRequestButton.sitterAccept {
+  background: #22c55e;
+  border-color: #22c55e;
+  color: #ffffff;
+}
+
+.professionalBookingRequestButton.sitterAccept:hover:not(:disabled) {
+  background: #16a34a;
+  border-color: #16a34a;
+}
+
+
+/* =========================================================
+   RESPONSIVE PLANIFICATEUR
+========================================================= */
+
+@media (max-width: 650px) {
+  .professionalBookingRequestScheduler {
+    padding: 15px;
+  }
+
+  .professionalBookingRequestSlots {
+    grid-template-columns: 1fr;
+  }
+
+  .professionalBookingRequestSelectionSummary {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .professionalBookingRequestConfirmSlotButton {
+    width: 100%;
+  }
+}
+
+@media (max-width: 430px) {
+  .professionalBookingRequestSchedulerHeader {
+    flex-direction: column;
+  }
+
+  .professionalBookingRequestDurationValue {
+    align-self: flex-start;
+  }
+
+  .professionalBookingRequestCollaborators {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .professionalBookingRequestCollaborator {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   PROPOSITION D'UN AUTRE CRÉNEAU
+========================================================= */
+
+.professionalBookingRequestAlternativeFields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+
+.professionalBookingRequestAlternativeField {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+
+.professionalBookingRequestAlternativeField > span {
+  font-size: 12px;
+  font-weight: 700;
+  color: #667085;
+}
+
+
+.professionalBookingRequestAlternativeField input {
+  width: 100%;
+  min-height: 46px;
+  box-sizing: border-box;
+
+  padding: 0 14px;
+
+  border: 1px solid #dfe3eb;
+  border-radius: 12px;
+
+  background: #ffffff;
+  color: #1d2939;
+
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+
+.professionalBookingRequestAlternativeField input:hover {
+  border-color: #c7cdd8;
+}
+
+
+.professionalBookingRequestAlternativeField input:focus {
+  border-color: #6c63ff;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(108, 99, 255, 0.12);
+}
+
+
+.professionalBookingRequestAlternativeAvailability {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+
+  margin-top: 14px;
+  padding: 13px 14px;
+
+  border: 1px solid transparent;
+  border-radius: 12px;
+}
+
+
+.professionalBookingRequestAlternativeAvailability > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+
+  border-radius: 50%;
+
+  font-size: 13px;
+  font-weight: 800;
+}
+
+
+.professionalBookingRequestAlternativeAvailability > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  min-width: 0;
+}
+
+
+.professionalBookingRequestAlternativeAvailability strong {
+  font-size: 13px;
+  font-weight: 750;
+}
+
+
+.professionalBookingRequestAlternativeAvailability small {
+  font-size: 12px;
+  line-height: 1.45;
+  opacity: 0.8;
+}
+
+
+.professionalBookingRequestAlternativeAvailability.available {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+  color: #166534;
+}
+
+
+.professionalBookingRequestAlternativeAvailability.available > span {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+
+.professionalBookingRequestAlternativeAvailability.unavailable {
+  background: #fff7ed;
+  border-color: #fed7aa;
+  color: #9a3412;
+}
+
+
+.professionalBookingRequestAlternativeAvailability.unavailable > span {
+  background: #ffedd5;
+  color: #c2410c;
+}
+
+
+.professionalBookingRequestProposeSlotButton {
+  width: 100%;
+
+  margin-top: 14px;
+  padding: 13px 18px;
+
+  border: 0;
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #3157ff 0%,
+      #725cff 48%,
+      #c43cff 100%
+    );
+
+  color: #ffffff;
+
+  font: inherit;
+  font-size: 14px;
+  font-weight: 750;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 20px
+    rgba(91, 78, 255, 0.18);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    opacity 0.15s ease;
+}
+
+
+.professionalBookingRequestProposeSlotButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 10px 24px
+    rgba(91, 78, 255, 0.24);
+}
+
+
+.professionalBookingRequestProposeSlotButton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+
+.professionalBookingRequestProposeSlotButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+  box-shadow: none;
+}
+
+
+@media (max-width: 640px) {
+
+  .professionalBookingRequestAlternativeFields {
+    grid-template-columns: 1fr;
+  }
+
+}

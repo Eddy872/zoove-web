@@ -4,6 +4,11 @@
   padding: 32px 0;
 }
 
+
+/* =========================
+   HEADER
+========================= */
+
 .appointmentsHeader {
   display: flex;
   align-items: center;
@@ -13,36 +18,105 @@
 
 .appointmentsHeader h1 {
   margin: 0;
+
+  font-size: 2rem;
   font-weight: 800;
+
+  color: #171421;
 }
+
+
+/* =========================
+   LISTE
+========================= */
 
 .appointmentsList {
   display: grid;
   gap: 14px;
 }
 
+
+/* =========================
+   CARTE RDV
+========================= */
+
 .appointmentCard {
+  position: relative;
+
   display: flex;
   justify-content: space-between;
   gap: 20px;
 
-  padding: 18px;
-  border: 1px solid #e5e5e5;
+  padding: 19px 20px;
+
+  border: 1px solid rgba(103, 83, 180, 0.13);
   border-radius: 18px;
 
   color: inherit;
   text-decoration: none;
-  background: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff 0%,
+      #fdfcff 100%
+    );
+
+  box-shadow:
+    0 4px 16px
+    rgba(71, 52, 116, 0.045);
+
+  overflow: hidden;
 
   transition:
     transform 0.2s ease,
-    box-shadow 0.2s ease;
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
 }
 
-.appointmentCard:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgb(0 0 0 / 8%);
+
+/* Petite barre Zoove sur la gauche */
+
+.appointmentCard::before {
+  content: "";
+
+  position: absolute;
+  top: 14px;
+  bottom: 14px;
+  left: 0;
+
+  width: 4px;
+
+  border-radius: 0 6px 6px 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      #28a9ff 0%,
+      #6657e8 40%,
+      #a844d7 70%,
+      #e53b9c 100%
+    );
+
+  opacity: 0.9;
 }
+
+
+.appointmentCard:hover {
+  transform: translateY(-3px);
+
+  border-color:
+    rgba(111, 82, 214, 0.25);
+
+  box-shadow:
+    0 12px 30px
+    rgba(79, 55, 139, 0.11);
+}
+
+
+/* =========================
+   CONTENU CARTE
+========================= */
 
 .appointmentCard div {
   display: flex;
@@ -50,20 +124,159 @@
   gap: 6px;
 }
 
+
 .appointmentCard div:last-child {
   text-align: right;
   align-items: flex-end;
 }
 
-.appointmentStatus {
-  font-size: 0.85rem;
-  font-weight: 600;
+
+/* Nom / titre principal */
+
+.appointmentCard strong {
+  color: #211b2d;
+
+  font-size: 1rem;
+  font-weight: 750;
 }
+
+
+/* Informations secondaires */
+
+.appointmentCard p {
+  margin: 0;
+
+  color: #716a7b;
+
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+
+/* =========================
+   STATUT
+========================= */
+
+.appointmentStatus {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: fit-content;
+
+  padding: 5px 10px;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(48, 166, 255, 0.1),
+      rgba(116, 76, 220, 0.11),
+      rgba(220, 55, 160, 0.09)
+    );
+
+  color: #7049ca;
+
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+
+/* =========================
+   RDV ANNULÉ
+========================= */
 
 .cancelledAppointment {
   opacity: 0.55;
+
+  background: #fafafa;
+
+  border-color: #e7e4e9;
+
+  box-shadow: none;
 }
 
+
+.cancelledAppointment::before {
+  background: #aaa4ae;
+}
+
+
+.cancelledAppointment:hover {
+  transform: none;
+
+  box-shadow: none;
+
+  border-color: #e7e4e9;
+}
+
+
+.cancelledAppointment
+.appointmentStatus {
+  background: #efedf0;
+
+  color: #817a85;
+}
+
+
+/* =========================
+   ERREUR
+========================= */
+
 .appointmentsError {
-  color: #c62828;
+  padding: 12px 14px;
+
+  border: 1px solid
+    rgba(211, 57, 89, 0.18);
+
+  border-radius: 12px;
+
+  background:
+    rgba(211, 57, 89, 0.06);
+
+  color: #c13551;
+
+  font-size: 0.9rem;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 600px) {
+
+  .appointmentsPage {
+    width: min(
+      100% - 24px,
+      900px
+    );
+
+    padding: 22px 0;
+  }
+
+
+  .appointmentsHeader {
+    margin-bottom: 20px;
+  }
+
+
+  .appointmentsHeader h1 {
+    font-size: 1.65rem;
+  }
+
+
+  .appointmentCard {
+    gap: 14px;
+
+    padding: 16px 16px 16px 18px;
+
+    border-radius: 16px;
+  }
+
+
+  .appointmentCard div:last-child {
+    min-width: 105px;
+  }
 }

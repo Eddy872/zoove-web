@@ -1532,3 +1532,221 @@ label > span {
 .groomingManageSubscriptionButton:active {
   transform: scale(0.98);
 }
+
+/* -----------------------------------------
+   Configuration d'une prestation
+----------------------------------------- */
+
+.servicesModalOptionsSection,
+.servicesModalQuestionsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.servicesModalSectionLabel {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #3b3147;
+}
+
+
+/* -----------------------------------------
+   Informations demandées
+----------------------------------------- */
+
+.servicesModalCheckboxGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.servicesModalCheckbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  min-height: 46px;
+  padding: 10px 14px;
+
+  border: 1px solid #e4dceb;
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.servicesModalCheckbox:hover {
+  border-color: #cfc1dd;
+  background: #fcfaff;
+}
+
+.servicesModalCheckbox:has(input:checked) {
+  border-color: #8b5cf6;
+  background: #f7f3ff;
+  box-shadow:
+    0 0 0 2px rgba(139, 92, 246, 0.08);
+}
+
+.servicesModalCheckbox input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+
+  flex: 0 0 auto;
+
+  accent-color: #7c3aed;
+  cursor: pointer;
+}
+
+.servicesModalCheckbox span {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #403649;
+}
+
+
+/* -----------------------------------------
+   Questions personnalisées
+----------------------------------------- */
+
+.servicesModalQuestionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.servicesModalQuestionRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44px;
+  gap: 10px;
+  align-items: center;
+}
+
+.servicesModalQuestionRow input {
+  width: 100%;
+  min-width: 0;
+  height: 46px;
+
+  padding: 0 14px;
+
+  border: 1px solid #ddd3e6;
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  font: inherit;
+  color: #332a3d;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.servicesModalQuestionRow input:focus {
+  border-color: #8b5cf6;
+  box-shadow:
+    0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+.servicesModalQuestionRow input::placeholder {
+  color: #aaa1b3;
+}
+
+.servicesModalQuestionRemove {
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: 12px;
+
+  background: #fff0f2;
+  color: #d92d45;
+
+  font-size: 22px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.servicesModalQuestionRemove:hover {
+  background: #ffe2e6;
+}
+
+.servicesModalQuestionRemove:active {
+  transform: scale(0.96);
+}
+
+
+/* -----------------------------------------
+   Ajouter une question
+----------------------------------------- */
+
+.servicesModalAddQuestion {
+  align-self: flex-start;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  min-height: 42px;
+  padding: 8px 14px;
+
+  border: 1px solid #ddd3e6;
+  border-radius: 11px;
+
+  background: #ffffff;
+  color: #51445d;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.servicesModalAddQuestion:hover {
+  border-color: #bca9ce;
+  background: #faf7fc;
+}
+
+.servicesModalAddQuestion > span {
+  font-size: 20px;
+  line-height: 1;
+}
+
+
+/* -----------------------------------------
+   Responsive
+----------------------------------------- */
+
+@media (max-width: 700px) {
+  .servicesModalCheckboxGrid {
+    grid-template-columns: 1fr;
+  }
+}

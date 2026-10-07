@@ -597,15 +597,26 @@ function ServicesTab({
               className="healthcareServiceCard"
             >
               <div className="healthcareServiceTop">
-                <h3>{service.name}</h3>
+                <h3>
+                  {service.name}
+                </h3>
 
-                <strong>
-                  {formatPrice(
-                    service.price,
-                    service.devise,
-                    language
-                  )}
-                </strong>
+                <div className="healthcareServicePrice">
+                  <span>
+                    {translate(
+                      language,
+                      "À partir de "
+                    )}
+                  </span>
+
+                  <strong>
+                    {formatPrice(
+                      service.price,
+                      service.devise,
+                      language
+                    )}
+                  </strong>
+                </div>
               </div>
 
               {service.description && (
@@ -613,22 +624,6 @@ function ServicesTab({
                   {service.description}
                 </p>
               )}
-
-              <div className="healthcareServiceFooter">
-                <span>
-                  {translate(
-                    language,
-                    "Durée"
-                  )}
-                </span>
-
-                <strong>
-                  {formatDuration(
-                    service.duration,
-                    language
-                  )}
-                </strong>
-              </div>
             </article>
           ))}
         </div>

@@ -919,40 +919,49 @@ export default function CreateHealthcareAccountPage() {
                 )
             )
 
-          const formattedServices:
-            Service[] =
-            services.map(
-              (service) => ({
-                id:
-                  service.id ||
-                  generateID(),
+            const formattedServices:
+              Service[] =
+              services.map(
+                (service) => ({
+                  id:
+                    service.id ||
+                    generateID(),
 
-                groomingID: "",
+                  groomingID: "",
 
-                name:
-                  service.name.trim(),
+                  name:
+                    service.name.trim(),
 
-                description:
-                  service.description.trim(),
+                  description:
+                    service.description.trim(),
 
-                price:
-                  Number(
-                    service.price.replace(
-                      ",",
-                      "."
-                    )
-                  ),
+                  price:
+                    Number(
+                      service.price.replace(
+                        ",",
+                        "."
+                      )
+                    ),
 
-                duration:
-                  Number(
-                    service.duration
-                  ),
+                  duration:
+                    Number(
+                      service.duration
+                    ),
 
-                devise:
-                  service.devise.trim() ||
-                  "€"
-              })
-            )
+                  devise:
+                    service.devise.trim() ||
+                    "€",
+
+                  bookingMode:
+                    "direct",
+
+                  requiredInformations:
+                    [],
+
+                  customQuestions:
+                    []
+                })
+              )
 
           const formattedExpertise =
             selectedExpertises
