@@ -9,6 +9,65 @@ function field<T>(
   return record.fields?.[name]?.value ?? fallback
 }
 
+async function checkPackageExpiration(
+  database: any,
+  record: any
+) {
+  const currentPackage = Number(
+    field(record, "package", 0)
+  )
+
+  const autoRenew = Number(
+    field(record, "autoRenew", 0)
+  )
+
+  const packageEnd = field<string>(
+    record,
+    "packageEnd",
+    ""
+  )
+
+  // Aucun abonnement ou renouvellement automatique activé
+  if (currentPackage === 0 || autoRenew !== 0 || !packageEnd) {
+    return record
+  }
+
+  const expirationDate = new Date(packageEnd).getTime()
+
+  // Date invalide ou abonnement encore actif
+  if (
+    !Number.isFinite(expirationDate) ||
+    expirationDate > Date.now()
+  ) {
+    return record
+  }
+
+  // Abonnement expiré sans renouvellement automatique
+  const updatedRecord = {
+    recordType: record.recordType,
+    recordName: record.recordName,
+    recordChangeTag: record.recordChangeTag,
+    fields: {
+      package: {
+        value: 0
+      }
+    }
+  }
+
+  const response = await database.saveRecords(updatedRecord)
+
+  if (response.hasErrors) {
+    throw (
+      response.errors?.[0] ??
+      new Error("Impossible de réinitialiser le package")
+    )
+  }
+
+  record.fields.package = { value: 0 }
+
+  return record
+}
+
 function assetToUrl(fieldValue: any): string {
   const value = fieldValue?.value
 
@@ -48,11 +107,16 @@ export async function fetchClientByPseudo(
     )
   }
 
-  const record = response.records?.[0]
+    let record = response.records?.[0]
 
-  if (!record) {
-    return null
-  }
+    if (!record) {
+      return null
+    }
+
+    record = await checkPackageExpiration(
+      database,
+      record
+    )
 
   return {
     id: record.recordName,
@@ -127,6 +191,7 @@ export async function fetchClientByPseudo(
     swipeCount: field(record, "swipeCount", 0),
 
     packageStart: field(record, "packageStart", ""),
+      autoRenew: field<number>(record, "autoRenew", 0),
     packageEnd: field(record, "packageEnd", ""),
     lastConnection: field(
       record,
@@ -161,11 +226,16 @@ export async function fetchClientById(
     )
   }
 
-  const record = response.records?.[0]
+    let record = response.records?.[0]
 
-  if (!record) {
-    return null
-  }
+    if (!record) {
+      return null
+    }
+
+    record = await checkPackageExpiration(
+      database,
+      record
+    )
 
   return {
     id: record.recordName,
@@ -224,6 +294,7 @@ export async function fetchClientById(
     ),
 
     package: field(record, "package", 0),
+      autoRenew: field<number>(record, "autoRenew", 0),
     share: field(record, "share", 0),
     shareOnTiktok: field(
       record,

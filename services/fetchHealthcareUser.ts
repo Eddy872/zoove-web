@@ -9,6 +9,73 @@ function field<T>(
   return record.fields?.[name]?.value ?? fallback
 }
 
+async function checkPackageExpiration(
+  database: any,
+  record: any
+) {
+  const currentPackage = Number(
+    field(record, "package", 0)
+  )
+
+  const autoRenew = Number(
+    field(record, "autoRenew", 0)
+  )
+
+  const packageEnd = field<string>(
+    record,
+    "packageEnd",
+    ""
+  )
+
+  if (
+    currentPackage === 0 ||
+    autoRenew !== 0 ||
+    !packageEnd
+  ) {
+    return record
+  }
+
+  const expirationDate = new Date(packageEnd).getTime()
+
+  if (
+    !Number.isFinite(expirationDate) ||
+    expirationDate > Date.now()
+  ) {
+    return record
+  }
+
+  console.log(
+    "Abonnement Healthcare expiré :",
+    record.recordName
+  )
+
+  const updatedRecord = {
+    recordType: record.recordType,
+    recordName: record.recordName,
+    recordChangeTag: record.recordChangeTag,
+    fields: {
+      package: {
+        value: 0
+      }
+    }
+  }
+
+  const response = await database.saveRecords(
+    updatedRecord
+  )
+
+  if (response.hasErrors) {
+    throw (
+      response.errors?.[0] ??
+      new Error("Impossible de réinitialiser le package Healthcare")
+    )
+  }
+
+  record.fields.package = { value: 0 }
+
+  return record
+}
+
 function assetsToUrls(fieldValue: any): string[] {
   const value = fieldValue?.value
 
@@ -61,11 +128,16 @@ export async function fetchHealthcareByPseudo(
     )
   }
 
-  const record = response.records?.[0]
+    let record = response.records?.[0]
 
-  if (!record) {
-    return null
-  }
+    if (!record) {
+      return null
+    }
+
+    record = await checkPackageExpiration(
+      database,
+      record
+    )
 
   return {
     id: record.recordName,
@@ -132,8 +204,8 @@ export async function fetchHealthcareByPseudo(
 
     blocked: field(record, "blocked", 0),
     package: field(record, "package", 0),
-    share: field(record, "share", 0),
       autoRenew: field(record, "autoRenew", 0),
+    share: field(record, "share", 0),
 
       stripeCustomerID: field(
         record,

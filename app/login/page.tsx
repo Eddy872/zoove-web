@@ -359,10 +359,15 @@ export default function LoginPage() {
                     "/images/demo2.jpg"
                   : loggedSession.user.photo
               }
-              onClose={() => {
-                setShowWelcome(false)
-                router.push("/")
-              }}
+            onClose={() => {
+              setShowWelcome(false)
+
+              if (loggedSession.accountType === "animal") {
+                router.replace("/professionals")
+              } else {
+                router.replace("/professional-agenda")
+              }
+            }}
             />
           )}
       </section>

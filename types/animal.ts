@@ -24,6 +24,7 @@ export type Animal = BaseUser & {
   notifMatchId: string[]
 
   package: number
+  autoRenew: number
   share: number
   shareOnTiktok: number
 

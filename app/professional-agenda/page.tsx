@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation"
 
 import type { Language } from "@/context/LanguageContext"
 import { useAuth } from "@/context/AuthContext"
-
+import Header from "@/components/Header"
 import ProfessionalBookingModal from "@/components/ProfessionalBookingModal"
 
 import {
@@ -1517,6 +1517,8 @@ export default function ProfessionalAgendaPage() {
 
 
   return (
+          <>
+  <Header />
     <main className="professionalAgendaPage">
 
       <header className="professionalAgendaHeader">
@@ -2795,5 +2797,6 @@ export default function ProfessionalAgendaPage() {
       )}
 
     </main>
+  </>
   )
 }

@@ -152,6 +152,8 @@ export function mapCloudKitAccount(
     case "animal":
       return {
         ...commonFields,
+          
+          autoRenew: Number(field(record, "autoRenew", 0)) || 0,
 
         bio: field(
           record,

@@ -1,0 +1,451 @@
+
+.page {
+  min-height: 100vh;
+  padding: 30px 24px 70px;
+  background:
+    radial-gradient(
+      ellipse at 78% 18%,
+      rgba(247, 224, 255, 0.55),
+      transparent 38%
+    ),
+    linear-gradient(
+      180deg,
+      #fffafd 0%,
+      #ffffff 75%
+    );
+}
+
+.container {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* HERO */
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  align-items: center;
+  gap: 50px;
+  min-height: 360px;
+}
+
+.heroText h1 {
+  max-width: 600px;
+  margin: 0 0 22px;
+  color: #091d45;
+  font-size: clamp(32px, 3.5vw, 50px);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -1.5px;
+}
+
+.heroText p {
+  max-width: 610px;
+  margin: 0 0 15px;
+  color: #647391;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+.quote {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 13px 20px;
+  border-radius: 16px;
+  background: #f2e3ff;
+  color: #933bff;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+/* HERO IMAGE */
+
+.heroVisual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  height: 380px;
+}
+
+.heroGlow {
+  position: absolute;
+  width: 95%;
+  height: 85%;
+  border-radius: 50%;
+  background: #f5e4ff;
+  filter: blur(38px);
+  opacity: 0.75;
+}
+
+.petImage {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  height: 370px;
+  overflow: hidden;
+  border-radius: 42% 37% 34% 28% /
+    35% 30% 37% 36%;
+  transform: rotate(-2deg);
+}
+
+.imageCover {
+  object-fit: cover;
+}
+
+.floatingHeart {
+  position: absolute;
+  top: 5px;
+  right: 8%;
+  z-index: 2;
+  color: #993bff;
+  transform: rotate(-12deg);
+}
+
+/* VALEURS */
+
+.valuesSection {
+  margin-top: 32px;
+}
+
+.valuesGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.valueCard {
+  min-height: 205px;
+  padding: 26px 25px;
+  border: 1px solid #f8f5fb;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 8px 30px rgba(24, 25, 70, 0.055);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.valueCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 35px rgba(60, 30, 100, 0.1);
+}
+
+.valueIcon {
+  margin-bottom: 16px;
+}
+
+.red {
+  color: #ff536b;
+}
+
+.purple {
+  color: #663cff;
+}
+
+.violet {
+  color: #793aff;
+}
+
+.orange {
+  color: #ff795b;
+}
+
+.valueCard h2 {
+  margin: 0 0 10px;
+  color: #091d45;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.valueCard p {
+  margin: 0;
+  color: #697895;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+
+/* NOTRE HISTOIRE */
+
+.story {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  align-items: center;
+  gap: 60px;
+
+  margin-top: 55px;
+  padding: 30px 0;
+}
+
+.storyText {
+  min-width: 0;
+}
+
+.storyText h2 {
+  margin: 0 0 22px;
+  color: #091d45;
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+}
+
+.storyText p {
+  margin: 0 0 25px;
+  color: #647391;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.storyText .awardText {
+  margin-bottom: 0;
+  color: #344969;
+  font-weight: 700;
+}
+
+/* PHOTO TALENTS DES CITÉS */
+
+.founderAwardImage {
+  width: 100%;
+  max-width: 340px;
+  justify-self: end;
+}
+
+.awardPhoto {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 22px;
+  box-shadow: 0 10px 35px rgba(20, 30, 70, 0.08);
+}
+
+/* TABLETTE */
+
+@media (max-width: 1000px) {
+  .story {
+    grid-template-columns: minmax(0, 1fr) 280px;
+    gap: 30px;
+  }
+
+  .founderAwardImage {
+    max-width: 280px;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+  .story {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-top: 35px;
+    padding: 20px 0;
+  }
+
+  .storyText {
+    text-align: left;
+  }
+
+  .storyText h2 {
+    font-size: 28px;
+  }
+
+  .storyText p {
+    font-size: 15px;
+  }
+
+  .founderAwardImage {
+    max-width: 320px;
+    justify-self: center;
+  }
+}
+
+
+/* RÉCOMPENSE */
+
+.award {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 220px;
+  padding: 16px;
+  border-radius: 32% 24% 18% 20%;
+  background: linear-gradient(
+    135deg,
+    #fff3fb,
+    #eee0ff
+  );
+}
+
+.awardIcon {
+  color: #ff6477;
+  margin-bottom: 8px;
+}
+
+.awardCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 14px 10px;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 6px 20px rgba(72, 33, 110, 0.1);
+  text-align: center;
+}
+
+.awardCard strong {
+  color: #ff536b;
+  font-size: 15px;
+}
+
+.awardCard span {
+  color: #ff536b;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.awardCard small {
+  color: #ff7180;
+  font-size: 11px;
+}
+
+/* TABLETTE */
+
+@media (max-width: 1000px) {
+  .hero {
+    gap: 24px;
+  }
+
+  .heroText h1 {
+    font-size: 36px;
+  }
+
+  .valuesGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .story {
+    grid-template-columns: 170px minmax(0, 1fr);
+  }
+
+  .founderImage {
+    width: 170px;
+    height: 170px;
+  }
+
+  .award {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: 250px;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+  .page {
+    padding: 25px 18px 50px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .heroText h1 {
+    font-size: clamp(30px, 8vw, 40px);
+    letter-spacing: -1px;
+  }
+
+  .heroText p {
+    font-size: 15px;
+  }
+
+  .quote {
+    font-size: 15px;
+  }
+
+  .heroVisual {
+    height: 290px;
+  }
+
+  .petImage {
+    max-width: 370px;
+    height: 280px;
+  }
+
+  .floatingHeart {
+    right: 5%;
+  }
+
+  .valuesSection {
+    margin-top: 25px;
+  }
+
+  .valuesGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .valueCard {
+    min-height: 185px;
+    padding: 20px 15px;
+  }
+
+  .valueCard h2 {
+    font-size: 16px;
+  }
+
+  .valueCard p {
+    font-size: 13px;
+  }
+
+  .story {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 24px;
+    margin-top: 45px;
+  }
+
+  .storyText {
+    text-align: center;
+  }
+
+  .storyText h2 {
+    font-size: 26px;
+  }
+
+  .award {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 380px) {
+  .valuesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .valueCard {
+    min-height: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .valueCard {
+    transition: none;
+  }
+
+  .valueCard:hover {
+    transform: none;
+  }
+}
+

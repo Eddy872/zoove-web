@@ -200,6 +200,17 @@ export default function Header() {
                         <span>👤</span>
                         {translate(language, "Profil")}
                       </Link>
+                                                        
+                    <Link
+                      href="/professionals"
+                      onClick={() => setIsUserMenuOpen(false)}
+                    >
+                      <span>🔎</span>
+                      {translate(
+                        language,
+                        "Rechercher un professionnel"
+                      )}
+                    </Link>
 
                       <Link href="/appointments">
                         <span>📅</span>
@@ -323,40 +334,6 @@ export default function Header() {
           )}
         </div>
       </nav>
-
-      <section className="heroContent">
-        <div className="heroText">
-          <h1>
-            {translate(
-              language,
-              "Le meilleur pour"
-            )}
-
-            <br />
-
-            <span>
-              {translate(
-                language,
-                "vos animaux 🐾"
-              )}
-            </span>
-          </h1>
-
-          <p>
-            {translate(
-              language,
-              "Trouvez les meilleurs professionnels près de chez vous et réservez en toute simplicité."
-            )}
-          </p>
-        </div>
-
-        <div className="heroImage">
-          <img
-            src="/images/hero-pets.png"
-            alt="Animaux"
-          />
-        </div>
-      </section>
 
       {showGoodbye &&
         goodbyeSession && (

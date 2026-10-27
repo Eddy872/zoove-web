@@ -275,6 +275,7 @@ export default function SignupPage() {
           package: 0,
           packageStart: "",
           packageEnd: "",
+            autoRenew: 0,
 
           share: 0,
           paypalID: "",
