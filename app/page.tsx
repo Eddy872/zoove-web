@@ -18,6 +18,7 @@ import {
 
 import Header from "@/components/Header"
 import HomeNavbar from "@/components/HomeNavbar"
+import Footer from "@/components/Footer"
 
 import { useLanguage } from "@/context/LanguageContext"
 import { translate } from "@/translations/translations"
@@ -358,6 +359,8 @@ export default function Home() {
 
         </div>
       </div>
+          <Footer />
     </main>
+          
   )
 }

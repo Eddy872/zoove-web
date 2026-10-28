@@ -2,6 +2,7 @@
 import type { Metadata } from "next"
 import Header from "@/components/Header"
 import HomeNavbar from "@/components/HomeNavbar"
+import Footer from "@/components/Footer"
 import AboutContent from "./AboutContent"
 
 export const metadata: Metadata = {
@@ -34,6 +35,7 @@ export default function AboutPage() {
       <Header />
       <HomeNavbar />
       <AboutContent />
+          <Footer />
     </main>
   )
 }

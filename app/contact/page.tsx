@@ -5,6 +5,7 @@ import { useState, type FormEvent } from "react"
 import Image from "next/image"
 import Header from "@/components/Header"
 import HomeNavbar from "@/components/HomeNavbar"
+import Footer from "@/components/Footer"
 import {
   Mail,
   MapPin,
@@ -324,6 +325,7 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+          <Footer />
     </main>
   )
 }
