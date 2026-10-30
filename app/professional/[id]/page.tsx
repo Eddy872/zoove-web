@@ -54,7 +54,7 @@ export async function generateMetadata({
   const professional = await getProfessionalMetadata(id)
 
   const url =
-    `https://zoove.app/professional/${encodeURIComponent(id)}`
+    `https://zoove.fr/professional/${encodeURIComponent(id)}`
 
   const title = professional?.name
     ? `${professional.name} | Zoove`
