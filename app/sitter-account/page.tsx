@@ -17,6 +17,7 @@ import {
   UserRound,
   WalletCards,
     BadgeCheck,
+    Share2, X, Link2, Copy
 } from "lucide-react"
 
 import { translate } from "@/translations/translations"
@@ -274,6 +275,10 @@ export default function SitterProfilePage() {
 
     const [activeTab, setActiveTab] =
       useState<ProfileTab>("services")
+    
+    const [isShareModalOpen, setIsShareModalOpen] = useState(false)
+    const [isLinkCopied, setIsLinkCopied] = useState(false)
+
 
   const sitter = useMemo<SitterUser | null>(
     () => {
@@ -1007,6 +1012,33 @@ export default function SitterProfilePage() {
         }
       }
     
+    const baseUrl =
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000"
+        : "https://zoove.app"
+
+    // À adapter si la route publique des pet sitters est différente.
+    const profileUrl = `${baseUrl}/professional/${currentSitter.id}`
+
+    const copyProfileLink = async () => {
+      try {
+        await navigator.clipboard.writeText(profileUrl)
+        setIsLinkCopied(true)
+      } catch (error) {
+        console.error("Erreur de copie du lien :", error)
+      }
+    }
+
+    const shareOnFacebook = () => {
+      const publicUrl =
+        `https://zoove.app/professional/${currentSitter.id}`
+
+      const facebookUrl =
+        `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(publicUrl)}`
+
+      window.open(facebookUrl, "_blank", "noopener,noreferrer")
+    }
+    
   return (
     <main className="sitterProfilePage">
           <section className="sitterProfileHeader">
@@ -1221,6 +1253,18 @@ export default function SitterProfilePage() {
                   language,
                   "Modifier le profil"
                 )}
+              </button>
+          
+              <button
+                type="button"
+                className="sitterOutlineButton"
+                onClick={() => {
+                  setIsLinkCopied(false)
+                  setIsShareModalOpen(true)
+                }}
+              >
+                <Share2 size={19} />
+                {translate(language, "Partager mon profil")}
               </button>
 
               <div className="sitterContactCard">
@@ -1444,6 +1488,79 @@ export default function SitterProfilePage() {
           />
         )}
       </section>
+          {isShareModalOpen && (
+            <div
+              className="groomingShareOverlay"
+              onClick={() => setIsShareModalOpen(false)}
+            >
+              <div
+                className="groomingShareModal"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="sitter-share-title"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="groomingShareHeader">
+                  <h2 id="sitter-share-title">
+                    {translate(language, "Partager mon profil")}
+                  </h2>
+
+                  <button
+                    type="button"
+                    className="groomingShareClose"
+                    onClick={() => setIsShareModalOpen(false)}
+                    aria-label={translate(language, "Fermer")}
+                  >
+                    <X size={20} />
+                  </button>
+                </div>
+
+                <p className="groomingShareDescription">
+                  {translate(
+                    language,
+                    "Invitez vos clients à découvrir votre profil sur Zoove."
+                  )}
+                </p>
+
+                <div className="groomingShareLink">
+                  <Link2 size={18} />
+                  <span>{profileUrl}</span>
+                </div>
+
+                <div className="groomingShareOptions">
+                  <button
+                    type="button"
+                    className="groomingCopyButton"
+                    onClick={copyProfileLink}
+                  >
+                    {isLinkCopied ? <Check size={18} /> : <Copy size={18} />}
+
+                    {translate(
+                      language,
+                      isLinkCopied ? "Lien copié !" : "Copier le lien"
+                    )}
+                  </button>
+
+                  <button
+                    type="button"
+                    className="groomingFacebookButton"
+                    onClick={shareOnFacebook}
+                  >
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.51 1.49-3.89 3.77-3.89 1.09 0 2.23.19 2.23.19v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 2.89h-2.33v6.99A10 10 0 0 0 22 12Z" />
+                    </svg>
+                    {translate(language, "Partager sur Facebook")}
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
     </main>
   )
 }

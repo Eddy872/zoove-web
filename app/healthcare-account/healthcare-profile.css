@@ -1968,6 +1968,151 @@ label > span {
   }
 }
 
+.healthcareProfileActions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.healthcareShareButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 14px 20px;
+  background: white;
+  color: #7437ff;
+  border: 1.5px solid #7437ff;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.healthcareShareButton:hover {
+  background: #f5f0ff;
+}
+
+.healthcareShareOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(15, 15, 30, 0.55);
+}
+
+.healthcareShareModal {
+  width: 100%;
+  max-width: 440px;
+  padding: 26px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.healthcareShareHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.healthcareShareHeader h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 750;
+  color: #19152a;
+}
+
+.healthcareShareClose {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: #666;
+  cursor: pointer;
+}
+
+.healthcareShareDescription {
+  margin: 12px 0 20px;
+  color: #777;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.healthcareShareLink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px;
+  background: #f7f5fc;
+  border: 1px solid #e9e3f5;
+  border-radius: 12px;
+  color: #7437ff;
+}
+
+.healthcareShareLink span {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.healthcareShareOptions {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.healthcareCopyButton,
+.healthcareFacebookButton {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.healthcareCopyButton {
+  background: #7437ff;
+  border: 1px solid #7437ff;
+  color: white;
+}
+
+.healthcareCopyButton:hover {
+  background: #6126e5;
+}
+
+.healthcareFacebookButton {
+  background: white;
+  border: 1px solid #d9d9e4;
+  color: #1877f2;
+}
+
+.healthcareFacebookButton:hover {
+  background: #f4f7ff;
+}
+
+@media (max-width: 420px) {
+  .healthcareShareOptions {
+    flex-direction: column;
+  }
+}
+
 /* Prestations Healthcare : réservation */
 
 .serviceBookingSection{margin-top:6px;padding-top:22px;border-top:1px solid #ece7f0}
@@ -2004,3 +2149,4 @@ label > span {
 .serviceCustomQuestionRemove:hover{background:#ffe1e6}
 @media(max-width:760px){.serviceBookingModeGrid,.serviceRequiredInfoGrid{grid-template-columns:1fr}.serviceCustomQuestionsHeader{flex-direction:column}.serviceAddQuestionButton{width:100%}}
 @media(max-width:460px){.serviceBookingModeCard{grid-template-columns:auto minmax(0,1fr)}.serviceBookingModeCheck{display:none}.serviceBookingSubsection{padding:14px}.serviceCustomQuestionRow{grid-template-columns:minmax(0,1fr) 40px}.serviceCustomQuestionNumber{display:none}}
+

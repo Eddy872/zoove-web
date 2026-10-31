@@ -297,14 +297,26 @@ export default function BookingModal({
       : null
 
 
-  if (
-    session &&
-    session.accountType !==
-      "animal"
-  ) {
-    return null
-  }
+  const [continueAsGuest, setContinueAsGuest] = useState(false)
+  const [guestAnimalName, setGuestAnimalName] = useState("")
+  const [guestSpecies, setGuestSpecies] = useState("dog")
 
+  // Sans session AnimalUser, la réservation se fait en invité.
+  const isGuest = !user || continueAsGuest
+
+  const animalSpecies = [
+    "dog", "cat", "fish", "tortoise", "monkey", "snake",
+    "camel", "frog", "horse", "rabbit", "rooster",
+    "tiger", "rat", "bird"
+  ] as const
+
+  const speciesLabels: Record<string, string> = {
+    dog: "Chien", cat: "Chat", fish: "Poisson",
+    tortoise: "Tortue", monkey: "Singe", snake: "Serpent",
+    camel: "Chameau", frog: "Grenouille", horse: "Cheval",
+    rabbit: "Lapin", rooster: "Coq", tiger: "Tigre",
+    rat: "Rat", bird: "Oiseau"
+  }
 
   const today =
     new Date()
@@ -1428,7 +1440,9 @@ export default function BookingModal({
 
         await saveClientPaypalID({
           userID:
-            user.id,
+            isGuest
+              ? `Guest=${guestAnimalName.trim()};${guestSpecies}`
+              : user!.id,
 
           paypalID:
             normalizedPaypalID
@@ -1493,15 +1507,17 @@ export default function BookingModal({
       setSaveError("")
 
 
-      if (!user) {
-
-        setSaveError(
-          translate(
-            language,
-            "Vous devez être connecté pour réserver."
-          )
-        )
-
+      if (isGuest) {
+        if (requiresPaypal) {
+          setSaveError(translate(language, "La réservation en invité n'est pas disponible pour les pet sitters."))
+          return
+        }
+        if (!guestAnimalName.trim() || guestAnimalName.includes(";")) {
+          setSaveError(translate(language, "Renseignez le nom de votre animal sans point-virgule."))
+          return
+        }
+      } else if (!user) {
+        setSaveError(translate(language, "Vous devez être connecté pour réserver."))
         return
       }
         
@@ -1819,8 +1835,10 @@ export default function BookingModal({
            * RDV.userID =
            * ID de l'animal.
            */
-          userID:
-            user.id,
+            userID:
+              isGuest
+                ? `Guest=${guestAnimalName.trim()};${guestSpecies}`
+                : user!.id,
 
 
           date:
@@ -1914,7 +1932,9 @@ export default function BookingModal({
 
 
     const canConfirm =
-      Boolean(user) &&
+      (isGuest
+        ? (!requiresPaypal && Boolean(guestAnimalName.trim()) && !guestAnimalName.includes(";"))
+        : Boolean(user)) &&
       Boolean(phoneNumber.trim()) &&
       paypalRequirementSatisfied &&
       !isLoadingAppointments &&
@@ -1929,6 +1949,10 @@ export default function BookingModal({
       )
 
 
+    if (session && session.accountType !== "animal") {
+      return null
+    }
+    
   /*
    * =========================
    * CONFIRMATION
@@ -2173,6 +2197,26 @@ export default function BookingModal({
         </div>
 
 
+        {/* Mode invité : les champs du professionnel restent identiques. */}
+        {!requiresPaypal && (
+          <div className="bookingBlock">
+            {user && (
+              <button
+                type="button"
+                className="bookingSelect"
+                onClick={() => setContinueAsGuest(value => !value)}
+              >
+                {translate(language, isGuest
+                  ? "Utiliser mon compte Zoove"
+                  : "Continuer en tant qu'invité")}
+              </button>
+            )}
+            {isGuest && (
+              <p>{translate(language, "Vous continuez en tant qu'invité.")}</p>
+            )}
+          </div>
+        )}
+
         {/* =========================
             INFORMATIONS ANIMAL
         ========================= */}
@@ -2180,6 +2224,7 @@ export default function BookingModal({
         {pro.type !== "Sitter" &&
           service &&
           (
+            isGuest ||
             service
               .requiredInformations
               ?.length > 0 ||
@@ -2190,6 +2235,38 @@ export default function BookingModal({
 
           <div className="bookingBlock animalInformationsBlock">
 
+            {isGuest && (
+              <div className="serviceInformationsGrid">
+                <div className="serviceInformationField">
+                  <label htmlFor="guestAnimalName">
+                    {translate(language, "Nom de votre animal")}
+                  </label>
+                  <input
+                    id="guestAnimalName"
+                    value={guestAnimalName}
+                    onChange={event => setGuestAnimalName(event.target.value)}
+                    maxLength={80}
+                    placeholder={translate(language, "Nom de votre animal")}
+                  />
+                </div>
+                <div className="serviceInformationField">
+                  <label htmlFor="guestSpecies">
+                    {translate(language, "Espèce")}
+                  </label>
+                  <select
+                    id="guestSpecies"
+                    value={guestSpecies}
+                    onChange={event => setGuestSpecies(event.target.value)}
+                  >
+                    {animalSpecies.map(species => (
+                      <option key={species} value={species}>
+                        {translate(language, speciesLabels[species])}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            )}
 
             {service
               .requiredInformations

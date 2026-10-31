@@ -93,6 +93,16 @@ type AgendaService = {
 }
 
 
+function parseGuestAnimal(userID: string) {
+  if (!userID.startsWith("Guest=")) return null
+  const value = userID.slice(6)
+  const separator = value.lastIndexOf(";")
+  if (separator < 0) return null
+  const name = value.slice(0, separator).trim()
+  const species = value.slice(separator + 1).trim()
+  return name && species ? { name, species } : null
+}
+
 const HOURS = Array.from(
   { length: 13 },
   (_, index) => index + 7
@@ -663,16 +673,21 @@ export default function ProfessionalAgendaPage() {
     >({})
 
 
-  const animals =
-    useMemo(
-      () =>
-        Object.values(
-          animalsById
-        ),
-      [
-        animalsById
-      ]
-    )
+  const animals = useMemo(() => {
+    const registeredAnimals = Object.values(animalsById)
+    const ids = [
+      ...(Array.isArray(sessionUser?.userIDs) ? sessionUser.userIDs : []),
+      ...appointments.map(appointment => appointment.userID)
+    ]
+    const guests = [...new Set(ids)]
+      .filter((id): id is string => typeof id === "string" && id.startsWith("Guest="))
+      .map(id => {
+        const guest = parseGuestAnimal(id)
+        return guest ? { id, name: guest.name, species: guest.species } : null
+      })
+      .filter((guest): guest is { id: string; name: string; species: string } => guest !== null)
+    return [...registeredAnimals, ...guests]
+  }, [animalsById, sessionUser?.userIDs, appointments])
 
 
   const [
@@ -823,7 +838,8 @@ export default function ProfessionalAgendaPage() {
               ? sessionUser.userIDs.filter(
                   (id: unknown): id is string =>
                     typeof id === "string" &&
-                    Boolean(id.trim())
+                    Boolean(id.trim()) &&
+                    !id.startsWith("Guest=")
                 )
               : []
             : []
@@ -842,7 +858,8 @@ export default function ProfessionalAgendaPage() {
             .filter(
               (id): id is string =>
                 typeof id === "string" &&
-                Boolean(id.trim())
+                Boolean(id.trim()) &&
+                    !id.startsWith("Guest=")
             )
 
         /*
@@ -1100,6 +1117,9 @@ export default function ProfessionalAgendaPage() {
                 appointment.userID
               ]
 
+            const guestAnimal =
+              parseGuestAnimal(appointment.userID)
+
             const service =
               services.find(
                 service =>
@@ -1108,10 +1128,8 @@ export default function ProfessionalAgendaPage() {
               )
 
             return [
-              animal?.name ??
-                "",
-              animal?.species ??
-                "",
+              animal?.name ?? guestAnimal?.name ?? "",
+              animal?.species ?? guestAnimal?.species ?? "",
               service?.name ??
                 "",
               appointment.phoneNumber ??
@@ -1178,10 +1196,12 @@ export default function ProfessionalAgendaPage() {
 
   const selectedAnimal =
     selectedAppointment
-      ? animalsById[
-          selectedAppointment
-            .userID
-        ]
+      ? animalsById[selectedAppointment.userID] ?? null
+      : null
+
+  const selectedGuestAnimal =
+    selectedAppointment
+      ? parseGuestAnimal(selectedAppointment.userID)
       : null
 
 
@@ -1373,9 +1393,10 @@ export default function ProfessionalAgendaPage() {
     positioned = false
   ) {
     const animal =
-      animalsById[
-        appointment.userID
-      ]
+      animalsById[appointment.userID]
+
+    const guestAnimal =
+      parseGuestAnimal(appointment.userID)
 
     /*
      * On retrouve la prestation à partir
@@ -1481,6 +1502,7 @@ export default function ProfessionalAgendaPage() {
 
           <strong>
             {animal?.name ??
+              guestAnimal?.name ??
               translate(
                 language,
                 "Animal"
@@ -2333,6 +2355,7 @@ export default function ProfessionalAgendaPage() {
                   }
                   alt={
                     selectedAnimal?.name ??
+                    selectedGuestAnimal?.name ??
                     ""
                   }
                   className="agendaModalAnimalPhoto"
@@ -2349,6 +2372,7 @@ export default function ProfessionalAgendaPage() {
 
                   <h2 id="appointment-details-title">
                     {selectedAnimal?.name ??
+                      selectedGuestAnimal?.name ??
                       translate(
                         language,
                         "Animal"

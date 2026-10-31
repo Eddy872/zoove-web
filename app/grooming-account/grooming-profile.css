@@ -1750,3 +1750,152 @@ label > span {
     grid-template-columns: 1fr;
   }
 }
+
+.groomingProfileActions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.groomingShareButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  padding: 14px 20px;
+
+  background: #ffffff;
+  color: #7437ff;
+  border: 1.5px solid #7437ff;
+  border-radius: 12px;
+
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+}
+
+.groomingShareButton:hover {
+  background: #f5f0ff;
+}
+
+.groomingShareOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 15, 30, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 9999;
+}
+
+.groomingShareModal {
+  width: 100%;
+  max-width: 440px;
+  padding: 26px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.groomingShareHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.groomingShareHeader h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 750;
+  color: #19152a;
+}
+
+.groomingShareClose {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #666;
+}
+
+.groomingShareDescription {
+  margin: 12px 0 20px;
+  color: #777;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.groomingShareLink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f7f5fc;
+  border: 1px solid #e9e3f5;
+  border-radius: 12px;
+  padding: 14px;
+  color: #7437ff;
+}
+
+.groomingShareLink span {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.groomingShareOptions {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.groomingCopyButton,
+.groomingFacebookButton {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 10px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.groomingCopyButton {
+  background: #7437ff;
+  border: 1px solid #7437ff;
+  color: white;
+}
+
+.groomingFacebookButton {
+  background: white;
+  border: 1px solid #d9d9e4;
+  color: #1877f2;
+}
+
+.groomingCopyButton:hover {
+  background: #6126e5;
+}
+
+.groomingFacebookButton:hover {
+  background: #f4f7ff;
+}
+
+@media (max-width: 420px) {
+  .groomingShareOptions {
+    flex-direction: column;
+  }
+}

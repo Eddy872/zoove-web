@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation"
 import type {
   HealthcareUser
 } from "@/types/healthcareUser"
-
+import { Share2, X, Link2, Copy, Check } from "lucide-react"
 import type {
   Service
 } from "@/types/service"
@@ -953,6 +953,8 @@ export default function HealthcareAccountPage() {
       isServicesModalOpen,
       setIsServicesModalOpen
     ] = useState(false)
+    const [isShareModalOpen, setIsShareModalOpen] = useState(false)
+    const [isLinkCopied, setIsLinkCopied] = useState(false)
     
     const packageNames: Record<number, string> = {
       0: "Découverte",
@@ -1083,6 +1085,42 @@ console.log("Normalized schedules :",schedules)
         ?.collaboratorsDispos
     ]
   )
+    
+    const baseUrl =
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000"
+        : "https://zoove.app"
+
+    const profileUrl = currentHealthcare?.id
+      ? `${baseUrl}/professional/${currentHealthcare.id}`
+      : ""
+
+    const copyProfileLink = async () => {
+      if (!profileUrl) return
+
+      try {
+        await navigator.clipboard.writeText(profileUrl)
+        setIsLinkCopied(true)
+      } catch (error) {
+        console.error("Erreur de copie :", error)
+      }
+    }
+
+    const shareOnFacebook = () => {
+      if (!currentHealthcare?.id) return
+
+      const publicUrl =
+        `https://zoove.app/professional/${currentHealthcare.id}`
+
+      const facebookUrl =
+        `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(publicUrl)}`
+
+      window.open(
+        facebookUrl,
+        "_blank",
+        "noopener,noreferrer"
+      )
+    }
 
   if (loading) {
     return (
@@ -1355,6 +1393,7 @@ console.log("Normalized schedules :",schedules)
               )}
           </div>
 
+          <div className="healthcareProfileActions">
             <button
               type="button"
               className="healthcarePrimaryButton"
@@ -1362,11 +1401,21 @@ console.log("Normalized schedules :",schedules)
                 setIsInformationsModalOpen(true)
               }
             >
-              {translate(
-                language,
-                "Modifier les informations"
-              )}
+              {translate(language, "Modifier les informations")}
             </button>
+
+            <button
+              type="button"
+              className="healthcareShareButton"
+              onClick={() => {
+                setIsLinkCopied(false)
+                setIsShareModalOpen(true)
+              }}
+            >
+              <Share2 size={18} />
+              {translate(language, "Partager mon profil")}
+            </button>
+          </div>
           </div>
 
             <p className="healthcareInfos">
@@ -1892,6 +1941,85 @@ console.log("Normalized schedules :",schedules)
                 }}
               />
             )}
+          
+          {isShareModalOpen && (
+            <div
+              className="healthcareShareOverlay"
+              onClick={() => setIsShareModalOpen(false)}
+            >
+              <div
+                className="healthcareShareModal"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="healthcare-share-title"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="healthcareShareHeader">
+                  <h2 id="healthcare-share-title">
+                    {translate(language, "Partager mon profil")}
+                  </h2>
+
+                  <button
+                    type="button"
+                    className="healthcareShareClose"
+                    onClick={() => setIsShareModalOpen(false)}
+                    aria-label={translate(language, "Fermer")}
+                  >
+                    <X size={20} />
+                  </button>
+                </div>
+
+                <p className="healthcareShareDescription">
+                  {translate(
+                    language,
+                    "Invitez vos clients à découvrir votre établissement sur Zoove."
+                  )}
+                </p>
+
+                <div className="healthcareShareLink">
+                  <Link2 size={18} />
+                  <span>{profileUrl}</span>
+                </div>
+
+                <div className="healthcareShareOptions">
+                  <button
+                    type="button"
+                    className="healthcareCopyButton"
+                    onClick={copyProfileLink}
+                  >
+                    {isLinkCopied ? (
+                      <Check size={18} />
+                    ) : (
+                      <Copy size={18} />
+                    )}
+
+                    {translate(
+                      language,
+                      isLinkCopied ? "Lien copié !" : "Copier le lien"
+                    )}
+                  </button>
+
+                  <button
+                    type="button"
+                    className="healthcareFacebookButton"
+                    onClick={shareOnFacebook}
+                  >
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.51 1.49-3.89 3.77-3.89 1.09 0 2.23.19 2.23.19v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 2.89h-2.33v6.99A10 10 0 0 0 22 12Z" />
+                    </svg>
+
+                    {translate(language, "Partager sur Facebook")}
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
       </div>
     </main>
   )

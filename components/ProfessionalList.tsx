@@ -1,12 +1,17 @@
+
 "use client"
 
-import { useEffect, useMemo, useRef, useState } from "react"
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from "react"
+
 import "./ProfessionalList.css"
 import ProfessionalCard from "./ProfessionalCard"
-import {
-  useLanguage,
-  type Language
-} from "@/context/LanguageContext"
+
+import { useLanguage } from "@/context/LanguageContext"
 import { translate } from "@/translations/translations"
 
 type Professional = {
@@ -42,17 +47,41 @@ export default function ProfessionalList({
   loadMore,
   hasMore,
   loading
-}: Props){
+}: Props) {
+
   const { language } = useLanguage()
 
-  const [sortType, setSortType] = useState<SortType>("popular")
-  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
+  const [sortType, setSortType] =
+    useState<SortType>("popular")
 
-  const loadMoreRef = useRef<HTMLDivElement | null>(null)
+  const [visibleCount, setVisibleCount] =
+    useState(PAGE_SIZE)
 
+  const loadMoreRef =
+    useRef<HTMLDivElement | null>(null)
+
+  const requestInProgressRef = useRef(false)
+
+  /*
+   * Conserver la dernière version
+   * de loadMore sans recréer l'observer
+   * à chaque changement du curseur.
+   */
+  const loadMoreCallbackRef = useRef(loadMore)
+
+  useEffect(() => {
+    loadMoreCallbackRef.current = loadMore
+  }, [loadMore])
+
+  /*
+   * TRI
+   */
   const sortedProfessionals = useMemo(() => {
+
     return [...professionals].sort((a, b) => {
+
       switch (sortType) {
+
         case "popular":
           return (
             (b.buyers?.length ?? 0) -
@@ -78,33 +107,78 @@ export default function ProfessionalList({
           return 0
       }
     })
+
   }, [professionals, sortType])
 
-  const visibleProfessionals = sortedProfessionals.slice(
-    0,
-    visibleCount
-  )
+  /*
+   * PROFESSIONNELS VISIBLES
+   */
+  const visibleProfessionals =
+    sortedProfessionals.slice(0, visibleCount)
 
+  const hasHiddenProfessionals =
+    visibleCount < sortedProfessionals.length
+
+  /*
+   * Réinitialiser uniquement
+   * lorsque le tri change.
+   */
   useEffect(() => {
     setVisibleCount(PAGE_SIZE)
-  }, [sortType, professionals])
+  }, [sortType])
 
+  /*
+   * INFINITE SCROLL
+   */
   useEffect(() => {
+
     const target = loadMoreRef.current
 
-    if (!target || !hasMore) return
+    if (!target || loading) return
+
+    if (!hasHiddenProfessionals && !hasMore) {
+      return
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
-        const entry = entries[0]
 
-        if (entry.isIntersecting) {
+        if (!entries[0]?.isIntersecting) {
+          return
+        }
+
+        /*
+         * Afficher d'abord les professionnels
+         * déjà récupérés.
+         */
+        if (hasHiddenProfessionals) {
+
           setVisibleCount((current) =>
             Math.min(
               current + PAGE_SIZE,
               sortedProfessionals.length
             )
           )
+
+          return
+        }
+
+        /*
+         * Si tous les professionnels locaux
+         * sont affichés, charger la page
+         * suivante depuis le backend.
+         */
+        if (
+          hasMore &&
+          !requestInProgressRef.current
+        ) {
+
+          requestInProgressRef.current = true
+
+          void loadMoreCallbackRef.current()
+            .finally(() => {
+              requestInProgressRef.current = false
+            })
         }
       },
       {
@@ -119,11 +193,20 @@ export default function ProfessionalList({
     return () => {
       observer.disconnect()
     }
-  }, [hasMore, sortedProfessionals.length])
+
+  }, [
+    hasMore,
+    loading,
+    hasHiddenProfessionals,
+    sortedProfessionals.length,
+    visibleCount
+  ])
 
   return (
     <section className="proSection">
+
       <div className="proHeader">
+
         <h2>
           {translate(
             language,
@@ -135,9 +218,12 @@ export default function ProfessionalList({
           className="sortButton"
           value={sortType}
           onChange={(event) =>
-            setSortType(event.target.value as SortType)
+            setSortType(
+              event.target.value as SortType
+            )
           }
         >
+
           <option value="popular">
             {translate(language, "Plus populaires")}
           </option>
@@ -157,36 +243,62 @@ export default function ProfessionalList({
           <option value="priceDesc">
             {translate(language, "Prix décroissant")}
           </option>
+
         </select>
+
       </div>
 
       {sortedProfessionals.length === 0 ? (
+
         <p>
           {translate(
             language,
             "Aucun professionnel trouvé."
           )}
         </p>
+
       ) : (
+
         <>
+
           <div className="proList">
+
             {visibleProfessionals.map((pro) => (
+
               <ProfessionalCard
                 key={`${pro.id}-${pro.speciality}`}
                 {...pro}
               />
+
             ))}
+
           </div>
 
-          {hasMore && (
+          {(hasHiddenProfessionals || hasMore) && (
+
             <div
               ref={loadMoreRef}
               className="loadMoreTrigger"
               aria-hidden="true"
             />
+
           )}
+
+          {loading && (
+
+            <p>
+              {translate(
+                language,
+                "Chargement..."
+              )}
+            </p>
+
+          )}
+
         </>
+
       )}
+
     </section>
   )
 }

@@ -132,6 +132,19 @@ const months = [
 ]
 
 
+const guestSpecies = [
+  "dog", "cat", "fish", "tortoise", "monkey", "snake",
+  "camel", "frog", "horse", "rabbit", "rooster", "tiger",
+  "rat", "bird"
+] as const
+
+const guestSpeciesLabels: Record<string, string> = {
+  dog: "Chien", cat: "Chat", fish: "Poisson", tortoise: "Tortue",
+  monkey: "Singe", snake: "Serpent", camel: "Chameau",
+  frog: "Grenouille", horse: "Cheval", rabbit: "Lapin",
+  rooster: "Coq", tiger: "Tigre", rat: "Rat", bird: "Oiseau"
+}
+
 const weekDays = [
   "Lun",
   "Mar",
@@ -327,6 +340,19 @@ export default function ProfessionalBookingModal({
   )
 
 
+  const [useGuestAnimal, setUseGuestAnimal] = useState(false)
+  const [guestAnimalName, setGuestAnimalName] = useState("")
+  const [guestAnimalSpecies, setGuestAnimalSpecies] = useState("dog")
+
+  const validGuestAnimal =
+    !isSitter &&
+    Boolean(guestAnimalName.trim()) &&
+    !guestAnimalName.includes(";")
+
+  const hasAnimal = useGuestAnimal
+    ? validGuestAnimal
+    : Boolean(selectedAnimal)
+
   /*
    * =========================
    * SERVICE
@@ -490,7 +516,7 @@ export default function ProfessionalBookingModal({
     const query =
       animalSearch.trim()
 
-    if (query.length < 2) {
+    if (useGuestAnimal || query.length < 2) {
       setAnimalResults([])
       setIsSearchingAnimals(false)
 
@@ -544,7 +570,7 @@ export default function ProfessionalBookingModal({
         timeoutID
       )
     }
-  }, [animalSearch])
+  }, [animalSearch, useGuestAnimal])
 
 
   const filteredAnimals =
@@ -556,11 +582,13 @@ export default function ProfessionalBookingModal({
             "fr-FR"
           )
 
-      if (query.length < 2) {
+      if (useGuestAnimal || query.length < 2) {
         return []
       }
 
-      return animalResults
+      const combined = [...animals, ...animalResults]
+      const unique = [...new Map(combined.map(animal => [animal.id, animal])).values()]
+      return unique
         .filter(animal =>
           [
             animal.name,
@@ -577,7 +605,9 @@ export default function ProfessionalBookingModal({
         .slice(0, 8)
     }, [
       animalSearch,
-      animalResults
+      animalResults,
+      animals,
+      useGuestAnimal
     ])
 
 
@@ -663,6 +693,7 @@ export default function ProfessionalBookingModal({
 
       if (
         isSitter ||
+        useGuestAnimal ||
         !selectedAnimal ||
         !selectedService ||
         !isKnownAnimal
@@ -786,6 +817,7 @@ export default function ProfessionalBookingModal({
     }
   }, [
     isSitter,
+    useGuestAnimal,
     selectedAnimal,
     selectedService,
     isKnownAnimal,
@@ -1300,11 +1332,13 @@ export default function ProfessionalBookingModal({
     /*
      * Animal obligatoire
      */
-    if (!selectedAnimal) {
+    if (!hasAnimal) {
       setSaveError(
         translate(
           language,
-          "Sélectionnez un animal."
+          useGuestAnimal
+            ? "Renseignez le nom de votre animal sans point-virgule."
+            : "Sélectionnez un animal."
         )
       )
 
@@ -1519,7 +1553,7 @@ export default function ProfessionalBookingModal({
     const rdvInfos =
       JSON.stringify({
         knownAnimal:
-          isKnownAnimal,
+          !useGuestAnimal && isKnownAnimal,
 
         behavior:
           requiredInformations.includes(
@@ -1573,8 +1607,9 @@ export default function ProfessionalBookingModal({
         /*
          * RDV.userID = animalID
          */
-        userID:
-          selectedAnimal.id,
+        userID: useGuestAnimal
+          ? `Guest=${guestAnimalName.trim()};${guestAnimalSpecies}`
+          : selectedAnimal!.id,
 
         date:
           appointmentDate,
@@ -1640,7 +1675,7 @@ export default function ProfessionalBookingModal({
    */
 
     const canSave =
-      Boolean(selectedAnimal) &&
+      hasAnimal &&
       Boolean(phoneNumber.trim()) &&
       Boolean(
         isSitter ||
@@ -1705,6 +1740,52 @@ export default function ProfessionalBookingModal({
 
           <div className="bookingBlock">
 
+            {useGuestAnimal ? (
+              <div>
+                <button type="button" className="agendaSecondaryButton" onClick={() => {
+                  setUseGuestAnimal(false)
+                  setGuestAnimalName("")
+                  setAnimalSearch("")
+                  setSaveError("")
+                }}>
+                  {translate(language, "Rechercher un animal...")}
+                </button>
+                <div className="serviceInformationsGrid">
+                <div className="serviceInformationField">
+                  <label htmlFor="guestAnimalName">
+                    {translate(language, "Nom de votre animal")}
+                  </label>
+                  <input
+                    id="guestAnimalName"
+                    type="text"
+                    required
+                    value={guestAnimalName}
+                    onChange={event => {
+                      setGuestAnimalName(event.target.value)
+                      setSaveError("")
+                    }}
+                  />
+                </div>
+                <div className="serviceInformationField">
+                  <label htmlFor="guestAnimalSpecies">
+                    {translate(language, "Espèce")}
+                  </label>
+                  <select
+                    id="guestAnimalSpecies"
+                    value={guestAnimalSpecies}
+                    onChange={event => setGuestAnimalSpecies(event.target.value)}
+                  >
+                    {guestSpecies.map(species => (
+                      <option key={species} value={species}>
+                        {translate(language, guestSpeciesLabels[species])}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                </div>
+              </div>
+            ) : (
+              <>
             <label htmlFor="animalSearch">
               {translate(
                 language,
@@ -1828,7 +1909,7 @@ export default function ProfessionalBookingModal({
                           />
                         ) : (
                           <span className="animalPhotoPlaceholder">
-                            🐾
+                            {animal.id.startsWith("Guest=") ? animal.name.charAt(0).toLocaleUpperCase() : "🐾"}
                           </span>
                         )}
 
@@ -1854,6 +1935,21 @@ export default function ProfessionalBookingModal({
                 </div>
               )}
 
+              {!isSitter && !selectedAnimal && animalSearch.trim().length >= 2 &&
+                !isSearchingAnimals && filteredAnimals.length === 0 && (
+                <button
+                  type="button"
+                  className="agendaSecondaryButton"
+                  onClick={() => {
+                    setGuestAnimalName(animalSearch.trim())
+                    setUseGuestAnimal(true)
+                    setAnimalResults([])
+                    setSaveError("")
+                  }}
+                >
+                  {translate(language, "Ajouter manuellement")}
+                </button>
+              )}
             </div>
 
 
@@ -1873,7 +1969,7 @@ export default function ProfessionalBookingModal({
                     />
                   ) : (
                     <span className="animalPhotoPlaceholder">
-                      🐾
+                      {selectedAnimal.id.startsWith("Guest=") ? selectedAnimal.name.charAt(0).toLocaleUpperCase() : "🐾"}
                     </span>
                   )}
 
@@ -1978,13 +2074,15 @@ export default function ProfessionalBookingModal({
               </>
             )}
 
+              </>
+            )}
           </div>
 
           {/* =========================
               TÉLÉPHONE
           ========================= */}
 
-          {selectedAnimal && (
+          {hasAnimal && (
 
             <div className="bookingBlock">
 
@@ -2099,7 +2197,7 @@ export default function ProfessionalBookingModal({
               PAR LA PRESTATION
           ========================= */}
 
-          {selectedAnimal &&
+          {hasAnimal &&
             !isSitter &&
             selectedService &&
             (

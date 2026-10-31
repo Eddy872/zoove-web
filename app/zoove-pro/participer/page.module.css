@@ -1,0 +1,421 @@
+
+.page {
+  --purple: #7514ff;
+  --navy: #091b63;
+  --muted: #6475a6;
+
+  min-height: 100vh;
+  overflow: hidden;
+  background: #f7f3ff;
+  color: var(--navy);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* PHOTO */
+
+.hero {
+  position: relative;
+  height: 350px;
+  background-image: url("/images/zoove-pro-salon.png");
+  background-size: cover;
+  background-position: center 43%;
+}
+
+.backButton {
+  position: absolute;
+  top: 25px;
+  left: 5%;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: white;
+  color: var(--navy);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 4px 18px rgba(10, 20, 80, 0.1);
+}
+
+/* CONTENU */
+
+.content {
+  position: relative;
+  z-index: 2;
+  margin-top: -40px;
+  padding: 45px 20px 65px;
+  border-radius: 50% 50% 0 0 / 4% 4% 0 0;
+  background:
+    radial-gradient(
+      ellipse at 5% 75%,
+      #eee5ff 0%,
+      transparent 48%
+    ),
+    radial-gradient(
+      ellipse at 95% 25%,
+      #eee5ff 0%,
+      transparent 45%
+    ),
+    #faf8ff;
+}
+
+.heading {
+  max-width: 800px;
+  margin: 0 auto 32px;
+  text-align: center;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: var(--purple);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0 0 12px;
+  color: var(--navy);
+  font-size: clamp(36px, 4vw, 58px);
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 1.1;
+}
+
+.gradientText {
+  background: linear-gradient(
+    90deg,
+    #6324ff,
+    #b000f5
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.description {
+  max-width: 650px;
+  margin: 0 auto;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.description strong {
+  color: var(--navy);
+}
+
+/* FORMULAIRE */
+
+.form {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 35px 32px 25px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 12px 45px rgba(83, 50, 140, 0.06);
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px 24px;
+}
+
+.field {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  min-width: 0;
+}
+
+.fieldIcon {
+  flex-shrink: 0;
+  width: 23px;
+  height: 23px;
+  margin-top: 23px;
+  color: var(--navy);
+  stroke-width: 1.8;
+}
+
+.fieldBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.fieldBody label {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.fieldBody label span {
+  color: #ec3263;
+}
+
+.fieldBody label small {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.fieldBody input,
+.fieldBody select,
+.fieldBody textarea {
+  display: block;
+  width: 100%;
+  min-height: 42px;
+  padding: 11px 13px;
+  border: 1px solid #d8d5f0;
+  border-radius: 7px;
+  outline: none;
+  background: #fbfaff;
+  color: var(--navy);
+  font-family: inherit;
+  font-size: 13px;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.fieldBody input::placeholder,
+.fieldBody textarea::placeholder {
+  color: #96a0c5;
+}
+
+.fieldBody input:focus,
+.fieldBody select:focus,
+.fieldBody textarea:focus {
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px rgba(117, 20, 255, 0.1);
+}
+
+.fieldBody textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+/* BOUTON */
+
+.submitButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  min-height: 55px;
+  margin-top: 25px;
+  padding: 13px 24px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(
+    100deg,
+    #5428ff,
+    #b000f4
+  );
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 7px 20px rgba(98, 39, 220, 0.2);
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.submitButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(98, 39, 220, 0.3);
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.privacy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  max-width: 470px;
+  margin: 20px auto 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.privacy svg {
+  flex-shrink: 0;
+  color: var(--navy);
+}
+
+.privacy a {
+  color: var(--purple);
+  font-weight: 700;
+}
+
+/* MESSAGES */
+
+.error,
+.success {
+  margin: 20px 0 0;
+  padding: 13px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.error {
+  background: #fff0f1;
+  color: #ad2444;
+}
+
+.success {
+  background: #e9f9ef;
+  color: #197342;
+}
+
+/* CONTACT */
+
+.contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  max-width: 750px;
+  margin: 55px auto 0;
+}
+
+.contactIcon {
+  flex-shrink: 0;
+  width: 58px;
+  height: 58px;
+  color: var(--purple);
+  stroke-width: 1.8;
+}
+
+.contact h2 {
+  margin: 0 0 5px;
+  color: var(--navy);
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.contact p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.contact a {
+  color: var(--navy);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+/* TABLETTE */
+
+@media (max-width: 900px) {
+  .hero {
+    height: 280px;
+  }
+
+  .form {
+    max-width: 720px;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 650px) {
+  .hero {
+    height: 220px;
+    background-position: 53% center;
+  }
+
+  .backButton {
+    top: 15px;
+    left: 15px;
+  }
+
+  .content {
+    margin-top: -25px;
+    padding: 35px 16px 50px;
+    border-radius: 30px 30px 0 0;
+  }
+
+  .heading {
+    margin-bottom: 25px;
+  }
+
+  .title {
+    font-size: 37px;
+    letter-spacing: -1.5px;
+  }
+
+  .description {
+    font-size: 15px;
+  }
+
+  .form {
+    padding: 25px 18px;
+    border-radius: 20px;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .field {
+    gap: 12px;
+  }
+
+  .fieldIcon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .submitButton {
+    font-size: 16px;
+  }
+
+  .contact {
+    gap: 14px;
+    margin-top: 40px;
+  }
+
+  .contactIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .contact h2 {
+    font-size: 16px;
+  }
+
+  .contact p {
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .submitButton {
+    transition: none;
+  }
+
+  .submitButton:hover:not(:disabled) {
+    transform: none;
+  }
+}
+

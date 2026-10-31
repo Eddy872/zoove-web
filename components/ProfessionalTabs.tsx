@@ -22,6 +22,12 @@ export default function ProfessionalTabs({ pro }: Props) {
     const router = useRouter()
   const [selectedTab, setSelectedTab] = useState("Informations")
     const [bookingService, setBookingService] = useState<any>(null)
+    const [showGuestModal, setShowGuestModal] = useState(false)
+    const [pendingBooking, setPendingBooking] = useState<
+      | { type: "service"; service: any }
+      | { type: "sitter"; service: string }
+      | null
+    >(null)
     const packageValue = Number(
       pro.package ?? 0
     )
@@ -52,38 +58,69 @@ export default function ProfessionalTabs({ pro }: Props) {
     "Dimanche"
   ]
     
-    const handleServiceBooking = (
-      service: any
-    ) => {
-      if (
-        service.bookingMode ===
-        "approvalRequired"
-      ) {
-        router.push(
-          `/booking-request?professionalID=${encodeURIComponent(
-            pro.id
-          )}&serviceID=${encodeURIComponent(
-            service.id
-          )}`
-        )
+    const handleServiceBooking = (service: any) => {
+      setPendingBooking({
+        type: "service",
+        service
+      })
 
+      setShowGuestModal(true)
+    }
+
+    const handleSitterBookingRequest = (service: string) => {
+      setPendingBooking({
+        type: "sitter",
+        service
+      })
+
+      setShowGuestModal(true)
+    }
+
+    const continueAsGuest = () => {
+      if (!pendingBooking) return
+
+      setShowGuestModal(false)
+
+      if (pendingBooking.type === "sitter") {
+        router.push(
+          `/booking-request?professionalID=${encodeURIComponent(pro.id)}&serviceID=${encodeURIComponent(pendingBooking.service)}&professionalType=sitter`
+        )
         return
       }
-      setBookingService(
-        service
-      )
+
+      const service = pendingBooking.service
+
+      if (service.bookingMode === "approvalRequired") {
+        router.push(
+          `/booking-request?professionalID=${encodeURIComponent(pro.id)}&serviceID=${encodeURIComponent(service.id)}`
+        )
+        return
+      }
+
+      setBookingService(service)
+      setPendingBooking(null)
     }
-    
-    const handleSitterBookingRequest = (
-      service: string
-    ) => {
-      router.push(
-        `/booking-request?professionalID=${encodeURIComponent(
-          pro.id
-        )}&serviceID=${encodeURIComponent(
-          service
-        )}&professionalType=sitter`
-      )
+
+    const goToLogin = () => {
+      if (!pendingBooking) return
+
+      // Préserver la prestation choisie pour reprendre après connexion.
+      const serviceID =
+        pendingBooking.type === "sitter"
+          ? pendingBooking.service
+          : pendingBooking.service.id
+
+      const params = new URLSearchParams({
+        professionalID: pro.id,
+        serviceID,
+        ...(pendingBooking.type === "sitter"
+          ? { professionalType: "sitter" }
+          : {})
+      })
+
+      const returnTo = `/professional/${encodeURIComponent(pro.id)}?${params.toString()}`
+
+      router.push(`/login?next=${encodeURIComponent(returnTo)}`)
     }
 
   const planning = pro.type === "Sitter" ? pro.availability : pro.schedules
@@ -418,6 +455,56 @@ export default function ProfessionalTabs({ pro }: Props) {
           )}
         </section>
       )}
+          {showGuestModal && (
+            <div
+              className="guestBookingOverlay"
+              onClick={() => setShowGuestModal(false)}
+            >
+              <div
+                className="guestBookingModal"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="guestBookingTitle"
+                onClick={(event) => event.stopPropagation()}
+              >
+                <button
+                  type="button"
+                  className="guestBookingClose"
+                  aria-label={translate(language, "Fermer")}
+                  onClick={() => setShowGuestModal(false)}
+                >
+                  ×
+                </button>
+
+                <h2 id="guestBookingTitle">
+                  {translate(language, "Comment souhaitez-vous continuer ?")}
+                </h2>
+
+                <p>
+                  {translate(
+                    language,
+                    "Connectez-vous ou continuez en tant qu'invité pour réserver."
+                  )}
+                </p>
+
+                <button
+                  type="button"
+                  className="guestBookingPrimary"
+                  onClick={goToLogin}
+                >
+                  {translate(language, "Se connecter")}
+                </button>
+
+                <button
+                  type="button"
+                  className="guestBookingSecondary"
+                  onClick={continueAsGuest}
+                >
+                  {translate(language, "Continuer en tant qu'invité")}
+                </button>
+              </div>
+            </div>
+          )}
           
           {bookingService && (
             <BookingModal

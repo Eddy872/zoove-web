@@ -181,3 +181,70 @@
 
   box-shadow: 0 10px 25px rgba(26, 20, 80, 0.08);
 }
+
+.guestBookingOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(20, 15, 40, 0.55);
+}
+
+.guestBookingModal {
+  position: relative;
+  width: 100%;
+  max-width: 430px;
+  padding: 36px 28px;
+  border-radius: 22px;
+  background: #fff;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+}
+
+.guestBookingModal h2 {
+  margin: 0 0 12px;
+  font-size: 23px;
+  color: #252033;
+}
+
+.guestBookingModal p {
+  margin: 0 0 28px;
+  color: #777184;
+  line-height: 1.5;
+}
+
+.guestBookingClose {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  border: 0;
+  background: transparent;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.guestBookingPrimary,
+.guestBookingSecondary {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.guestBookingPrimary {
+  border: 0;
+  background: linear-gradient(90deg, #5361ff, #b53aff);
+  color: white;
+  margin-bottom: 12px;
+}
+
+.guestBookingSecondary {
+  border: 1px solid #8b55ff;
+  background: white;
+  color: #7943e9;
+}

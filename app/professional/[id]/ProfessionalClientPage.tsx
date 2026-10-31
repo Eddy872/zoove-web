@@ -5,6 +5,8 @@ import { useEffect, useState } from "react"
 import ProfessionalTabs from "@/components/ProfessionalTabs"
 import { fetchProfessional } from "@/services/fetchProfessionalById"
 
+import "./ProfessionalPage.css"
+
 export default function ProfessionalClientPage({
   id
 }: {
