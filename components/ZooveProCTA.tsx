@@ -13,7 +13,7 @@ export default function ZooveProCTA() {
       href="/zoove-pro/participer"
       className={styles.primaryButton}
       onClick={() => {
-        trackMetaEvent("ClickParticipation");
+        trackMetaEvent("InitiateRegistration", true);
       }}
     >
       Je souhaite participer
@@ -26,4 +26,3 @@ export default function ZooveProCTA() {
     </Link>
   );
 }
-
